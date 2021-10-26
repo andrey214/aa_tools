@@ -1,0 +1,17 @@
+# Automatically generated script
+\set noalias = 1
+#
+#  Creation script for megascans_shading::1.1 operator
+#
+
+if ( "$arg1" == "" ) then
+    echo This script is intended as a creation script
+    exit
+endif
+
+# Node $arg1 (Object/megascans_shading::1.1)
+opexprlanguage -s hscript $arg1
+opuserdata -n '___Version___' -v '' $arg1
+opuserdata -n '___toolcount___' -v '1' $arg1
+opuserdata -n '___toolid___' -v 'megascan_load' $arg1
+opuserdata -n 'nodeshape' -v 'tabbed_left' $arg1

@@ -1,0 +1,1635 @@
+from __future__ import print_function
+import stateutils,hou
+import viewerstate.utils as su
+from stateutils import ancestorObject
+from stateutils import sopGeometryIntersection
+import random,time
+
+        
+def randomangle(i):
+    random.seed(i)
+    rand=(random.random()*360)
+    return rand
+    
+def norm2angle(vector,node,i):
+    bias=node.parm("biasnorm").eval()
+    up=hou.Vector3(0,1,0)
+    newnormal=(_smoothvec(hou.Vector3(normal),up,bias)).normalized()
+    matrix=up.matrixToRotateTo(newnormal)
+    rotate=matrix.extractRotates()
+    randtog=node.parm("random_rot%d" % i).eval()
+    if randtog:
+        rotate+=hou.Vector3(0,randomangle(i),0)
+    return rotate
+    
+    
+def angle2norm(angles):
+    up=hou.Vector3(0,1,0)
+    rotate_order="xyz"
+    mat=hou.hmath.buildRotate(angles[0], angles[1], angles[2], rotate_order)
+    up*=mat
+    return up
+    
+def angle2mat(angles):
+    rotate_order="xyz"
+    mat=hou.hmath.buildRotate(angles[0], angles[1], angles[2], rotate_order)
+    return mat
+    
+def getappver():
+    app=[]
+    ver=hou.applicationVersionString().split('.')
+    major=int(ver[0])
+    minor=int(ver[1])
+    build=int(ver[2])
+    return major,minor,build
+    
+def _smoothvec(fst,sec,bias):
+    first=fst*(1-bias)
+    second=sec*bias
+    resultvector=first+second
+    return resultvector
+        
+def str2vector(string,sep=':'):
+    try:
+        arr=string.split(sep)
+        result=hou.Vector3(0,0,0)
+        for idx,a in enumerate(arr):
+            result.__setitem__(idx, float(a))
+        hou.Vector4(result)
+    except:
+        result=None
+    return result
+        
+def buildTransform4(trans,rot,scale, rotate_order="xyz"):
+    
+    result = hou.hmath.identityTransform()
+    result *= hou.hmath.buildScale(scale)
+    result *= hou.hmath.buildRotate(rot, rotate_order)
+    result *= hou.hmath.buildTranslate(trans)
+
+    
+    return result
+    
+def rvec(vec):
+    result=hou.Vector3(0,0,0)
+    res=[vec[0],vec[1],vec[2]]
+    for idx,a in enumerate(res):
+        a=float(int(a*10000))/10000
+        result.__setitem__(idx, float(a))
+        
+    return result
+    
+ 
+
+#######################update positions
+def updp(node):
+    count=int(node.parm('points').eval())
+    for i in range(count):
+        try:
+            raw=(node.parm("geodatapath_%d" %i).eval()).split(',')
+            nodea=hou.node(raw[0])
+            prim=nodea.geometry().prim(int(raw[1]))
+            
+            if 'Packed' not in raw[3]:
+                prim=None
+                nodeobj=nodea.parent()
+                try:
+                    prim=nodeobj.renderNode().geometry().prim(int(raw[1]))
+                except:
+                    pass
+                if prim is None:
+                    prim=nodeobj.displayNode().geometry().prim(int(raw[1]))
+                    
+                normal=prim.normal()
+                uv=raw[2].split(':')
+                pos=prim.attribValueAtInterior('P',float(uv[0]),float(uv[1]))
+                pos=hou.Vector3(pos[0],pos[1],pos[2])
+                if raw[3]=='Primary': ###############For polygons input0 
+                    node.parmTuple("position_%d" % i).set(pos)
+                    rotate=norm2angle(newnorm,node,i)
+                    node.parmTuple("rotate_%d" % i).set(rotate)
+                else: ###############For polygons in viewport
+                    worldmatrix=nodeobj.worldTransform()
+                    rotmatrix=worldmatrix.extractRotationMatrix3()
+                    newpos=pos*worldmatrix
+                    newnorm=normal*rotmatrix
+                    node.parmTuple("position_%d" % i).set(newpos)
+                    rotate=norm2angle(newnorm,node,i)
+                    node.parmTuple("rotate_%d" % i).set(rotate)
+            else:
+                ####Read
+                cprim=nodea.geometry().prim(int(raw[1]))
+                nodeobj=nodea.parent()
+                try:
+                    cprim=nodeobj.displayNode().geometry().prim(int(raw[1]))
+                except:
+                    pass
+                    
+                origtr=str2vector(raw[4])
+                origrot=str2vector(raw[5])
+                origscale=str2vector(raw[6])  
+                #######local Packed Transform   
+                lmat=None
+                try:
+                    lmat=cprim.fullTransform()
+                except:
+                    pass
+
+                ltr=str2vector(raw[7])
+                lrt=str2vector(raw[8])
+                lsc=str2vector(raw[9])
+                    
+                ######World OBJ Transform
+                mat=nodea.parent().worldTransform()
+                
+                
+                if str(mat.explode()['translate'].length())!=str(hou.Vector3(origtr).length()) or  str(mat.explode()['rotate'].length())!=str(hou.Vector3(origrot).length()) or  str(mat.explode()['scale'].length())!=str(hou.Vector3(origscale).length()):
+                    ####RevertWorld
+                    origmat=buildTransform4(origtr,origrot,origscale)
+                    orignormal=angle2norm(hou.Vector3(node.parmTuple("rotate_%d" % i).eval()))*origmat.inverted().extractRotationMatrix3()
+                    origpos=hou.Vector4(hou.Vector3(node.parmTuple("position_%d" % i).eval()))*origmat.inverted()
+                    
+                    ###Compute new Obj transform
+                    rotmatrix=mat.extractRotationMatrix3()
+                    newpos=hou.Vector3(origpos*mat)
+                    newnorm=orignormal*rotmatrix
+                    ##Set parms
+                    node.parmTuple("position_%d" % i).set(newpos)
+                    rotate=norm2angle(newnorm,node,i)
+                    node.parmTuple("rotate_%d" % i).set(rotate)
+                    ##Update Obj transform Properties
+                    raw[4]=str(mat.explode()['translate'][0])+':'+str(mat.explode()['translate'][1])+':'+str(mat.explode()['translate'][2])
+                    raw[5]=str(mat.explode()['rotate'][0])+':'+str(mat.explode()['rotate'][1])+':'+str(mat.explode()['rotate'][2])
+                    raw[6]=str(mat.explode()['scale'][0])+':'+str(mat.explode()['scale'][1])+':'+str(mat.explode()['scale'][2])
+                    node.parm("geodatapath_%d" % i).set(','.join(raw))
+                
+                    
+                ##########LOCAL Transform    
+                if str(hou.Vector3(ltr).length())!=str(lmat.explode()['translate'].length()) or  str(hou.Vector3(lrt).length())!=str(lmat.explode()['rotate'].length()) or  str(rvec(hou.Vector3(lsc)).length())!=str(rvec(lmat.explode()['scale']).length()):
+                    ####RevertWorld
+                    localmat = hou.hmath.identityTransform()
+                    localmat *= hou.hmath.buildRotate(lrt, 'xyz')
+                    localmat *= hou.hmath.buildTranslate(ltr)
+                    localmat *= hou.hmath.buildScale(lsc)
+                    
+                    orignormal=angle2norm(hou.Vector3(node.parmTuple("rotate_%d" % i).eval()))*localmat.inverted().extractRotationMatrix3()
+                    
+                    origpos=hou.Vector4(hou.Vector3(node.parmTuple("position_%d" % i).eval()))*localmat.inverted()
+                    
+                    ###Compute new Packed transform
+                    rotmatrix=lmat.extractRotationMatrix3()
+                    newpos=hou.Vector3(origpos*lmat)
+                    newnorm=orignormal*rotmatrix
+                    ##Set parms
+                    node.parmTuple("position_%d" % i).set(hou.Vector3(newpos))
+                    rotate=norm2angle(newnorm,node,i)
+                    node.parmTuple("rotate_%d" % i).set(rotate)
+                    
+                    ##Update Local packed Properties
+                    
+                    raw[7]=str(lmat.explode()['translate'][0])+':'+str(lmat.explode()['translate'][1])+':'+str(lmat.explode()['translate'][2])
+                    raw[8]=str(lmat.explode()['rotate'][0])+':'+str(lmat.explode()['rotate'][1])+':'+str(lmat.explode()['rotate'][2])
+                    raw[9]=str(lmat.explode()['scale'][0])+':'+str(lmat.explode()['scale'][1])+':'+str(lmat.explode()['scale'][2])
+                    node.parm("geodatapath_%d" % i).set(','.join(raw))
+
+                    
+        except:
+            pass
+        
+        
+        
+
+#######################################
+    
+    
+
+class DrawPoints(object):
+    
+    def __init__(self, state_name, scene_viewer):
+        self.state_name = state_name
+        self.scene_viewer = scene_viewer
+        self._guide = None
+        self._guidebase = None
+        self._node = None
+        self._pressed = False
+        self._index = 0
+        self._previousindex = 0
+        self._lock = 0
+        self._indexes=[]
+        self.names_list=[]
+        self.key_pressed=''
+        self.ix=0   
+        self.maxindex=0
+        self.names_idx=[]
+        self.up=hou.Vector3(0,1,0)
+        self.collisiongeo=None
+        self.translate_handle = hou.Handle(self.scene_viewer, "localtransform")
+        self.matrix = None
+        self.help = 0
+        self.vpnode=None
+        self.tmpnode=None
+        self.matixnode=None #matrix from obj creator of assetplacer node
+        self._mode=None
+        self._colmode=None
+        self._colnode=None
+        self._colstart=0
+        self._copytransform=0
+#        self.text_drawable = hou.TextDrawable(self.scene_viewer, 'Hotkeys:')
+        self.MSG="Shift+Del remove instance  \n WheelMouse for Rotate \n Cntrl+WheelMouse for Scale \n Middle Button for change position \n +- Buttons for change instance \n M for switch place mode \n Shift+d Random choise instance is "+self.switch(self._lock)+"\n Shift+z Copy local transform is "+self.switch(self._copytransform)
+        self.msghelp="For on/off help press H"
+        self.scene_viewer.setPromptMessage(self.MSG)
+        
+        self.localmatrix=hou.hmath.identityTransform()
+        self.basematrix=hou.hmath.identityTransform()
+        self.parmskeys={
+        'tx':['loctransform_x'],
+        'ty':['loctransform_y'],
+        'tz':['loctransform_z'],
+        'ry':['locrotate_x'],
+        'rz':['locrotate_y'],
+        'rx':['locrotate_z'],
+        'sx':['scale_x'],
+        'sy':['scale_y'],
+        'sz':['scale_z']
+        } 
+        
+    def getlocaltransform(self,i,type=0):
+        self.localmatrix=hou.hmath.identityTransform()
+        trans=hou.Vector3(self._node.parmTuple("loctransform_%d" % i).eval())
+        rot=hou.Vector3(self._node.parmTuple("locrotate_%d" % i).eval())
+
+        if type==0:
+            scale=hou.Vector3(self._node.parmTuple("scale_%d" % i).eval())
+        else:
+            scale=hou.Vector3(1,1,1)
+        self.localmatrix=buildTransform4(trans,rot,scale)
+        
+        
+    def getbasetransform(self,i):
+        self.basematrix=hou.hmath.identityTransform()
+        rot=hou.Vector3(self._node.parmTuple("rotate_%d" % i).eval())
+        trans=hou.Vector3(self._node.parmTuple("position_%d" % i).eval())
+        scale=hou.Vector3(1,1,1)
+        self.basematrix=buildTransform4(trans,rot,scale)
+        
+        
+    def setlocaltransform(self,i):
+        self._node.parmTuple("loctransform_%d" % i).set(self.localmatrix.extractTranslates())
+        self._node.parmTuple("locrotate_%d" % i).set(self.localmatrix.extractRotates())
+        self._node.parmTuple("scale_%d" % i).set(self.localmatrix.extractScales())
+        
+    def switch(self,val=0):
+        res='off'
+        if val==1:
+            res='on'
+        return res
+            
+            
+        
+        
+    def show_handles(self):
+        try:
+            dhand=self._node.parm("display_handle").eval()
+            if self._node.parm("points").eval()>0:
+                self.translate_handle.show(dhand)
+            else:
+                self.translate_handle.show(0)
+        except:
+            pass
+        
+################Handles   
+    def computehandle(oldmat,mewmat):
+        self.getbasetransform(number)
+        self.getlocaltransform(number,0)
+        
+        
+        
+    def gethandleparms(self,parm_name,new_value,old_value):
+        try:
+            tempmatrix=hou.hmath.identityTransform()
+            tx=0
+            ty=0
+            tz=0
+            rx=0
+            ry=0
+            rz=0
+            sx=1
+            sy=1
+            sz=1
+            
+            if len(self._indexes)>0:
+                number=self._indexes[-1]
+            else:
+                number=(self._node.parm("points").eval()-1)
+                
+            if self._node.parm("points").eval()>=number and self._node.parm("points").eval()!=0:
+                name=self.parmskeys[parm_name]
+                self.getbasetransform(number)
+                self.getlocaltransform(number,0)
+                value=(new_value-old_value)
+                if parm_name=='tx':
+                    tx=value
+                elif parm_name=='ty':
+                    ty=value
+                elif parm_name=='tz':
+                    tz=value
+                elif parm_name=='rx':
+                    rx=value
+                elif parm_name=='ry':
+                    ry=value  
+                elif parm_name=='rz':
+                    rz=value
+                elif parm_name=='sx':
+                    sx=value
+                elif parm_name=='sy':
+                    sy=value
+                elif parm_name=='sz':
+                    sz=value       
+                trans=hou.Vector3(tx,ty,tz)
+                rot=hou.Vector3(rx,ry,rz)
+                scl=hou.Vector3(sx,sy,sz)
+                hmatrix=buildTransform4(trans,rot,scl)
+                if parm_name.startswith('t') or parm_name.startswith('r'):
+                    hmatrix*=(hou.Matrix4(self.basematrix.extractRotationMatrix3()).inverted()) 
+                trans=rvec(hmatrix.extractTranslates())
+                rot=rvec(hmatrix.extractRotates())
+                scl=rvec(hmatrix.extractScales())
+                    
+                
+                for i ,p in enumerate(name):
+                    if i==0:
+                        component=p[-1]
+                        pname=p[:-1]+str(number)
+                        parm=self._node.parmTuple(pname)
+                        if p[:-1].startswith('loctransform'):
+                            parm.set(hou.Vector3(parm.eval())+trans)
+                        elif p[:-1].startswith('locrotate'): 
+                            rotv=hou.Vector3(0,0,0)
+                            if parm_name=='rx':
+                                rotv.__setitem__(0, rot[0])
+                            if parm_name=='ry':
+                                rotv.__setitem__(1, rot[1])                            
+                            if parm_name=='rz':
+                                rotv.__setitem__(2, rot[2]) 
+                            parm.set(hou.Vector3(parm.eval())+rotv)
+                            
+                        elif p[:-1].startswith('scale_'): 
+                            scalev=hou.Vector3(0,0,0)
+                            if parm_name=='sx':
+                                scalev.__setitem__(0, scl[0])
+                            if parm_name=='sy':
+                                scalev.__setitem__(1, scl[1])                            
+                            if parm_name=='sz':
+                                scalev.__setitem__(2, scl[2])                         
+                            parm.set(scalev+hou.Vector3(parm.eval()))
+                #self.getbasetransform(number)
+                #self.getlocaltransform(number,0)  
+                #print(self.basematrix)
+                #print(self.localmatrix)
+        except:
+            pass
+            
+    def setmaxindex(self):
+        indexes=self._node.parm('points').eval()
+        try:
+            lastidx=self._node.parm("id"+str(indexes-1)).eval()
+            self.maxindex=lastidx+1
+        except:
+            pass
+    
+
+    def getindexbyid(self,id, q=0):
+        indexes=self._node.parm('points').eval()
+        number=0
+        for i in range(q,indexes):
+            try:
+                val=self._node.parm('id'+str(i)).eval()
+                if val==id:
+                    number=i
+                    break
+            except:
+                pass
+                
+        return number
+    
+    def onHandleToState(self, kwargs):
+        try:
+            self.show_handles()
+        except:
+            pass
+        # Called when the user manipulates a handle
+        handle_name = kwargs["handle"]
+        parms = kwargs["parms"]
+        prevparms = kwargs["prev_parms"]
+        self.node = kwargs["node"]
+        ui_event = kwargs["ui_event"]
+#        
+        if ui_event.reason()==hou.uiEventReason.Active:
+            if len(self._indexes)>0:
+                number=self._indexes[-1]
+            else:
+                number=(self._node.parm("points").eval()-1)
+                
+            self.getlocaltransform(number,0)
+            ###transform
+            newt=hou.Vector3(parms["tx"],parms["ty"],parms["tz"])
+            oldt=hou.Vector3(prevparms["tx"],prevparms["ty"],prevparms["tz"])
+            ###rotate
+            newr=hou.Vector3(parms["rx"],parms["ry"],parms["rz"])
+            oldr=hou.Vector3(prevparms["rx"],prevparms["ry"],prevparms["rz"])
+            #tmpmatrix=hou.hmath.buildRotate(newr)
+            #res=tmpmatrix.extractRotationMatrix3()*inverttransform
+            #print(res.extractRotates())
+            #rval=hou.Vector3(res.extractRotates())
+            #rotatevector=hou.Vector3(-rval[2],-rval[1],-rval[0])+self.localmatrix.extractRotates()
+            
+            #oldval=hou.Vector3(self.node.parmTuple('locrotate_'+str(number)).eval())
+            value=newr-oldr+hou.Vector3(self.node.parmTuple('locrotate_'+str(number)).eval())
+            self.node.parmTuple('locrotate_'+str(number)).set(value)#rotatevector)
+            
+            trans=(newt-oldt)+hou.Vector3(self.node.parmTuple('loctransform_'+str(number)).eval())
+            self.node.parmTuple('loctransform_'+str(number)).set(trans)
+                      
+
+#            newmatrix=buildTransform4(newt,newr,news)
+#            oldmatrix=buildTransform4(oldt,oldr,olds)
+#            tmpmat=newmatrix*oldmatrix.inverted()
+            
+
+            
+            
+            
+            #self.computehandle(parm_name,new_value,old_value,)
+            
+#            t = [parms["tx"] - prevparms["tx"], parms["ty"] - prevparms["ty"], parms["tz"] - prevparms["tz"]]
+#            r = [parms["rx"] - prevparms["rx"], parms["ry"] - prevparms["ry"], parms["rz"] - prevparms["rz"]]
+#            s = [1 + parms["sx"] - prevparms["sx"], 1 + parms["sy"] - prevparms["sy"], 1 + parms["sz"] - prevparms["sz"]]   
+
+#            for parm_name in kwargs["mod_parms"]:
+#          
+#                new_value = parms[parm_name]
+#                
+#                old_value = prevparms[parm_name]
+#                
+#                self.gethandleparms(parm_name,new_value,old_value)
+
+           
+
+    def onStateToHandle(self, kwargs):
+        # Called when the user changes parameter(s), so you can update
+        # dynamic handles if necessary
+        self.show_handles()
+        try:
+            parms = kwargs["parms"]
+            if len(self._indexes)>0:
+                number=self._indexes[-1]
+            else:
+                number=(self._node.parm("points").eval()-1)
+                
+            node=self._node
+            self.getbasetransform(number)
+            self.getlocaltransform(number,0)
+            matrix=self.localmatrix*self.basematrix
+            trans=matrix.extractTranslates()
+            rot=matrix.extractRotates()
+            scl=matrix.extractScales()
+            
+    ###########trannsform
+            parms['tx']=trans[0]
+            parms['ty']=trans[1]
+            parms['tz']=trans[2]
+    ###########rotate           
+            parms['rx']=rot[0]
+            parms['ry']=rot[1]
+            parms['rz']=rot[2]            
+    ###########scale          
+            parms['sx']=scl[0]
+            parms['sy']=scl[1]
+            parms['sz']=scl[2]
+                        
+        except:
+            pass
+         
+    def onEnter(self, kwargs): 
+        #################Messages
+
+#        (x,y,width,height) = self.scene_viewer.curViewport().size()
+#        margin = 10
+#        params = { 
+#            'text': 'First line<br>Second line<br>Third line',
+#            'multi_line' : True,
+#            'color1' : hou.Color(1.0,0.0,0.0),
+#            'translate' : hou.Vector3(0, height, 0),
+#            'origin' : hou.drawableTextOrigin.UpperLeft,
+#            'margins': hou.Vector2(margin, -margin) }
+#
+#        self.text_drawable.setParams(params)
+#        self.text_drawable.show(1)
+        
+        
+        self.MSG="Shift+Del remove instance  \n WheelMouse for Rotate \n Cntrl+WheelMouse for Scale \n Middle Button for change position \n +- Buttons for change instance \n M for switch place mode \n Shift+d Random choise instance is "+self.switch(self._lock)+"\n Shift+z Copy local transform is "+self.switch(self._copytransform)           
+        self.scene_viewer.setPromptMessage(self.MSG)
+        ####Guidebase (Collision)
+        node = self._node = kwargs["node"]
+        self._mode=node.parm('mode').eval()
+        self.matixnode=(node.creator()).worldTransform() #set wtransform from obj node 
+        self.show_handles()
+        self.setmaxindex()
+        
+        try:
+            geo = node.node("guide").geometry()
+            self.collisiongeo=geo
+            ver=getappver()[0]
+            if ver>=18:
+                self._guidebase = hou.SimpleDrawable(
+                self.scene_viewer, geo,
+                self.state_name + "_guidebase"
+                )
+            
+            else:
+    
+                self._guidebase = hou.Drawable(
+                self.scene_viewer, geo,
+                self.state_name + "_guidebase"
+                )
+               
+            self._guidebase.setDisplayMode(hou.drawableDisplayMode.CurrentViewportMode)
+            self._guidebase.setWireframeColor(hou.Color(0.72,0.02,0.05)) 
+            self._guidebase.enable(True)
+            self._guidebase.show(True)
+        #################
+        except:
+            pass
+        geonames = node.node("names").geometry()
+        
+        try:
+            self.names_list=list(set(geonames.primStringAttribValues('tmp_name')))
+        except:
+            pass
+        
+        idxdata=[]
+        try:
+            idxdata=(node.cachedUserData("instanceidx")).split(',')
+        except:
+            pass
+        if len(idxdata)>0:
+            tmpidx=[]
+            for i in idxdata:
+                tmpidx.append(int(i))
+            self.names_idx=tmpidx
+        else:
+            count=len(self.names_list)
+            if count>0:
+                tmpidx=[]
+                rng = range(0, count)    
+                for n in rng:
+                    tmpidx.append(n)
+                self.names_idx= tmpidx       
+            else:
+                self.names_idx=[]
+########################################Get indexes from userdata
+        idxdata=[]
+        try:
+            idxdata=(node.cachedUserData("ptidx")).split(',')
+        except:
+            pass
+        if len(idxdata)>0:
+            tmpidx=[]
+            for i in idxdata:
+                tmpidx.append(int(i))
+            self._indexes=tmpidx
+            self._setCurrentparm()
+        else:
+            self._indexes=[]
+            self._setCurrentparm()
+        self._setCurrentparm()
+        
+#        try:    
+#            inputs=node.inputs()
+#            if inputs[0] is None and self.collisiongeo is  None: 
+#                node.setDisplayFlag(1)
+#        except:
+#            pass
+
+##################################################
+#########################Draw
+    def onDraw( self, kwargs ):
+        # draw the text in the viewport upper left
+#        handle = kwargs['draw_handle']
+#        (x,y,width,height) = self.scene_viewer.curViewport().size()
+#        margin = 10
+        
+#        params = { 
+#            'text': 'First line<br>Second line<br>Third line',
+#            'multi_line' : True,
+#            'color1' : hou.Color(1.0,0.0,0.0,0.0),
+#            'translate' : hou.Vector3(0, height, 0),
+#            'origin' : hou.drawableTextOrigin.UpperLeft,
+#            'margins': hou.Vector2(margin, -margin) }
+#        self.text_drawable.draw( handle, params ) 
+#        self.text_drawable.show(1)
+        self.scene_viewer.setPromptMessage(self.MSG)
+        
+#########################################
+###############################Selections        
+    def onStartSelection(self, kwargs):
+        """ Called when a bound selector has been started
+        """
+        node = self._node = kwargs["node"] 
+        self.scene_viewer.setPromptMessage(self.MSG)
+            
+    def onSelection(self, kwargs):
+        self.scene_viewer.setPromptMessage(self.MSG)
+        """ Called when a selector has selected something
+        """
+
+        inx=[]
+        self.scene_viewer.setGroupListVisible(True)
+        selection = kwargs["selection"]
+
+        try:
+            if selection.geometryType() == hou.geometryType.Primitives:
+                if len(selection.mergedSelectionString())>0:
+                    sgrp=str(selection.mergedSelectionString()).split(' ')
+                    for s in sgrp:
+                        if '-' in s:
+                            tgrp=s.split('-')
+                            rng = range(int(tgrp[0]), int(tgrp[1])+1)    
+                            for n in rng:
+                                inx.append(n)
+                        else:
+                            inx.append(int(s))
+                else:
+                    count = selection.selections()[0].numSelected()
+                    rng = range(0, count)
+                    for n in rng:
+                        inx.append(n)
+                        
+            geo=self._node.geometry()
+            rawindex=[]
+            for i in inx:
+                rawprim=geo.prim(i)
+                ic=rawprim.attribValue('packed_id')
+                nbr=self.getindexbyid(ic) 
+                rawindex.append(nbr)
+                
+            self._indexes=rawindex
+            self._setCurrentparm()
+                
+            tmpidx=[]
+            for i in rawindex:
+                tmpidx.append(str(i))
+            node = self._node = kwargs["node"]    
+            node.setCachedUserData("ptidx", ','.join(tmpidx))
+            self.log(selection)
+        except:
+            pass
+        # Must return True to accept the selection
+        return False        
+#########################################    
+###########################Custom Command
+
+    def onCommand(self, kwargs):
+        """ Use this callback to implement custom commands. 
+        """
+        command_name = kwargs["command_name"]
+        command_args = kwargs["command_args"]
+
+########################################
+################################Keyboard
+
+    
+    def onKeyEvent(self, kwargs):
+#        """ Called for processing a keyboard event
+#        """
+        ui_event = kwargs["ui_event"]
+        self.key_pressed = ui_event.device().keyString()
+        device = ui_event.device()
+        node = self._node = kwargs["node"]
+
+######### M
+        if self.key_pressed =='m':
+            mode=node.parm('mode')
+            if mode.eval()==0:
+                mode.set(1)
+            else:
+                mode.set(0)
+            self._mode=node.parm('mode').eval()
+
+########## H
+#        if self.key_pressed =='h':
+#            if self.help==1:
+#                
+#                self.scene_viewer.setPromptMessage(self.msghelp)
+#                self.help=0
+#            else:
+#                self.MSG="For on/off help press H"
+#                self.scene_viewer.setPromptMessage(self.MSG)
+#                self.MSG=self.msghelp
+#                self.help=1
+#            
+            
+            
+#########Shift+D
+        if self.key_pressed =='Shift+d' and self._lock==0:
+            self._lock=1
+            self._previousindex=self.ix
+        elif self.key_pressed =='Shift+d' and self._lock==1:
+            self._lock=0
+               
+            
+        if self.key_pressed == 'Shift+z' and self._copytransform==0:
+            self._copytransform=1
+        elif self.key_pressed == 'Shift+z' and self._copytransform==1:
+            self._copytransform=0
+            
+             #########selector Enter            
+        if self.key_pressed =='Enter':
+            try:
+                viewport = self.scene_viewer.curViewport()
+                pixpos=[int(device.mouseX()),int(device.mouseY())] 
+                vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
+                if vpnode==node and node.parm('auto_select').eval()==1:                    
+                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+                    i=rawprim.attribValue('packed_id')
+                    nbr=self.getindexbyid(i)
+                    self._indexes=[nbr]
+                    self._setCurrentparm()
+                    current=node.parm('instance'+str(nbr)).eval()
+                    if current in self.names_list:
+                        index= self.names_list.index(current)
+                        if self._lock==1:
+                            self._previousindex = index
+            except:
+                pass
+                
+            self.translate_handle.update(0)  
+#######Delete
+        if self.key_pressed =='Shift+Del':
+            try:
+                viewport = self.scene_viewer.curViewport()
+                pixpos=[int(device.mouseX()),int(device.mouseY())] 
+                vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
+                if vpnode==node and node.parm('auto_select').eval()==1:
+                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+                    i=rawprim.attribValue('packed_id')
+                    nbr=self.getindexbyid(i)
+                    self._removeselect([nbr])
+                else:
+                    self._removeselect(self._indexes)
+            except:
+                pass
+                
+        
+######### + - Buttons 
+        if self.key_pressed =='=' or self.key_pressed =='-': 
+            try:
+                viewport = self.scene_viewer.curViewport()
+                pixpos=[int(device.mouseX()),int(device.mouseY())] 
+                vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
+                if vpnode==node and node.parm('auto_select').eval()==1:
+                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+                    i=rawprim.attribValue('packed_id')
+                    nbr=self.getindexbyid(i)
+                    current=node.parm('instance'+str(nbr)).eval()
+                    index=0
+                    if current in self.names_list:
+                        index= self.names_list.index(current)
+                    if self.key_pressed =='=':
+                        index+=1
+                    elif self.key_pressed =='-':
+                        index-=1
+                    if index<0:
+                        index=len(self.names_list)-1
+                    elif index>len(self.names_list)-1:
+                        index=0
+                    val=str(self.names_list[index])
+                    if self._lock==1:
+                        self._previousindex = index
+                    self._instanceset(nbr, val)
+                    self._indexes=[nbr]
+                    self._setCurrentparm()
+                else:
+                    if len(self.names_list)>0:
+                        if len(self._indexes)>0:
+                            for i in self._indexes:
+                                #nbr=self.getindexbyid(i)
+                                current=node.parm('instance'+str(i)).eval()
+                                index=0
+                                
+                                if current in self.names_list:
+                                    index= self.names_list.index(current)
+                                    
+                                if self.key_pressed =='=':
+                                    index+=1
+                                    
+                                elif self.key_pressed =='-':
+                                    index-=1
+                                    
+                                if index<0:
+                                    index=len(self.names_list)-1
+                                    
+                                elif index>len(self.names_list)-1:
+                                    index=0
+                                    
+                                val=str(self.names_list[index])
+                                
+                                if self._lock==1:
+                                    self._previousindex = index
+                                self._instanceset(i, val)    
+                                self._indexes=[i]
+                                self._setCurrentparm()
+            
+            except:
+                pass
+                
+        self.MSG="Shift+Del remove instance \n WheelMouse for Rotate \n Cntrl+WheelMouse for Scale \n Middle Button for change position \n +- Buttons for change instance \n M for switch place mode \n Shift+d Random choise instance is "+self.switch(self._lock)+"\n Shift+z Copy local transform is "+self.switch(self._copytransform)
+        self.scene_viewer.setPromptMessage(self.MSG)
+        
+#########DisplayHandle
+        if self.key_pressed =='Ctrl+d' and self._lock==0:
+            parm=node.parm('display_handle')
+            if parm.eval()==0:
+                parm.set(1)
+            else:
+                parm.set(0)
+        return False
+##########################################
+#########################ParameterCallback
+    def onParmChangeEvent(self, kwargs):
+        self.show_handles()
+        """ Implement this callback to react to state parameter changes. 
+        """
+        parm_name = kwargs["parm_name"]
+        parm_value = kwargs["parm_value"]
+        state_parms = kwargs["state_parms"]
+        ui_event = kwargs["ui_event"]
+        if parm_name=='mode':
+            self.mode=parm_value
+        
+##########################################
+############################Menu Callbacks      
+    def onMenuAction(self, kwargs):
+        """ Callback implementing the actions of a bound menu. Called 
+        when a menu item has been selected. 
+        """
+
+        menu_item = kwargs["menu_item"]
+        #state_parms = kwargs["state_parms"]
+##############Select Instances for place
+        if kwargs["menu_item"]=='1':
+            node = self._node = kwargs["node"]
+            geo = node.node("names").geometry()
+            if len(self.names_list)==0:
+                try:
+                    self.names_list=list(set(geo.primStringAttribValues('tmp_name')))
+                except:
+                    pass
+                                                                                
+            self.names_idx=hou.ui.selectFromList(self.names_list,default_choices=self.names_idx,title='Chose Geometry for instancing')
+            if self.names_idx is not None:
+                tmpidx=[]
+                for i in self.names_idx:
+                    tmpidx.append(str(i))
+            node.setCachedUserData("instanceidx", ','.join(tmpidx))
+#######################Replace Selection            
+        if kwargs["menu_item"]=='2':
+            node = self._node = kwargs["node"]
+            geo = node.node("names").geometry()
+            if len(self.names_list)==0:
+                try:
+                    self.names_list=list(set(geo.primStringAttribValues('tmp_name')))
+                except:
+                    pass
+                    
+            chose=hou.ui.selectFromList(self.names_list, exclusive=True,title='Chose Geometry for replace')
+            if len(chose)>0:
+                val=str(self.names_list[chose[0]])
+                self._instanceselect(self._indexes, val)
+#####################ResetLocal transform
+        if kwargs["menu_item"]=='3':
+            if len(self._indexes)>0:
+                self._resetlocal(self._indexes)
+                
+#####################Deactivate Selection
+        if kwargs["menu_item"]=='4':
+            if len(self._indexes)>0:
+                self._removeselect(self._indexes)  
+                
+#####################Scroll multiparm on top
+        if kwargs["menu_item"]=='5':
+            try:
+                if len(self._indexes)>0:
+                    index=self._indexes[0]
+                    if index!=-1:
+                        instances=self._node.parm("points").multiParmInstances()
+                        for i in instances:
+                            if i.name().startswith("instance"):
+                                i.setScope(0)
+
+                        
+                        p=self._node.parm("instance%d" % index)
+                        hou.ui.scrollToParmsInEditors(p,hou.scrollPosition.Auto)
+                        #p.setSelect(1)
+                        p.setScope(1)
+            except:
+                pass
+             
+            
+    def onMenuPreOpen(self, kwargs):
+        """ Implement this callback to update the menu content before 
+        it is drawn. 
+        """        
+        menu_states = kwargs["menu_states"]
+        menu_item_states = kwargs["menu_item_states"]
+
+        
+#######################################         
+    def _parmslist(self):
+        a=self.names_list
+        return a
+        
+    def _setCurrentparm(self):
+        parm=self._node.parm('current')
+        prs=[]
+        if len(self._indexes)>0:
+            for i in self._indexes:
+                prs.append(str(i))
+            parm.set(' '.join(prs))
+        else:
+            parm.set('')
+        
+            
+        
+    def _removeselect(self,indexes):
+        if len(indexes)>0:
+            try:
+                multiparm = self._node.parm("points")
+                for idx, i in enumerate(indexes):
+                    multiparm = self._node.parm("points")
+                    multiparm.removeMultiParmInstance(i-idx)
+                    
+                self._indexes=[-1]
+                self._setCurrentparm()
+            except:
+                pass
+
+                
+        
+    def _instanceset(self, index, val):
+        try:
+            self._node.parm("instance%d" % index).set(val)
+        except:
+            pass        
+        
+        
+    def _instanceselect(self, indexes, val):
+        if len(indexes)>0:
+            for i in indexes:
+                try:
+                    self._node.parm("instance%d" % i).set(val)
+                except:
+                    pass
+                    
+###########set hidden data                    
+    def _sethiddendata(self, indexes, val):
+        if len(indexes)>0:
+            for i in indexes:    
+                try:
+                    self._node.parm("geodatapath_%d" % i).set(val)
+                except:
+                    pass
+############################
+    def updateparm(self, indexes, type='transform'):
+        if len(indexes)>0:
+            for i in indexes:
+                self.getlocaltransform(i)
+                self.getbasetransform(i)
+                resultmatrix=self.basematrix*self.localmatrix
+#                if type=='transform':
+#                    self._node
+#                elif type=='rotate':
+#                elif type=='scale':
+                
+
+                
+
+    def _offset(self, indexes, val):
+        sense=self._node.parm('sensetivity').eval()
+        if len(indexes)>0:
+            for i in indexes:
+                #angles=hou.Vector3(self._node.parmTuple("rotate_%d" % i).eval())
+                #vector=angle2norm(angles)
+                #pos=hou.Vector3(self._node.parmTuple("position_%d" % i).eval())
+                offsetmult=float(val)/10*sense
+                newpos = self._node.parm("loctransform_%dy" % i).eval()+offsetmult
+                self._node.parm("loctransform_%dy" % i).set(newpos)
+                self.getlocaltransform(i)
+                
+                
+
+                self.translate_handle.update(0) 
+#                try:
+#                    self._node.parm("offset%d" % i).set(self._node.parm("offset%d" % i).eval()+float(val)/10*sense)
+#                    self.translate_handle.update(0)  
+#                except:
+#                    pass 
+
+    def _remove_point(self,index):
+        multiparm = self._node.parm("points")
+        multiparm.removeMultiParmInstance(index)
+        self._indexes=[-1]
+        self._setCurrentparm()
+        
+    def _point_count(self):
+        multiparm = self._node.parm("points")
+        # This is how you get the number of instances in a multiparm
+        return multiparm.evalAsInt()
+
+    def _insert_point(self):
+        index = self._point_count()
+        multiparm = self._node.parm("points")
+        self.setmaxindex()
+        multiparm.insertMultiParmInstance(index)
+        self._node.parm("id"+str(index)).set(self.maxindex) 
+        self._indexes=[index]
+        self._setCurrentparm()
+        #self._node.setCachedUserData("ptidx", str(index))
+        return [index]
+
+    def _set(self, indexes, position, mode=1):
+        
+        if len(indexes)>0:
+            for idx, i in enumerate(indexes, start=1):
+                try:
+                    #self.getlocaltransform(i)###get localmatrix
+                    self._node.parmTuple("position_%d" % i).set(position)
+
+                    if mode==1:
+                        if self._copytransform==0:
+                            randtog=self._node.parm("random_rot%d" % i).eval()
+                            if randtog==1:
+                                self._node.parmTuple("locrotate_%d" % i).set(hou.Vector3((0,randomangle(i),0)))
+                                self.getlocaltransform(i)
+                        else:
+                            self.setlocaltransform(i)
+                   
+                except:
+                    pass
+
+    def _resetlocal(self, indexes):
+        if len(indexes)>0:
+            for i in indexes:
+                randtog=self._node.parm("random_rot%d" % i).eval()
+                if randtog==1:
+                    self._node.parmTuple("locrotate_%d" % i).set(hou.Vector3((0,randomangle(i),0)))
+                else:
+                    self._node.parmTuple("locrotate_%d" % i).set(hou.Vector3((0,0,0)))
+                    
+                self._node.parmTuple("loctransform_%d" % i).set(hou.Vector3(0,0,0))
+                self._node.parmTuple("scale_%d" % i).set(hou.Vector3(1,1,1))
+                self.getlocaltransform(i)
+                    
+            
+    def _setrand(self, indexes):
+        bool=self._node.parm('random_rotate').eval()
+        if len(indexes)>0:
+            for i in indexes:
+                try:
+                    self._node.parm("random_rot%d" % i).set(bool)
+                except:
+                    pass               
+                        
+    
+    def _setnorm(self, indexes, normal):
+        try:
+            bias=self._node.parm("biasnorm").eval()
+            up=hou.Vector3(self.up)
+            newnormal=(_smoothvec(hou.Vector3(normal),up,bias)).normalized()
+            matrix=up.matrixToRotateTo(newnormal)
+            if len(indexes)>0:
+                for i in indexes:                 
+                    rotate=matrix.extractRotates()
+                    self._node.parmTuple("rotate_%d" % i).set(rotate)
+        except:
+            pass
+#            
+    def _rot(self, indexes, rotate):
+        sense=self._node.parm('sensetivity').eval()
+        if len(indexes)>0:
+            for i in indexes:
+                try:
+                    rotval=float(rotate)*5*sense
+                    self._node.parm(("locrotate_%d" % i)+'y').set(self._node.parm(("locrotate_%d" % i)+'y').eval()+rotval)
+                    self.getlocaltransform(i)
+   #                self._setnorm([i],normal)
+                    self.translate_handle.update(0)
+                except:
+                    pass  
+                    
+    def _scale(self, indexes, scale):
+        sense=self._node.parm('sensetivity').eval()
+        
+        if len(indexes)>0:
+            for i in indexes:
+                try:
+                    currentscale=hou.Vector3(self._node.parmTuple("scale_%d" % i).eval())
+                    scaleval=float(scale)/50*sense
+                    uniformscale=hou.Vector3(scaleval,scaleval,scaleval)
+                    self._node.parmTuple("scale_%d" % i).set(currentscale+uniformscale) 
+                    self.getlocaltransform(i)
+                    self.translate_handle.update(0)  
+                except:
+                    pass
+                
+        
+
+    def _start(self):
+        if not self._pressed:
+            self.scene_viewer.beginStateUndo("Add point")
+            self._colstart=1
+            self._indexes = self._insert_point()
+            self._setrand(self._indexes)
+            if self._lock==1:
+                self.ix=self._previousindex
+            else:
+                self.ix=random.choice(self.names_idx)
+
+            
+        self._pressed = True
+
+    def _finish(self):
+        self._colstart=0
+        self.translate_handle.update(0)
+        if self._pressed:
+            self.scene_viewer.endStateUndo()
+        self._pressed = False
+        
+#############################################
+#################################Mouse events
+
+    def onMouseEvent(self, kwargs):
+        try:
+            node = self._node = kwargs["node"]
+            collisionself=node.parm('instcol').eval()
+            #####Collision Modes
+            self.colmode=node.parm('col_mode').eval()
+            if self.colmode==2:
+                self.colnode=(node.parm('col_objects').eval()).split(' ')
+            #####
+            ui_event = kwargs["ui_event"]
+            device = ui_event.device()
+            origin, direction = ui_event.ray()
+            viewport = self.scene_viewer.curViewport()
+            pixpos=[int(device.mouseX()),int(device.mouseY())] 
+            # Find intersection with geometry or ground
+            intersected = 0
+            inputs = node.inputs()
+            rawprim=None
+            if len(inputs)>0:
+                first=inputs[0]
+            else:
+                first=None
+            # Only try intersecting geometry if this node has input
+            if first is not None and self.collisiongeo is not None:
+                gi=sopGeometryIntersection(self.collisiongeo,origin,direction)
+                intersected=0
+                if gi[0]!=-1:
+                    intersected=1
+                    try:
+                        if device.isLeftButton():
+                            if self._mode==0:
+                                position=gi[1]
+                                normal = gi[2]
+                                self._start()
+                                self._set(self._indexes, position,1)
+                                self._setnorm(self._indexes, normal)            
+                                val=str(self.names_list[self.ix])
+                                self._instanceselect(self._indexes, val)
+                                hiddendata=self.collisiongeo.sopNode().path()+','+str(gi[0])+','+str(gi[3][0])+':'+str(gi[3][1])+',Primary'
+                                self._sethiddendata(self._indexes,hiddendata)
+                            elif self._mode==1:
+                                position=gi[1]
+                                normal = gi[2]
+                                self._start()
+                                self._set(self._indexes, position,1)
+                                self._setnorm(self._indexes, normal)            
+                                val=str(self.names_list[self.ix])
+                                self._instanceselect(self._indexes, val)
+                                hiddendata=self.collisiongeo.sopNode().path()+','+str(gi[0])+','+str(gi[3][0])+':'+str(gi[3][1])+',Primary'
+                                self._sethiddendata(self._indexes,hiddendata)
+                                time.sleep(.05)
+                                self._finish()
+                                   
+                        elif device.isMiddleButton() and intersected:
+                            position=gi[1]
+                            normal = gi[2]
+                            self._set(self._indexes, position,0)
+                            self._setnorm(self._indexes, normal)
+                            hiddendata=self.collisiongeo.sopNode().path()+','+str(gi[0])+','+str(gi[3][0])+':'+str(gi[3][1])+',Primary'
+                            self._sethiddendata(self._indexes,hiddendata)                    
+                        else:
+                            self._finish()            
+                    except:
+                        pass
+                
+            else:
+                vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
+                if vpnode!=node:
+                    self.tmpnode=vpnode
+                if device.isLeftButton():
+                    if self._mode==0:
+                        end=0
+                        try:                   
+                            if collisionself!=0 and node.parm('points').eval()>0:
+                                tmpprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+                                try:
+                                    id=tmpprim.attribValue("packed_id")
+                                except:
+                                    id=0
+                                    
+                                if id !=self._indexes[0] and len(self._indexes)==1:
+                                    if self.colmode==0:
+                                        self.vpnode=vpnode
+                                        
+                                    elif self.colmode==1 and self._colstart==0:
+                                        self.vpnode=vpnode
+                                        
+                                    elif self.colmode==2:
+                                        for i in self.colnode:
+                                            if i in vpnode.path():
+                                                self.vpnode=vpnode                                           
+                                    #if self.vpnode!=None:
+                                        ##rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                                
+                                else:
+                                    if vpnode!=node:
+                                        if self.colmode==0:
+                                            self.vpnode=vpnode
+                                            
+                                        ##rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                                    else:
+                                        self.vpnode=self.tmpnode
+                                        ##rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                                        
+                            else:
+                                if vpnode !=node:
+                                    if self.colmode==0:
+                                        self.vpnode=vpnode
+                                    elif self.colmode==1 and self._colstart==0:
+                                        self.vpnode=vpnode
+                                    elif self.colmode==2:
+                                        for i in self.colnode:
+                                            if i in vpnode.path():
+                                                self.vpnode=vpnode                                  
+                                    
+                            if self.vpnode is not None:
+                                rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                                mat=(self.vpnode.parent().worldTransform().inverted())
+                                geop=self.vpnode.geometry()
+                                ndpath=self.vpnode.path() 
+                                origin, direction=ui_event.ray()
+                                direction*=self.matixnode.extractRotationMatrix3()
+                                origin=hou.Vector3(hou.Vector4(origin)*self.matixnode)
+                                originp=hou.Vector4(origin)
+                                neworig=hou.Vector3(originp*mat)
+                                newdir=direction*mat.extractRotationMatrix3()
+                                gi=sopGeometryIntersection(geop,neworig,newdir)
+            
+                                if gi[0]!=-1 and device.isLeftButton():
+                                    rawprim=geop.prim(gi[0])
+                                    position=gi[1]*(self.matixnode*mat).inverted()
+                                    normal = gi[2]*(self.matixnode*mat).inverted().extractRotationMatrix3()
+                                    self._start()
+                                    
+                                    
+                                    self._set(self._indexes, position,1)
+                                    self._setnorm(self._indexes, normal)                        
+                                    val=str(self.names_list[self.ix])
+                                    self._instanceselect(self._indexes, val)
+                                    hiddendata=ndpath
+                                    hiddendata+=','+str(gi[0])+','+str(gi[3][0])+':'+str(gi[3][1])+','+rawprim.type().name()
+                                    mat=(self.matixnode*mat).inverted()
+                                    mattr=str(mat.explode()['translate'][0])+':'+str(mat.explode()['translate'][1])+':'+str(mat.explode()['translate'][2])
+                                    matrt=str(mat.explode()['rotate'][0])+':'+str(mat.explode()['rotate'][1])+':'+str(mat.explode()['rotate'][2])
+                                    matsc=str(mat.explode()['scale'][0])+':'+str(mat.explode()['scale'][1])+':'+str(mat.explode()['scale'][2])
+                                    
+                                    lmattr=lmatrt=lmatsc='0.0:0.0:0.0'  
+                                    try:
+            
+                                        locmat=geop.prim(gi[0]).fullTransform()
+                                        
+                                        lmattr=str(locmat.explode()['translate'][0])+':'+str(locmat.explode()['translate'][1])+':'+str(locmat.explode()['translate'][2])
+                                        lmatrt=str(locmat.explode()['rotate'][0])+':'+str(locmat.explode()['rotate'][1])+':'+str(locmat.explode()['rotate'][2])
+                                        lmatsc=str(locmat.explode()['scale'][0])+':'+str(locmat.explode()['scale'][1])+':'+str(locmat.explode()['scale'][2])
+                                    except:
+                                        pass
+                                    
+                                    hiddendata+=','+mattr+','+matrt+','+matsc+','+lmattr+','+lmatrt+','+lmatsc                              
+            
+                                    
+                                    self._sethiddendata(self._indexes,hiddendata)
+                        except:
+                            pass
+                           
+                    elif self._mode==1: ####Stroke
+                        end=0
+                        try:                   
+                            if collisionself!=0 and node.parm('points').eval()>0:
+                                tmpprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+                                try:
+                                    id=tmpprim.attribValue("packed_id")
+                                except:
+                                    id=0
+                                    
+                                if id !=self._indexes[0] and len(self._indexes)==1:
+                                    self.vpnode=vpnode
+                                    #rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                                
+                                else:
+                                    if vpnode!=node:
+                                        self.vpnode=vpnode
+                                        #rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                                    else:
+                                        self.vpnode=self.tmpnode
+                                        #rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                            else:
+                                if vpnode !=node:
+                                    self.vpnode=vpnode
+                                    #rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                                    
+                            if self.vpnode is not None:
+                                rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                                mat=(self.vpnode.parent().worldTransform().inverted())
+                                geop=self.vpnode.geometry()
+                                ndpath=self.vpnode.path() 
+                                origin, direction=ui_event.ray()
+                                direction*=self.matixnode.extractRotationMatrix3()
+                                origin=hou.Vector3(hou.Vector4(origin)*self.matixnode)
+                                originp=hou.Vector4(origin)
+                                neworig=hou.Vector3(originp*mat)
+                                newdir=direction*mat.extractRotationMatrix3()
+                                gi=sopGeometryIntersection(geop,neworig,newdir)
+            
+                                if gi[0]!=-1 and device.isLeftButton():
+                                    rawprim=geop.prim(gi[0])
+                                    position=gi[1]*(self.matixnode*mat).inverted()
+                                    normal = gi[2]*(self.matixnode*mat).inverted().extractRotationMatrix3()
+                                    self._start()
+                                    
+                                    
+                                    self._set(self._indexes, position,1)
+                                    self._setnorm(self._indexes, normal)                        
+                                    val=str(self.names_list[self.ix])
+                                    self._instanceselect(self._indexes, val)
+                                    hiddendata=ndpath
+                                    hiddendata+=','+str(gi[0])+','+str(gi[3][0])+':'+str(gi[3][1])+','+rawprim.type().name()
+                                    mat=(self.matixnode*mat).inverted()
+                                    mattr=str(mat.explode()['translate'][0])+':'+str(mat.explode()['translate'][1])+':'+str(mat.explode()['translate'][2])
+                                    matrt=str(mat.explode()['rotate'][0])+':'+str(mat.explode()['rotate'][1])+':'+str(mat.explode()['rotate'][2])
+                                    matsc=str(mat.explode()['scale'][0])+':'+str(mat.explode()['scale'][1])+':'+str(mat.explode()['scale'][2])
+                                    
+                                    lmattr=lmatrt=lmatsc='0.0:0.0:0.0'  
+                                    try:
+            
+                                        locmat=geop.prim(gi[0]).fullTransform()
+                                        
+                                        lmattr=str(locmat.explode()['translate'][0])+':'+str(locmat.explode()['translate'][1])+':'+str(locmat.explode()['translate'][2])
+                                        lmatrt=str(locmat.explode()['rotate'][0])+':'+str(locmat.explode()['rotate'][1])+':'+str(locmat.explode()['rotate'][2])
+                                        lmatsc=str(locmat.explode()['scale'][0])+':'+str(locmat.explode()['scale'][1])+':'+str(locmat.explode()['scale'][2])
+                                    except:
+                                        pass
+                                    
+                                    hiddendata+=','+mattr+','+matrt+','+matsc+','+lmattr+','+lmatrt+','+lmatsc                              
+            
+                                    
+                                    self._sethiddendata(self._indexes,hiddendata)
+                                    
+                                    time.sleep(.5)
+                                    self._finish()
+                        except:
+                            pass                    
+                    
+                    
+                    
+                    
+                    
+                elif device.isMiddleButton():
+                    try:
+                        if collisionself!=0:
+                            tmpprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+                            try:
+                                id=tmpprim.attribValue("packed_id")
+                            except:
+                                id=0
+                                
+                            if id !=self._indexes[0] and len(self._indexes)==1:
+                                if vpnode !=node:
+                                    if self.colmode==0:
+                                        self.vpnode=vpnode
+                                    elif self.colmode==2:
+                                        for i in self.colnode:
+                                            if i in vpnode.path():
+                                                self.vpnode=vpnode
+                                if self.colmode==1 and self._colstart==0:
+                                        self.vpnode=vpnode
+                                if self.colmode==1 and self._pressed==False:
+                                    self._colstart=1
+                                else:
+                                    self._colstart=self._pressed
+                                #rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                            
+                            else:
+                                #print(2)
+                                if vpnode!=node:
+                                    if self.colmode==0:
+                                        self.vpnode=vpnode
+                                    elif self.colmode==1 and self._colstart==0:
+                                        self.vpnode=vpnode 
+                                    elif self.colmode==2:
+                                        for i in self.colnode:
+                                            if i in vpnode.path():
+                                                self.vpnode=vpnode   
+                                else:
+                                    self.vpnode=self.tmpnode
+                                    #rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                                                                            
+                                if self.colmode==1  and self._pressed==False:
+                                    self._colstart=1
+                                else:
+                                    self._colstart=self._pressed
+                                    #rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])
+                        else:
+                            if vpnode !=node:
+                                if self.colmode==0:
+                                    self.vpnode=vpnode
+                                elif self.colmode==1 and self._colstart==0:
+                                    self.vpnode=vpnode
+                                elif self.colmode==2:
+                                    for i in self.colnode:
+                                        if i in vpnode.path():
+                                            self.vpnode=vpnode
+                                            
+                                if self.colmode==1  and self._pressed==False:
+                                    self._colstart=1
+                                else:
+                                    self._colstart=self._pressed                                            
+                                #rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1])  
+                                
+    #                    vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1]) #OBJ node from viewport 
+    #                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+    #                    if vpnode !=node:
+    #                        self.vpnode=vpnode
+                        if self.vpnode is not None:
+                            rawprim=viewport.queryPrimAtPixel(self.vpnode, pixpos[0], pixpos[1]) 
+                            selfmatrix=(node.creator()).worldTransform()
+                            mat=self.vpnode.parent().worldTransform().inverted()
+                            geop=self.vpnode.geometry()
+                            ndpath=self.vpnode.path()
+                                
+                           
+                            origin, direction=ui_event.ray()
+                            direction*=self.matixnode.extractRotationMatrix3()
+                            origin=hou.Vector3(hou.Vector4(origin)*self.matixnode)
+                            originp=hou.Vector4(origin)
+                            neworig=hou.Vector3(originp*mat)
+                            newdir=direction*mat.extractRotationMatrix3()
+                            
+                            gi=sopGeometryIntersection(geop,neworig,newdir)
+                            if gi[0]!=-1:
+                                rawprim=geop.prim(gi[0])
+                                position=gi[1]*(self.matixnode*mat).inverted()
+                                normal = gi[2]*(self.matixnode*mat).inverted().extractRotationMatrix3()                            
+                                self._set(self._indexes, position,0)
+                                self._setnorm(self._indexes, normal)
+                                mat=(self.matixnode*mat).inverted()
+                                mattr=str(mat.explode()['translate'][0])+':'+str(mat.explode()['translate'][1])+':'+str(mat.explode()['translate'][2])
+                                matrt=str(mat.explode()['rotate'][0])+':'+str(mat.explode()['rotate'][1])+':'+str(mat.explode()['rotate'][2])
+                                matsc=str(mat.explode()['scale'][0])+':'+str(mat.explode()['scale'][1])+':'+str(mat.explode()['scale'][2])
+                                lmattr=lmatrt='0.0:0.0:0.0'
+                                lmatsc='1.0:1.0:1.0'
+                                try:
+                                    locmat=geop.prim(gi[0]).fullTransform()
+                                    lmattr=str(locmat.explode()['translate'][0])+':'+str(locmat.explode()['translate'][1])+':'+str(locmat.explode()['translate'][2])
+                                    lmatrt=str(locmat.explode()['rotate'][0])+':'+str(locmat.explode()['rotate'][1])+':'+str(locmat.explode()['rotate'][2])
+                                    lmatsc=str(locmat.explode()['scale'][0])+':'+str(locmat.explode()['scale'][1])+':'+str(locmat.explode()['scale'][2])
+                                except:
+                                    pass                            
+                                hiddendata=ndpath+','+str(gi[0])+','+str(gi[3][0])+':'+str(gi[3][1])+','+rawprim.type().name()+','+mattr+','+matrt+','+matsc+','+lmattr+','+lmatrt+','+lmatsc                       
+                                self._sethiddendata(self._indexes,hiddendata)
+                    except:
+                        pass
+                else:
+                    self._finish()
+        except Exception as e:
+            print(e)
+            pass
+#            
+            
+    
+            
+
+
+#############################################                   
+    def onMouseWheelEvent(self, kwargs):
+        """ Process a mouse wheel event
+        """
+        #node = kwargs["node"]
+
+        ui_event = kwargs["ui_event"]
+        device = kwargs["ui_event"].device()
+        scroll = device.mouseWheel()
+        node = self._node = kwargs["node"]
+        viewport = self.scene_viewer.curViewport()
+        pixpos=[int(device.mouseX()),int(device.mouseY())] 
+        # Must return True to consume the event
+        if device.isCtrlKey():
+            try:
+                vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
+                if vpnode==node and node.parm('auto_select').eval()==1:
+                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+                    i=rawprim.attribValue('packed_id')
+                    nbr=self.getindexbyid(i)
+                    self._indexes=[nbr]
+                    self._setCurrentparm()
+            except:
+                pass
+            self._scale(self._indexes, scroll)
+            
+            
+        if scroll!=0 and not device.isCtrlKey() and not device.isShiftKey():
+            try:
+                vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
+                if vpnode==node and node.parm('auto_select').eval()==1:
+                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+                    i=rawprim.attribValue('packed_id')
+                    nbr=self.getindexbyid(i)
+                    self._indexes=[nbr]
+                    self._setCurrentparm()
+            except:
+                pass
+                
+            self._rot(self._indexes, scroll)
+            
+        if device.isShiftKey():
+        
+            try:
+                vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
+                if vpnode==node and node.parm('auto_select').eval()==1:
+                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
+                    i=rawprim.attribValue('packed_id')
+                    nbr=self.getindexbyid(i)
+                    self._indexes=[nbr]
+                    self._setCurrentparm()
+            except:
+                pass
+                
+            self._offset(self._indexes, scroll)
+              
+        return False
+############################################
+############################################            
+
+    def onInterrupt(self, kwargs):
+        self.scene_viewer.setPromptMessage(self.MSG)
+        self._finish()
+        
+        
+    def onResume(self, kwargs):
+        #################Messages
+        self.show_handles()
+        #self.text_drawable.show(1)
+        self._mode=self._node.parm('mode').eval()
+        self.scene_viewer.setPromptMessage(self.MSG)
+
+
+def createViewerStateTemplate():
+    """ Mandatory entry point to create and return the viewer state 
+        template to register. """
+
+    state_typename = kwargs["type"].definition().sections()["DefaultState"].contents()
+    state_label = "Assets placer 2.9"
+    state_cat = hou.sopNodeTypeCategory()
+
+
+    template = hou.ViewerStateTemplate(state_typename, state_label, state_cat)
+    template.bindFactory(DrawPoints)
+    template.bindHandle("xform", "localtransform", cache_previous_parms=True)
+    major=getappver()[0]
+    template.bindIcon(kwargs["type"].icon())
+    
+    ##################
+    menu = hou.ViewerStateMenu('instance_menu', 'Instance_Menu')
+    menu.addActionItem('1', 'Instances')
+    menu.addActionItem('2', 'Replace Current')
+    menu.addActionItem('3', 'Reset Local Transform')
+    menu.addActionItem('4', 'Remove Current')
+    menu.addActionItem('5', 'Scroll to Current Multiparm')
+    template.bindMenu(menu)
+
+
+    ######################
+    return template
+    
+   
+#################################

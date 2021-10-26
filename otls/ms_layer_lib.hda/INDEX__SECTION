@@ -1,0 +1,30 @@
+Operator:     add_layer::1.0
+Label:        add layer
+Path:         oplib:/Vop/add_layer::1.0?Vop/add_layer::1.0
+Icon:         opdef:/Vop/add_layer::1.0?IconImage
+Table:        Vop
+License:      
+Extra:        displace fog light photon shadow surface
+User:         
+Inputs:       0 to 7
+Outputs:      2048
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Oct 25 23:28:18 2021
+
+Operator:     mix_layer::1.0
+Label:        mix layer
+Path:         oplib:/Vop/mix_layer::1.0?Vop/mix_layer::1.0
+Icon:         opdef:/Vop/mix_layer::1.0?IconImage
+Table:        Vop
+License:      
+Extra:        displace fog light photon shadow surface
+User:         
+Inputs:       0 to 5
+Outputs:      2048
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Oct 25 23:28:03 2021
+

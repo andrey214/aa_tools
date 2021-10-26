@@ -1,0 +1,5 @@
+node = kwargs['node']
+node.hm().loader.setmenustart(node)
+
+        
+        

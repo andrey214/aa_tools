@@ -1,0 +1,15 @@
+Operator:     asset_textures::1.0
+Label:        asset textures
+Path:         oplib:/Vop/asset_textures::1.0?Vop/asset_textures::1.0
+Icon:         opdef:/Vop/asset_textures::1.0?IconImage
+Table:        Vop
+License:      
+Extra:        *
+User:         
+Inputs:       0 to 14
+Outputs:      2048
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Thu May 20 16:36:55 2021
+

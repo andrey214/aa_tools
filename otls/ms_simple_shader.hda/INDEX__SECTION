@@ -1,0 +1,16 @@
+
+Operator:     megascans_shader_simple::1.1
+Label:        megascans shader silmple
+Path:         oplib:/Vop/megascans_shader_simple::1.1?Vop/megascans_shader_simple::1.1
+Icon:         opdef:/Vop/megascans_shader_simple::1.1?IconImage
+Table:        Vop
+License:      
+Extra:        subtype=material shadertype=vopmaterial 
+User:         
+Inputs:       0 to 22
+Outputs:      2048
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     
+

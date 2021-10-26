@@ -1,0 +1,87 @@
+# Dialog script for add_layer::1.0 automatically generated
+
+{
+    name	add_layer::1.0
+    script	add_layer::1.0
+    label	"add layer"
+
+    input	struct_ShaderLayer	A	"Layer A"
+    input	struct_ShaderLayer	B	"layer B"
+    input	float	mask	mask
+    input	int	normal_a	"displace by A normal"
+    input	int	useb	"Of from B"
+    input	int	unprim_bsdf	unprimult
+    input	int	premult_displ	"Premultiply Displace"
+    output	struct_ShaderLayer	layer_out	Struct
+    inputflags	A	0
+    inputflags	B	0
+    inputflags	mask	0
+    inputflags	normal_a	3
+    inputflags	useb	1
+    inputflags	unprim_bsdf	1
+    inputflags	premult_displ	0
+    signature	"Default Inputs"	default	{ struct_ShaderLayer struct_ShaderLayer float int int int int struct_ShaderLayer }
+
+    outputoverrides	default
+    {
+	___begin	auto
+			(0)
+    }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "A"
+        label   "Layer A"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "B"
+        label   "layer B"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "mask"
+        label   "mask"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "normal_a"
+        label   "displace by A normal"
+        type    toggle
+        default { "off" }
+        parmtag { "parmvop" "1" }
+    }
+    parm {
+        name    "premult_displ"
+        label   "Premultiply Displace"
+        type    toggle
+        default { "0" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "unprim_bsdf"
+        label   "unprimultiply bsdf"
+        type    toggle
+        default { "0" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "useb"
+        label   "Of from B"
+        type    toggle
+        default { "0" }
+        range   { 0 10 }
+        parmtag { "script_callback_language" "python" }
+    }
+}

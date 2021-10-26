@@ -1,0 +1,15 @@
+""
+DialogScript	DialogScript
+CreateScript	CreateScript
+TypePropertiesOptions	TypePropertiesOptions
+Help	Help
+Tools.shelf	Tools.shelf
+InternalFileOptions	InternalFileOptions
+EditableNodes	EditableNodes
+IconImage	IconImage
+Contents.gz	Contents.gz
+PythonModule	PythonModule
+OnCreated	OnCreated
+OnDeleted	OnDeleted
+OnNameChanged	OnNameChanged
+ExtraFileOptions	ExtraFileOptions

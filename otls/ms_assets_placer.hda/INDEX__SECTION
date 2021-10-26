@@ -1,0 +1,14 @@
+Operator:     assets_placer::2.9
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::2.9?Sop/assets_placer::2.9
+Icon:         opdef:/Sop/assets_placer::2.9?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Oct 25 23:22:33 2021
+

@@ -1,0 +1,187 @@
+= Asset Loader =
+
+#icon: opdef:.?IconImage
+
+"""Asset loader from json description files."""
+
+== Overview ==
+
+Loads geometry and textures from the library.
+Currently working with megascans.
+Sop asset. In conjunction with QuixelBridge, it can work in OBJ/LOPS/Sop contexts.
+
+
+WARNING:
+    To work with QuixelBridge, the Houdini Live Link must be initiated in the current session.
+    Python Code:
+    import MSLiveLink.MS_API as msAPI;msapi.initlivelink(OpenUI=False)
+    When starting a bridge from an asset, this is done automatically.
+@parameters
+
+Open Bridge Application:
+    #id: open_bridge
+    Launches QuixelBridge.
+
+    NOTE:
+    This function is active if the variable QMEGASCAN_LIB is set.
+    The directory where Bridge is located.AppImage. Or the path to the executable file itself.
+
+
+Connect:
+    #id: connect
+    Opens the Bridge Connection Settings window.(optional for changing settings)
+
+json file:
+    #id: json
+    the path to the asset description file.
+
+LOAD:
+    #id: load
+    Loads the asset.
+
+name:
+    #id: name
+    Asset name.
+
+preview:
+    #id: preview
+    Opens the preview image of the asset.
+
+stick:
+    #id: stick
+    Attaches a preview image of the asset to the network view.
+
+== Parameters (shading parameters) ==
+use displace shader:
+    #id: use_true
+    Switches shading with or without display.
+
+use opacity:
+    #id: use_opacity
+    enables/disables transparency on the shader.
+
+retrace:
+    #id: retrace
+    For assets using opacity. This parameter allows you to translate non-transparent areas into geometry.This is necessary in order not to use opacity in the future.
+
+Displace Scale:
+    #id: dispTex_scale
+    adjusts the height of the display.
+
+Roughness Scale:
+    #id: rough
+    the surface roughness multiplier in the shadowing.
+
+== Contents (Asset content geometry and textures) ==
+    NOTE: The parameters of this tab depend on the types of assets. For example, if there are no textures or geometries in the asset, then the parameters are hidden.
+    Geometry:
+    #id: geometry
+    The path to the geometry file.
+
+    NOTE: The parameter is active for geometric assets.
+Lods:
+    #id:lods
+    Selection of geometries of various details.
+
+    NOTE:
+    The parameter is active for geometric assets.
+    Load all vars:
+    #id:mergevars
+    Allows you to load all variations of the current node.
+
+    NOTE: The parameter is active for geometric assets.
+
+Albedo Map:
+    #id:albedo_texture
+    The path to the texture.
+Roughness Map:
+    #id:rough_texture
+    The path to the texture.
+Ior Map:
+    #id:ior_texture
+    The path to the texture.
+Metalness Map:
+    #id:metallic_texture
+    The path to the texture.
+Gloss Map:
+    #id:reflect_texture
+    The path to the texture.
+Normal Map:
+    #id:normal_texture
+    The path to the texture.
+Normal Bump:
+    #id:normalb_texture
+    The path to the texture.
+Bump Map:
+    #id:bump_texture
+    The path to the texture.
+Displace Map:
+    #id:disp_texture
+    The path to the texture.
+Opacity Map:
+    #id:opaccolor_texture
+    The path to the texture.
+Translucency Map:
+    #id:trans_texture
+    The path to the texture.
+Ao Map:
+    #id:ao_texture
+    The path to the texture.
+SSS Map:
+    #id:sss_texture
+    The path to the texture.
+Fuzz Map:
+    #id:fuzz_texture
+    The path to the texture.
+Mask Map:
+    #id:mask_texture
+    The path to the texture.
+=== Utilities: (utility functions) ===
+
+== Textures Utils ==
+
+convert to rat:
+    #id: crat
+    When loading the asset, it converts textures to rat format if this has not been done before.
+aces workflow:
+    #id: aces
+    Transforms the color to acescg when converting to rat.
+resolution:
+    #id: resolution
+    Selecting the permission to load an asset or to change the permission of an already loaded asset.
+resize:
+    #id: ratconvert
+    Changes the resolution of textures. If the asset is already loaded, it converts to a new resolution. It is not recommended to increase the resolution,
+    since this function for texture conversion takes not the original textures, but those that are in the parameters. To convert to a higher resolution,
+    you just need to load the asset with the LOAD button.
+
+
+== Workflow Utils ==
+Convert to packed disk:
+    #id: execute
+    Convert to geometry for a package using attributes.
+use packed disk:
+    #id: pdisk
+    Use the packed disk as the output geometry.
+Reload Geometry:
+    #id: reload
+    Reloading the geometry.
+convert to shader:
+    #id: convertshader
+    replaces the shader with a unique one with loading textures directly into the shader parameters.
+material network:
+    #id: matn
+    The path to the material network. In theory, for more convenient copying to shading assets.
+shader:
+    #id: setcustom_shader
+    the path to the new shader.
+== Collect Utils ==
+Collect Directory:
+    #id: job_path
+    The path where the content will be copied and retrained (By default, the working environment of the block).
+collect:
+    #id: collect
+    Transfers the asset content to the specified location.
+bake:
+    #id: bake
+    Converts asset_loader to a file node.

@@ -1,0 +1,17 @@
+# Automatically generated script
+\set noalias = 1
+#
+#  Creation script for megascans_shader_simple::1.1 operator
+#
+
+if ( "$arg1" == "" ) then
+    echo This script is intended as a creation script
+    exit
+endif
+
+# Node $arg1 (Vop/megascans_shader_simple::1.1)
+opexprlanguage -s hscript $arg1
+opuserdata -n '___Version___' -v '' $arg1
+opuserdata -n '__inputgroup_properties' -v 'collapsed' $arg1
+opuserdata -n 'baseinfo' -v 'aapalikov' $arg1
+opuserdata -n '|-hdapath-|' -v '/home/aapalikov/repositories/houdini/ms_asset_loader/otls/ms_simple_shader.hda' $arg1

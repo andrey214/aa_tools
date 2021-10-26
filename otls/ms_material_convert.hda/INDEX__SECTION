@@ -1,0 +1,14 @@
+Operator:     ms_custom_materials::1.1
+Label:        Megascans Convert Materials
+Path:         oplib:/Sop/ms_custom_materials::1.1?Sop/ms_custom_materials::1.1
+Icon:         opdef:/Sop/ms_custom_materials::1.1?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Oct 25 23:24:46 2021
+

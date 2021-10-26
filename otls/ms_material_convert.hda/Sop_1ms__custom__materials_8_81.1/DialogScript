@@ -1,0 +1,74 @@
+# Dialog script for ms_custom_materials::1.1 automatically generated
+
+{
+    name	ms_custom_materials::1.1
+    script	mrp::ms_custom_materials::1.0
+    label	"Megascans Convert Materials"
+
+    help {
+	""
+    }
+
+    inputlabel	1	packeds
+    inputlabel	2	"Sub-Network Input #2"
+    inputlabel	3	"Sub-Network Input #3"
+    inputlabel	4	"Sub-Network Input #4"
+
+    parm {
+        name    "shader"
+        label   "Shader"
+        type    string
+        default { "ms_simple" }
+        menu {
+            [ "hou.phm().loader.shaderoplist(hou.pwd())" ]
+            language python
+        }
+        parmtag { "editor" "0" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "group"
+        label   "Group"
+        type    string
+        default { "" }
+        menutoggle {
+            [ "opmenu -l split1 group" ]
+        }
+        range   { 0 1 }
+        parmtag { "autoscope" "0000000000000000" }
+        parmtag { "script_action" "import soputils\nkwargs['geometrytype'] = kwargs['node'].parmTuple('grouptype')\nkwargs['inputindex'] = 0\nsoputils.selectGroupParm(kwargs)" }
+        parmtag { "script_action_help" "Select geometry from an available viewport." }
+        parmtag { "script_action_icon" "BUTTONS_reselect" }
+    }
+    parm {
+        name    "material_attrib"
+        label   "Material Name Attribute"
+        type    string
+        default { "ms_name" }
+    }
+    parm {
+        name    "mat_lib"
+        label   "Material Network"
+        type    oppath
+        default { "/mat" }
+        help    "material network  для создания шейдеров"
+        parmtag { "oprelative" "." }
+    }
+    parm {
+        name    "fullpath"
+        label   "fullpath"
+        type    string
+        invisible
+        default { "`opfullpath(chs(\"mat_lib\"))`" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "run"
+        label   "Create Materials"
+        type    button
+        default { "0" }
+        parmtag { "button_icon" "" }
+        parmtag { "script_callback" "hou.phm().converter.convertassets(hou.pwd())" }
+        parmtag { "script_callback_language" "python" }
+    }
+}

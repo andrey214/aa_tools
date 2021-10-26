@@ -1,0 +1,23 @@
+{ 
+	"env" : 
+	[{
+			"H_CONFIG" : "PATH_TO_MODULES"
+		},
+		{
+			"QMEGASCAN_LIB" : "Path_to_Bridge_folder\Bridge.exe"
+		},
+		{
+			"RATPROCESS" : 1
+		},
+		{
+			"HOUDINI_PATH": {
+                "method": "append", 
+                "value": [
+                    "$H_CONFIG\aa_tools"
+					]
+		}
+		}
+	
+		
+	]
+}

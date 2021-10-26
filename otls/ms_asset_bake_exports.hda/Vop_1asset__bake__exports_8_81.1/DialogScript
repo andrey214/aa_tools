@@ -1,0 +1,223 @@
+# Dialog script for asset_bake_exports::1.1 automatically generated
+
+{
+    name	asset_bake_exports::1.1
+    script	asset_bake_exports::1.1
+    label	"asset bake exports"
+
+    input	struct_ShaderLayer	layer	layer
+    input	vector	export_diffcolor	export_diffcolor
+    input	float	export_rough	export_rough
+    input	vector	export_ior	export_ior
+    input	float	export_metallness	export_metallness
+    input	vector	export_speccolor	export_speccolor
+    input	vector	export_translucency	export_translucency
+    input	vector	export_sss	export_sss
+    input	vector	export_emission	export_emission
+    input	float	export_mask	mask
+    input	float	export_fuzz	export_fuzz
+    input	vector	uv	uv
+    input	vector	N	N
+    input	vector	export_dispcolor	export_dispcolor
+    input	vector	export_normal	export_normal
+    input	vector	export_bump	export_bump
+    input	vector	export_ao	export_ao
+    input	vector	export_opacity	export_opacity
+    output	struct_ShaderLayer	_layer	layer
+    inputflags	layer	0
+    inputflags	export_diffcolor	0
+    inputflags	export_rough	0
+    inputflags	export_ior	0
+    inputflags	export_metallness	0
+    inputflags	export_speccolor	0
+    inputflags	export_translucency	0
+    inputflags	export_sss	0
+    inputflags	export_emission	0
+    inputflags	export_mask	0
+    inputflags	export_fuzz	0
+    inputflags	uv	2
+    inputflags	N	2
+    inputflags	export_dispcolor	0
+    inputflags	export_normal	0
+    inputflags	export_bump	0
+    inputflags	export_ao	0
+    inputflags	export_opacity	0
+    signature	"Default Inputs"	default	{ struct_ShaderLayer vector float vector float vector vector vector vector float float vector vector vector vector vector vector vector struct_ShaderLayer }
+
+    outputoverrides	default
+    {
+	___begin	auto
+			(0)
+    }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "layer"
+        label   "layer"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 10 }
+    }
+    group {
+        name    "vectors"
+        label   "vectors"
+        invisibletab
+
+        parm {
+            name    "export_diffcolor"
+            label   "export_diffcolor"
+            type    float
+            invisible
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+        }
+        parm {
+            name    "export_ior"
+            label   "export_ior"
+            type    float
+            invisible
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+        }
+        parm {
+            name    "export_speccolor"
+            label   "export_speccolor"
+            type    float
+            invisible
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+        }
+        parm {
+            name    "export_translucency"
+            label   "export_translucency"
+            type    float
+            invisible
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+        }
+        parm {
+            name    "export_sss"
+            label   "export_sss"
+            type    float
+            invisible
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+        }
+        parm {
+            name    "export_emission"
+            label   "export_emission"
+            type    float
+            invisible
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "export_dispcolor"
+            label   "export_dispcolor"
+            type    float
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "export_normal"
+            label   "export_normal"
+            type    float
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "export_bump"
+            label   "export_bump"
+            type    float
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "export_ao"
+            label   "export_ao"
+            type    float
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "export_opacity"
+            label   "export_opacity"
+            type    float
+            size    3
+            default { "0" "0" "0" }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+    }
+
+    group {
+        name    "vectors_1"
+        label   "floats"
+        invisibletab
+
+        parm {
+            name    "export_rough"
+            label   "export_rough"
+            type    float
+            invisible
+            default { "0" }
+            range   { 0 10 }
+        }
+        parm {
+            name    "export_metallness"
+            label   "export_metallness"
+            type    float
+            invisible
+            default { "0" }
+            range   { 0 10 }
+        }
+        parm {
+            name    "export_mask"
+            label   "mask"
+            type    float
+            invisible
+            default { "0" }
+            range   { 0 10 }
+        }
+        parm {
+            name    "export_fuzz"
+            label   "export_fuzz"
+            type    float
+            invisible
+            default { "0" }
+            range   { 0 10 }
+        }
+    }
+
+    parm {
+        name    "exports"
+        label   "exports"
+        type    ordinal
+        default { "all" }
+        menu {
+            "all"       "Displacement & Surface"
+            "displace"  "Displecments"
+            "surface"   "Surface"
+        }
+        parmtag { "script_callback_language" "python" }
+    }
+}

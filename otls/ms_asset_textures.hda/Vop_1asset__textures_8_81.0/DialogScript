@@ -1,0 +1,181 @@
+# Dialog script for asset_textures::1.0 automatically generated
+
+{
+    name	asset_textures::1.0
+    script	asset_textures::1.0
+    label	"asset textures"
+
+    input	vector	uv	"Chosen Value"
+    input	string	albedo_texture	"albedo_texture: "
+    input	string	ao_texture	"ao_texture: "
+    input	string	rough_texture	"rough_texture: "
+    input	string	ior_texture	"ior_texture: "
+    input	string	metallic_texture	"metallic_texture: "
+    input	string	reflect_texture	"reflect_texture: "
+    input	string	normal_texture	"normal_texture: "
+    input	string	bump_texture	"bump_texture: "
+    input	string	disp_texture	"disp_texture: "
+    input	string	trans_texture	"trans_texture: "
+    input	string	sss_texture	"sss_texture: "
+    input	string	mask_texture	"mask_texture: "
+    input	string	fuzz_texture	"fuzz_texture: "
+    output	vector	albedo	albedo
+    output	vector	ao	ao
+    output	float	rough	rough
+    output	vector	ior	ior
+    output	float	metallness	metallness
+    output	vector	reflect	reflect
+    output	vector	normal	normal
+    output	float	bump	bump
+    output	float	displace	displace
+    output	vector	transluciency	transluciency
+    output	vector	sss	sss
+    output	float	mask	mask
+    output	float	fuzz	fuzz
+    output	stringa	textures_array	textures_array
+    inputflags	uv	0
+    inputflags	albedo_texture	1
+    inputflags	ao_texture	1
+    inputflags	rough_texture	1
+    inputflags	ior_texture	1
+    inputflags	metallic_texture	1
+    inputflags	reflect_texture	1
+    inputflags	normal_texture	1
+    inputflags	bump_texture	1
+    inputflags	disp_texture	1
+    inputflags	trans_texture	1
+    inputflags	sss_texture	1
+    inputflags	mask_texture	1
+    inputflags	fuzz_texture	1
+    signature	"Default Inputs"	default	{ vector string string string string string string string string string string string string string vector vector float vector float vector vector float float vector vector float float stringa }
+
+    outputoverrides	default
+    {
+	___begin	auto
+			(0,0,0)
+	___begin	auto
+			(0,0,0)
+	___begin	auto
+			(0)
+	___begin	auto
+			(0,0,0)
+	___begin	auto
+			(0)
+	___begin	auto
+			(0,0,0)
+	___begin	auto
+			(0,0,0)
+	___begin	auto
+			(0)
+	___begin	auto
+			(0)
+	___begin	auto
+			(0,0,0)
+	___begin	auto
+			(0,0,0)
+	___begin	auto
+			(0)
+	___begin	auto
+			(0)
+	___begin	auto
+			(0)
+    }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "uv"
+        label   "Chosen Value"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "albedo_texture"
+        label   "Albedo Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "ao_texture"
+        label   "AO Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "rough_texture"
+        label   "Roughness Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "ior_texture"
+        label   "IOR Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "metallic_texture"
+        label   "Metalness Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "reflect_texture"
+        label   "Gloss Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "spec_texture"
+        label   "Specular Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "normal_texture"
+        label   "Normal Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "bump_texture"
+        label   "Bump Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "disp_texture"
+        label   "Displace Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "trans_texture"
+        label   "Translucency Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "sss_texture"
+        label   "SSS Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "mask_texture"
+        label   "Mask Map: "
+        type    image
+        default { "" }
+    }
+    parm {
+        name    "fuzz_texture"
+        label   "Fuzz Map: "
+        type    image
+        default { "" }
+    }
+}

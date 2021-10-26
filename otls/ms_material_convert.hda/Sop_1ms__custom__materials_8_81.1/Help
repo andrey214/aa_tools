@@ -1,0 +1,34 @@
+= Megascans Convert Materials=
+
+#icon: redf:.?icon.svg
+
+"""Asset to convert into unique shaders for assets."""
+
+== Overview ==
+Using this asset, you can set individual shaders for each asset.
+NOTE:
+    Cassettes should not be pre-shadowed and have a set of attributes for universal shading.
+
+
+
+@parameters
+
+Shader:
+    #id: shader
+    Type of shader. Which will be applied to cassettes.
+
+Group:
+    #id: group
+    A group of primitives for assigning and converting shaders.
+
+Material Name Attribute:
+    #id: material_attribute
+    The name of the attribute by which shaders will be created.
+
+Material Network:
+    #id: mat_lib
+    The path to the network with materials, where newly created materials will be stacked and paths to shaders on primitives will be reassigned.
+
+Create Materials:
+    #id: run
+    Starts the function of creating shaders and applying them to primitives.

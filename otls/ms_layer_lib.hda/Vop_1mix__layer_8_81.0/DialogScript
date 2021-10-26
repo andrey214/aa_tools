@@ -1,0 +1,69 @@
+# Dialog script for mix_layer::1.0 automatically generated
+
+{
+    name	mix_layer::1.0
+    script	mix_layer::1.0
+    label	"mix layer"
+
+    input	struct_ShaderLayer	A	"Layer A"
+    input	struct_ShaderLayer	B	"layer B"
+    input	float	mask	mask
+    input	int	unprim_bsdf	"unprimultiply bsdf"
+    input	int	premult_displ	"Premultiply Displace"
+    output	struct_ShaderLayer	layer_out	Struct
+    inputflags	A	0
+    inputflags	B	0
+    inputflags	mask	0
+    inputflags	unprim_bsdf	1
+    inputflags	premult_displ	1
+    signature	"Default Inputs"	default	{ struct_ShaderLayer struct_ShaderLayer float int int struct_ShaderLayer }
+
+    outputoverrides	default
+    {
+	___begin	auto
+			(0)
+    }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "A"
+        label   "Layer A"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "B"
+        label   "layer B"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "mask"
+        label   "mask"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "premult_displ"
+        label   "Premultiply Displace"
+        type    toggle
+        joinnext
+        default { "0" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "unprim_bsdf"
+        label   "unprimultiply bsdf"
+        type    toggle
+        default { "0" }
+        parmtag { "script_callback_language" "python" }
+    }
+}
