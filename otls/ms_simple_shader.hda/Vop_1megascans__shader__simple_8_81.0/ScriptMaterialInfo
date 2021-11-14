@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scriptMaterialInfo>
+    <nodeData nodeName="properties1" shaderType="properties">
+        <operatorName>properties</operatorName>
+        <spareParms>    parm {
+        name    &quot;vm_truedisplace&quot;
+        label   &quot;True Displacements&quot;
+        type    toggle
+        default { &quot;1&quot; }
+        help    &quot;When running displacement shaders, whether the VEX variable P is actually moved (true displacement) or whether bump mapping will be performed. (object:truedisplace)&quot;
+        parmtag { &quot;mantra_class&quot; &quot;object&quot; }
+        parmtag { &quot;mantra_name&quot; &quot;truedisplace&quot; }
+        parmtag { &quot;spare_category&quot; &quot;Shading&quot; }
+    }
+    parm {
+        name    &quot;vm_displacebound&quot;
+        label   &quot;Displacement Bound&quot;
+        type    float
+        default { &quot;0&quot; }
+        help    &quot;None (object:displacebound)&quot;
+        range   { 0 10 }
+        parmtag { &quot;mantra_class&quot; &quot;object&quot; }
+        parmtag { &quot;mantra_name&quot; &quot;displacebound&quot; }
+        parmtag { &quot;spare_category&quot; &quot;Shading&quot; }
+    }
+</spareParms>
+        <parmValues>{
+version 0.8
+vm_truedisplace	[ 0	locks=0 ]	(	&quot;on&quot;	)
+vm_displacebound	[ 0	locks=0 ]	(	0	)
+}
+</parmValues>
+        <promotedParmNameMap>
+            <entry key="vm_truedisplace" value="vm_truedisplace"/>
+            <entry key="vm_displacebound" value="vm_displacebound"/>
+        </promotedParmNameMap>
+    </nodeData>
+    <choiceNode type="collect">
+        <choiceNode type="leaf">
+            <choiceVopType>surface</choiceVopType>
+            <choiceData>
+                <entry key="SectionName" value="SurfaceVexCode"/>
+            </choiceData>
+        </choiceNode>
+        <choiceNode type="leaf">
+            <choiceVopType>displacement</choiceVopType>
+            <choiceData>
+                <entry key="SectionName" value="DisplacementVexCode"/>
+            </choiceData>
+        </choiceNode>
+        <choiceNode type="leaf">
+            <choiceVopType>properties</choiceVopType>
+            <choiceData>
+                <entry key="NodeName" value="properties1"/>
+            </choiceData>
+        </choiceNode>
+    </choiceNode>
+    <extraParameters>
+        <parameters shaderType="surface">
+            <parameter name="layer" type="struct_ShaderLayer" default="{}" export="True"/>
+            <parameter name="ms_occlusion" type="float" default="0" export="True"/>
+            <parameter name="layer_mask" type="float" default="0" export="True"/>
+            <parameter name="export_dispcolor" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_normal" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_ao" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_ior" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_speccolor" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_translucency" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_sss" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_emission" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_rough" type="float" default="0" export="True"/>
+            <parameter name="export_metallness" type="float" default="0" export="True"/>
+            <parameter name="export_mask" type="float" default="0" export="True"/>
+            <parameter name="export_fuzz" type="float" default="0" export="True"/>
+            <parameter name="export_uv" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_bump" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_opacity" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="Oc" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="Cv" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="Th" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="Ab" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="Cu" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="Vd" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="Nt" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="Ds" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="Vdt" type="vector" default="{ 0, 0, 0 }" export="True"/>
+            <parameter name="export_diffcolor" type="vector" default="{ 0, 0, 0 }" export="True"/>
+        </parameters>
+        <parameters shaderType="displacement">
+            <parameter name="layer" type="struct_ShaderLayer" default="{}" export="True"/>
+            <parameter name="layer_mask" type="float" default="0" export="True"/>
+        </parameters>
+    </extraParameters>
+</scriptMaterialInfo>

@@ -1,6 +1,6 @@
-#line 1 "/mat/megascans_shader_simple1/DisplacementVexCode"
-#line 15 "/mat/megascans_shader_simple1/DisplacementVexCode"
-_Pragma("opname megascans_shader_simple1");
+#line 1 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+#line 15 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+_Pragma("opname Concrete_Rubble_Pile_ujriaadga");
 _Pragma("oplabel \"Local Vop Code\"");
 _Pragma("opmininputs 0");
 _Pragma("opmaxinputs 0");
@@ -10,8 +10,16 @@ _Pragma("label	st	\"\"");
 _Pragma("hint	st	invisible");
 
 
+
+
 _Pragma("label	layer	\"\"");
 _Pragma("hint	layer	invisible");
+_Pragma("label	bump_texture	\"\"");
+_Pragma("hint	bump_texture	image");
+_Pragma("hidewhen	bump_texture	{ bump_texture == \"\" }");
+_Pragma("label	normal_texture	\"\"");
+_Pragma("hint	normal_texture	image");
+_Pragma("hidewhen	normal_texture	{ normal_texture == \"\" }");
 _Pragma("label	disp_texture	\"\"");
 _Pragma("hint	disp_texture	image");
 _Pragma("hidewhen	disp_texture	{ disp_texture == \"\" }");
@@ -33,16 +41,25 @@ _Pragma("hint	addative_displace	nolabel");
 _Pragma("range	addative_displace	0	1");
 _Pragma("label	dispoffset	\"Offset Displace\"");
 _Pragma("range	dispoffset	0	1");
+_Pragma("label	bottom_layer	bottom_layer");
+_Pragma("hint	bottom_layer	nolabel");
+_Pragma("label	normal_mult	\"Normal Bump Multiply\"");
+_Pragma("range	normal_mult	0	1");
+_Pragma("parmhelp	normal_mult	'multiply normal by dispscale'");
+_Pragma("hidewhen	normal_mult	{ normal_texture == \"\" }");
+_Pragma("label	bump_mult	\"Bump Multiply\"");
+_Pragma("range	bump_mult	0	1");
+_Pragma("parmhelp	bump_mult	'multiply normal by dispscale'");
+_Pragma("hidewhen	bump_mult	{ bump_texture == \"\" }");
 _Pragma("label	dmultopacity	\"Displace Premultiply\"");
 _Pragma("hint	dmultopacity	toggle");
-_Pragma("hint	dmultopacity	joinnext");
 
 
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
-#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shaderlayer.h"
+#line 22 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shaderlayer.h"
 struct ShaderExports
 {
     string	names_f[];
@@ -88,40 +105,40 @@ void init_layer(export ShaderLayer layer)
     layer.masks = {};
     init_layerexports(layer.exports);
 }
-#line 135 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 135 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shaderlayer.h"
 void comp_export_arrays_aoverb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a+(1-Aa)*Ba*val_b); } } void comp_export_arrays_ainsideb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba); } } void comp_export_arrays_aoutsideb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba)); } } void comp_export_arrays_aatopb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba + Ba*val_b*(1-Aa)); } } void comp_export_arrays_axorb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba) + Ba*val_b*(1-Aa)); } }
 void comp_export_arrays_aoverb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a+(1-Aa)*Ba*val_b); } } void comp_export_arrays_ainsideb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba); } } void comp_export_arrays_aoutsideb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba)); } } void comp_export_arrays_aatopb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba + Ba*val_b*(1-Aa)); } } void comp_export_arrays_axorb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba) + Ba*val_b*(1-Aa)); } }
 void comp_export_arrays_aoverb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a+(1-Aa)*Ba*val_b); } } void comp_export_arrays_ainsideb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba); } } void comp_export_arrays_aoutsideb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba)); } } void comp_export_arrays_aatopb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba + Ba*val_b*(1-Aa)); } } void comp_export_arrays_axorb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba) + Ba*val_b*(1-Aa)); } }
-#line 160 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 160 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shaderlayer.h"
 void composite_exports_aoverb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_aoverb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_aoverb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_aoverb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_ainsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_ainsideb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_ainsideb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_ainsideb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_aoutsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_aoutsideb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_aoutsideb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_aoutsideb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_aatopb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_aatopb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_aatopb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_aatopb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_axorb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_axorb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_axorb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_axorb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
-#line 200 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 200 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shaderlayer.h"
 ShaderLayer composite_aoverb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F+(1-Aa)*Ba*B.F; C.Of = Aa*A.Of+(1-Aa)*Ba*B.Of; C.Ce = Aa*A.Ce+(1-Aa)*Ba*B.Ce; C.P = Aa*A.P+(1-Aa)*Ba*B.P; C.N = normalize(Aa*A.N+(1-Aa)*Ba*B.N); C.layeralpha = Aa+(1-Aa)*Ba; composite_exports_aoverb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a+(1-Aa)*Ba*mask_b; } return C; } ShaderLayer composite_aoverb(const ShaderLayer A; const ShaderLayer B) { return composite_aoverb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_ainsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*Ba; C.Of = Aa*A.Of*Ba; C.Ce = Aa*A.Ce*Ba; C.P = Aa*A.P*Ba; C.N = normalize(Aa*A.N*Ba); C.layeralpha = Aa*Ba; composite_exports_ainsideb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*Ba; } return C; } ShaderLayer composite_ainsideb(const ShaderLayer A; const ShaderLayer B) { return composite_ainsideb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_aoutsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*(1-Ba); C.Of = Aa*A.Of*(1-Ba); C.Ce = Aa*A.Ce*(1-Ba); C.P = Aa*A.P*(1-Ba); C.N = normalize(Aa*A.N*(1-Ba)); C.layeralpha = Aa*(1-Ba); composite_exports_aoutsideb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*(1-Ba); } return C; } ShaderLayer composite_aoutsideb(const ShaderLayer A; const ShaderLayer B) { return composite_aoutsideb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_aatopb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*Ba + Ba*B.F*(1-Aa); C.Of = Aa*A.Of*Ba + Ba*B.Of*(1-Aa); C.Ce = Aa*A.Ce*Ba + Ba*B.Ce*(1-Aa); C.P = Aa*A.P*Ba + Ba*B.P*(1-Aa); C.N = normalize(Aa*A.N*Ba + Ba*B.N*(1-Aa)); C.layeralpha = Ba; composite_exports_aatopb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*Ba + Ba*mask_b*(1-Aa); } return C; } ShaderLayer composite_aatopb(const ShaderLayer A; const ShaderLayer B) { return composite_aatopb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_axorb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*(1-Ba) + Ba*B.F*(1-Aa); C.Of = Aa*A.Of*(1-Ba) + Ba*B.Of*(1-Aa); C.Ce = Aa*A.Ce*(1-Ba) + Ba*B.Ce*(1-Aa); C.P = Aa*A.P*(1-Ba) + Ba*B.P*(1-Aa); C.N = normalize(Aa*A.N*(1-Ba) + Ba*B.N*(1-Aa)); C.layeralpha = Aa+Ba-2*(Aa*Ba); composite_exports_axorb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*(1-Ba) + Ba*mask_b*(1-Aa); } return C; } ShaderLayer composite_axorb(const ShaderLayer A; const ShaderLayer B) { return composite_axorb(A, A.layeralpha, B, B.layeralpha); }
-#line 216 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 216 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shaderlayer.h"
 void set_layer_export(ShaderLayer layer; string name; float value) { int index = find(layer.exports.names_f, name); if(index < 0) index = len(layer.exports.names_f); layer.exports.names_f[index] = name; layer.exports.values_f[index] = value; }
 void set_layer_export(ShaderLayer layer; string name; vector value) { int index = find(layer.exports.names_v, name); if(index < 0) index = len(layer.exports.names_v); layer.exports.names_v[index] = name; layer.exports.values_v[index] = value; }
 void set_layer_export(ShaderLayer layer; string name; vector4 value) { int index = find(layer.exports.names_v4, name); if(index < 0) index = len(layer.exports.names_v4); layer.exports.names_v4[index] = name; layer.exports.values_v4[index] = value; }
-#line 56 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 73 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 58 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 75 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 45 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 45 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
-#line 36 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shading.h"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 22 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shading.h"
+#line 36 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shading.h"
 vector
 shading_computeEnvAngleScale(vector dir; vector axis; float anglescale)
 {
@@ -300,9 +317,8 @@ dirtmask_dome(vector P;
 	_biasdir = _biasdir - clamp(dotNB, -1, 0) * nN;
 	dir += _bias * clamp(dotbias, 0, 1) * _biasdir;
 	dir *= fit(dotbias, -2, 1, 1.0/(1.0+_bias), 1);
-	dir = normalize(dir);
 
-	vector testNg = normalize(select(dot(nN, Ng) > 0.0, Ng, -Ng));
+	vector testNg = select(dot(nN, Ng) > 0.0, Ng, -Ng);
 	if (dot(dir, testNg) < 1e-5)
 		continue;
 
@@ -376,7 +392,6 @@ dirtmask_fan(vector P;
 	float len = length(dir);
 	dir *= sin(theta);
 	dir += fit01(sin(theta), 1, len) * cos(theta) * nN;
-	dir = normalize(dir);
 
 	dist = rayhittest(P, maxdist * dir, hitP, hitN, raybias, "scope", scope);
 
@@ -388,8 +403,8 @@ dirtmask_fan(vector P;
 
     return max_dirt;
 }
-#line 46 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 97 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 46 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 97 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 float
 vop_grandom(float u0, u1; float sigma)
 {
@@ -926,7 +941,7 @@ vop_BoxStamp(float px, py, fu, fv; string filter)
     dx *= vop_Pulse(-1, 1, py, fv, filter);
     return dx;
 }
-#line 645 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 645 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 int
 vop_TileGen(float u, v; float fx, fy, ox, oy, stagger, jitter)
 {
@@ -978,7 +993,7 @@ vop_HexTileGen(float u, v; float fx, fy, ox, oy)
     v = (v*2+1)/3;
     return row * 938 + col;
 }
-#line 710 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 710 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 float
 vop_aaCell2D(float ss, tt, jx, jy, bwidth, bsoft, centerx, centery;
 		float f1, f2; int seed)
@@ -1092,7 +1107,7 @@ vop_RipplePattern(float x, y, decay, toff)
     d = sqrt(x*x + y*y);
     return sin(d-toff) * exp(d*(-decay));
 }
-#line 850 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 850 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 vector
 vop_FlowNoiseGradVV(vector pos; float flow; float delta)
 {
@@ -1217,7 +1232,7 @@ vop_fbmlength_vector4(vector4 val)
 {
     return length(val);
 }
-#line 1002 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1002 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 float
 vop_fbmNoiseFF(float pos; float rough; int maxoctaves; string noisetype)
 {
@@ -1318,7 +1333,7 @@ vop_fbmFlowNoiseVP(vector4 pos; float rough; int maxoctaves; float flow, flowrat
     float amp, scale, plimit, blend, M, flowv; int octaves; vector namount; plimit = 2*blur; M = advect; flowv = flow; nval = 0; octaves = 0; scale = 1; amp = 1; while (scale > plimit && octaves < maxoctaves) { namount = amp * (vector(flownoise(pp, flowv)) - 0.5); nval += namount; amp *= rough; flowv *= flowrate; scale *= 0.5; if (M != 0.0) { pp -= M * vop_fbmlength_vector(namount) * vop_FlowNoiseGrad4P (pp, flow, 0.01); } pp *= 2; M *= advect; octaves++; } if (scale > blur) { blend = amp * clamp(scale/blur - 1, 0, 1); nval += blend*(vector(flownoise(pp, flowv)) - 0.5); }
     return nval;
 }
-#line 1118 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1118 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 float
 vop_dampenFbmFF(float pos, freq, offset; float lacun, amp; int maxoctaves)
 {
@@ -1363,7 +1378,7 @@ vop_dampenFbmFP(vector4 pos, freq, offset; float lacun, amp; int maxoctaves)
     fbm = amp * fit(fbm, -1.25, 1.25, 0, 1);
     return fbm;
 }
-#line 1178 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1178 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 vector
 vop_dampenFbmVF(float pos, freq, offset; float lacun, amp; int maxoctaves)
 {
@@ -1408,7 +1423,7 @@ vop_dampenFbmVP(vector4 pos, freq, offset; float lacun, amp; int maxoctaves)
     fbm = amp * vector(fit(fbm,{-1.25,-1.25,-1.25},{1.25,1.25,1.25},{0,0,0},{1,1,1}));
     return fbm;
 }
-#line 1249 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1249 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 float
 vop_perlinNoiseVF(vector pos; int turb; float amp, rough, atten)
 {
@@ -1543,7 +1558,7 @@ vop_perlinCurlNoiseVP(vector4 pos; int turb; float amp, rough, atten)
     float scale = amp; int i; nval = 0; for (i = 0; i < turb; i++, pp *= 2.0, scale *= rough) nval += 1 * scale * ((vector(curlnoise(pp))) + 0); nval = (vector(pow(nval, atten)));
     return nval;
 }
-#line 1446 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1446 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 vector
 vop_curlNoiseVV(vector pos, freq, offset, nml;
 		string type, geo;
@@ -1845,13 +1860,13 @@ vop_setmatcomp(matrix in; float fval; int row, col)
     setcomp(out, fval, row, col);
     return out;
 }
-#line 1757 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1757 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 matrix vop_translate(matrix in; vector t) { matrix out = in; translate(out, t); return out; }
 matrix vop_translate(matrix in; vector4 t) { matrix out = in; translate(out, t); return out; }
-#line 1770 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1770 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 matrix vop_rotate(matrix in; float angle; vector axis) { matrix out = in; rotate(out, angle, axis); return out; }
 matrix3 vop_rotate(matrix3 in; float angle; vector axis) { matrix3 out = in; rotate(out, angle, axis); return out; }
-#line 1784 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1784 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 matrix vop_scale(matrix in; vector s) { matrix out = in; scale(out, s); return out; }
 matrix3 vop_scale(matrix3 in; vector s) { matrix3 out = in; scale(out, s); return out; }
 
@@ -1992,7 +2007,7 @@ vop_anisotropic_eval(vector ll; vector nn; vector V;
     }
     return clr;
 }
-#line 1975 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1975 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 bsdf
 vop_sheen_bsdf(vector nn, ii; float eta, rough; int facefwd)
 {
@@ -2043,7 +2058,7 @@ vop_specular_eval(string lmodel; vector ll, nf, ii, uv, tanu, tanv;
     }
     return seval;
 }
-#line 2294 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 2294 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 bsdf
 vop_SSS_bsdf(vector nn, ii; float  eta, depth; int facefwd)
 {
@@ -2062,7 +2077,7 @@ vop_SSS_bsdf(vector nn, ii; float  eta, depth; int facefwd)
 	f = Kt * bsdf(diffuse(nf));
     return f;
 }
-#line 2368 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 2368 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
 vector
 vop_trace_environment(string envmap, envobj; vector raydir, bg;)
 {
@@ -2373,38 +2388,38 @@ vop_curvature(vector p;
         Ko = fit(Ko, -1, 1, 0, 1);
     }
 }
-#line 59 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 76 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 61 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 78 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 62 "/mat/megascans_shader_simple1/DisplacementVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
-#line 64 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 79 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 66 "/mat/megascans_shader_simple1/DisplacementVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 67 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shaderlayer.h"
+#line 81 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 69 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 83 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 70 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 84 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 72 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 86 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 87 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 89 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 void
-_mat_megascans_shader_simple1_snippet8(int check; float val1; float val2)
+_obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet8(int check; float val1; float val2)
 {
     if(check!=0){
     val1=val1;
@@ -2417,10 +2432,10 @@ _mat_megascans_shader_simple1_snippet8(int check; float val1; float val2)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 86 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 103 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 void
-_mat_megascans_shader_simple1_snippet10(int val1; string val2)
+_obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet10(int val1; string val2)
 {
     if(val2 !=""){
     val1=1;
@@ -2433,17 +2448,24 @@ _mat_megascans_shader_simple1_snippet10(int val1; string val2)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 100 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 117 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 101 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 118 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 103 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 120 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 121 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 123 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 void
-_mat_megascans_shader_simple1_snippet2(int check; vector surface)
+_obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet2(int check; vector surface)
 {
     if(check!=0){
     surface=surface;
@@ -2456,21 +2478,145 @@ _mat_megascans_shader_simple1_snippet2(int check; vector surface)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 117 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 137 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 118 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 138 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
-#line 120 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 140 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 141 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 143 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+void
+_obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet11(int check; float val1; float val2)
+{
+    if(check!=0){
+    val1=val1*val2;
+    }
+    else{
+    val1=val2;
+    }
+
+}
+
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 157 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+void
+_obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_displace1_swizzle(string order; vector vec)
+{
+    if(order == "xzy")
+        vec = swizzle(vec, 0, 2, 1);
+
+}
+
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 167 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shaderlayer.h"
+#line 169 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 171 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 173 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 174 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 176 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 178 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 179 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voptype.h"
+#line 181 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/voplib.h"
+#line 182 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 184 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+void
+_obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet17(int check; float val1; float val2)
+{
+    if(check!=0){
+    val1=val1*val2;
+    }
+    else{
+    val1=val2;
+    }
+
+}
+
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 198 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+void
+_obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet6(int check; vector val1; vector val2)
+{
+    if(check!=0){
+    val1=val1;
+    }
+    else{
+    val1=val2;
+    }
+
+}
+
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/math.h"
+#line 212 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+void
+_obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet7(int check; vector val1; vector val2)
+{
+    if(check!=0){
+    val1=val1;
+    }
+    else{
+    val1=val2;
+    }
+
+}
+
+
+
+#line 1 "/cgsoft/sesi/hfs18.0.532/houdini/vex/include/shaderlayer.h"
+#line 226 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
 displace
-mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
+obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga(vector uv = { 0, 0, 0 };
 	vector2 st = { 0, 0 };
+	string ms_normal = "";
 	string ms_displace = "";
 	float ms_dscale = 0;
+	string ms_bump = "";
 	export ShaderLayer layer = {};
+	string bump_texture = "";
+	string normal_texture = "";
 	string disp_texture = "";
 	float dispTex_scale = 1;
 	string ms_opac = "";
@@ -2480,6 +2626,9 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 	export float layer_mask = 0;
 	float addative_displace = 0;
 	float dispoffset = 0.5;
+	ShaderLayer bottom_layer = {};
+	float normal_mult = 1;
+	float bump_mult = 1;
 	int dmultopacity = 0)
 {
     int	bound_addative_displace;
@@ -2493,34 +2642,53 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	bound_ms_opac;
     int	bound_uv2;
     int	bound_st2;
+    int	bound_ms_normal;
+    int	bound_uv3;
+    int	bound_st3;
+    int	bound_ms_bump;
+    int	bound_uv4;
+    int	bound_st4;
+    float	layer_mask_tmp;
+    int	connected1;
+    ShaderLayer	out_struct;
+    bsdf	out_F;
+    vector	out_Of;
+    vector	out_Ce;
+    vector	out_P;
+    vector	out_N;
+    float	out_layeralpha;
+    float	out_masks[];
+    vector	result;
+    vector	newposition1;
+    vector	result1;
+    vector	newNrm1;
     int	bool1;
     string	val;
     int	found;
-    string	result;
-    string	result1;
     string	result2;
+    string	result3;
+    string	result4;
     int	bool2;
     int	bool3;
     vector	uv2;
     vector	output1;
-    vector	result3;
-    vector	result4;
     vector	result5;
+    vector	result6;
+    vector	result7;
     float	fval1;
     float	fval2;
     float	fval3;
     int	bool4;
     vector	uv4;
     vector	output11;
-    vector	result6;
-    vector	result7;
     vector	result8;
+    vector	result9;
+    vector	result10;
     float	fval11;
     float	fval21;
     float	fval31;
-    vector	result9;
+    vector	result11;
     vector	_uv1;
-    int	chkaces;
     vector	clr1;
     float	lum;
     float	diff;
@@ -2532,53 +2700,268 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	bool5;
     float	val1;
     int	found1;
-    float	result10;
-    float	result11;
     float	result12;
+    float	result13;
+    float	result14;
     float	product;
     float	product1;
     float	sum;
-    float	result13;
+    float	result15;
     int	bool6;
     int	val2;
     int	found2;
-    int	result14;
-    int	result15;
     int	result16;
+    int	result17;
+    int	result18;
     int	check;
     int	bool7;
     string	val3;
     int	found3;
-    string	result17;
-    string	result18;
     string	result19;
+    string	result20;
+    string	result21;
     int	outval11;
     string	outval21;
     int	bool8;
     vector	uv6;
     vector	output12;
-    vector	result20;
-    vector	result21;
     vector	result22;
+    vector	result23;
+    vector	result24;
     float	fval12;
     float	fval22;
     float	fval32;
-    vector	result23;
+    vector	result25;
     vector	_uv3;
-    int	chkaces1;
     vector	clr3;
+    vector	shift;
     vector	surface;
     int	outcheck1;
     vector	outsurface;
-    vector	result24;
+    vector	result26;
     float	len;
     float	product2;
-    float	result25;
+    float	result27;
     vector	dispP;
     vector	dispN;
-    vector	newN;
-    ShaderLayer	layer1;
+    int	bool9;
+    string	val4;
+    int	found4;
+    string	result28;
+    string	result29;
+    string	result30;
+    int	bool10;
+    int	bool11;
+    vector	uv8;
+    vector	output13;
+    vector	result31;
+    vector	result32;
+    vector	result33;
+    float	fval13;
+    float	fval23;
+    float	fval33;
+    vector	result34;
+    vector	_uv5;
+    vector	clr5;
+    int	outcheck2;
+    float	outval12;
+    float	outval22;
+    int	bool12;
+    int	bool13;
+    int	scaled;
+    int	bool14;
+    int	scaled1;
+    int	sum1;
+    vector	result35;
+    vector	result36;
+    vector	nvec;
     float	lum1;
+    float	fval14;
+    float	fval24;
+    float	fval34;
+    float	result37;
+    float	sum2;
+    vector	dispP1;
+    vector	dispN1;
+    vector	product3;
+    string	outorder;
+    vector	outvec;
+    vector	result38;
+    int	bool15;
+    int	bool16;
+    int	connected2;
+    vector	result39;
+    vector	nvec1;
+    vector4	quat;
+    string	tstyle;
+    vector	in_utan;
+    vector	in_vtan;
+    vector	nml;
+    vector	result40;
+    vector	uv9;
+    vector	utan;
+    vector	vtan;
+    vector	result41;
+    vector	result42;
+    vector	result43;
+    vector	result44;
+    float	fval15;
+    float	fval25;
+    float	fval35;
+    float	fval16;
+    float	fval26;
+    float	fval36;
+    float	fval17;
+    float	fval27;
+    float	fval37;
+    matrix3	matx;
+    matrix	xform;
+    matrix3	m3;
+    matrix3	result45;
+    matrix	xform1;
+    matrix3	m31;
+    matrix3	result46;
+    vector	product4;
+    vector	sum3;
+    vector	result47;
+    vector	dispP2;
+    vector	dispN2;
+    vector	Ns;
+    vector	Nf;
+    vector	product5;
+    vector	nvec2;
+    float	dotprod;
+    float	trig;
+    vector	crossprod;
+    vector	nvec3;
+    vector4	quat1;
+    vector4	blend;
+    vector	result48;
+    vector	newN;
+    vector	result49;
+    vector	Value3;
+    vector	diff1;
+    vector	result50;
+    float	Value4;
+    float	product6;
+    float	len1;
+    float	result51;
+    int	bool17;
+    string	val5;
+    int	found5;
+    int	bool18;
+    string	result52;
+    string	result53;
+    string	result54;
+    int	bool19;
+    int	bool20;
+    vector	uv11;
+    vector	output14;
+    vector	result55;
+    vector	result56;
+    vector	result57;
+    float	fval18;
+    float	fval28;
+    float	fval38;
+    vector	result58;
+    vector	_uv9;
+    vector	clr7;
+    float	lum2;
+    int	outcheck3;
+    float	outval13;
+    float	outval23;
+    vector	dispP3;
+    vector	dispN3;
+    int	outcheck4;
+    vector	outval14;
+    vector	outval24;
+    int	outcheck5;
+    vector	outval15;
+    vector	outval25;
+    vector	newN1;
+    ShaderLayer	layer1;
+    float	lum3;
+
+
+    ShaderLayer	_bottom_layer = bottom_layer;
+    int	connected = 0;
+    {
+
+
+        connected1 = 1;
+
+
+        connected = connected1;
+    }
+
+
+    ShaderLayer	_layer = bottom_layer;
+    bsdf	F1 = bsdf();
+    vector	Of1 = vector();
+    vector	Ce = vector();
+    vector	P1 = vector();
+    vector	N1 = vector();
+    float	layeralpha = 0.0;
+    float	masks[] = {};
+    {
+
+
+        out_struct = _layer;
+        out_F = out_struct.F;
+        out_Of = out_struct.Of;
+        out_Ce = out_struct.Ce;
+        out_P = out_struct.P;
+        out_N = out_struct.N;
+        out_layeralpha = out_struct.layeralpha;
+        out_masks = out_struct.masks;
+
+
+        F1 = out_F;
+        Of1 = out_Of;
+        Ce = out_Ce;
+        P1 = out_P;
+        N1 = out_N;
+        layeralpha = out_layeralpha;
+        masks = out_masks;
+    }
+
+
+    int	_connected = connected;
+    vector	_P = P;
+    vector	_P_2 = P1;
+    vector	newposition = vector();
+    {
+#line 561 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+            result = (0 != 0 ? (_connected != 0 ? _P_2 : _P)
+                                      : (_connected != 0 ? _P : _P_2));
+
+
+
+
+        newposition1 = result;
+
+
+        newposition = newposition1;
+    }
+
+
+    int	_connected1 = connected;
+    vector	_N = N;
+    vector	_N_2 = N1;
+    vector	newNrm = vector();
+    {
+#line 590 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+            result1 = (0 != 0 ? (_connected1 != 0 ? _N_2 : _N)
+                                      : (_connected1 != 0 ? _N : _N_2));
+
+
+
+
+        newNrm1 = result1;
+
+
+        newNrm = newNrm1;
+    }
 
 
     bound_addative_displace = isbound("addative_displace");
@@ -2592,20 +2975,20 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_displace = isbound("ms_displace");
-#line 258 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result = (0 != 0 ? (bound_ms_displace != 0 ? disp_texture : ms_displace)
+#line 625 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result2 = (0 != 0 ? (bound_ms_displace != 0 ? disp_texture : ms_displace)
                                   : (bound_ms_displace != 0 ? ms_displace : disp_texture));
-#line 273 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result1 = (0 != 0 ? (found != 0 ? result : val)
-                                  : (found != 0 ? val : result));
-#line 288 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result2 = (0 != 0 ? (bool1 != 0 ? result1 : disp_texture)
-                                  : (bool1 != 0 ? disp_texture : result1));
+#line 640 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result3 = (0 != 0 ? (found != 0 ? result2 : val)
+                                  : (found != 0 ? val : result2));
+#line 655 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result4 = (0 != 0 ? (bool1 != 0 ? result3 : disp_texture)
+                                  : (bool1 != 0 ? disp_texture : result3));
 
 
 
 
-    bool2 = (result2 != "");
+    bool2 = (result4 != "");
 
 
     string	_mode = "uv";
@@ -2636,27 +3019,27 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
         if( bound_st == 0 )
-            result3 = uv2;
+            result5 = uv2;
         else
-            result3 = output1;
+            result5 = output1;
 
 
         if( bound_uv == 0 )
-            result4 = result3;
+            result6 = result5;
         else
-            result4 = uv;
+            result6 = uv;
 
 
         if( bool3 == 0 )
-            result5 = result4;
+            result7 = result6;
         else
-            result5 = uv2;
+            result7 = uv2;
 
 
-        assign(fval1,fval2,fval3, result5);
+        assign(fval1,fval2,fval3, result7);
 
 
-        uv1 = result5;
+        uv1 = result7;
         u = fval1;
         v = fval2;
         w = fval3;
@@ -2665,7 +3048,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
     vector	_uv = uv1;
     vector	_duv = vector();
-    string	_map = result2;
+    string	_map = result4;
     int	_udim = 1;
     string	_srccolorspace = "auto";
     string	_wrap = "repeat";
@@ -2712,40 +3095,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st1 == 0 )
-                result6 = uv4;
+                result8 = uv4;
             else
-                result6 = output11;
+                result8 = output11;
 
 
             if( bound_uv1 == 0 )
-                result7 = result6;
+                result9 = result8;
             else
-                result7 = uv;
+                result9 = uv;
 
 
             if( bool4 == 0 )
-                result8 = result7;
+                result10 = result9;
             else
-                result8 = uv4;
+                result10 = uv4;
 
 
-            assign(fval11,fval21,fval31, result8);
+            assign(fval11,fval21,fval31, result10);
 
 
-            uv3 = result8;
+            uv3 = result10;
             u1 = fval11;
             v1 = fval21;
             w1 = fval31;
         }
 
 
-        result9 = 1 != 0 ? _uv : uv3;
+        result11 = 1 != 0 ? _uv : uv3;
 
 
-        _uv1 = result9;
-
-
-        chkaces = 0;
+        _uv1 = result11;
 
 
         if (_map != "") {
@@ -2754,22 +3134,11 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
 
-            string ocio="";
-            string colorspace=_srccolorspace;
             string wrapmode = _wrap;
             if (_orient & 0x02) { _uv1.y = 1 - _uv1.y; }
             if (_orient & 0x04) { float x = _uv1.x; _uv1.x = _uv1.y; _uv1.y = x; }
             string _map_udim = _map;
-            if (chkaces==1){
-                ocio = ocio_parsecolorspace(_map);
-                if(ocio == ''){
-                colorspace='linear';
-                }
-                else{
-                colorspace=_srccolorspace;
-                }
-            }
-
+            string ocio = ocio_parsecolorspace(_map);
             if (_udim && has_udim(_map))
                 _map_udim = expand_udim(_uv1.x, _uv1.y, _map);
             if (_map_udim == '') { clr1 = set(_defclr); }
@@ -2792,7 +3161,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
                             "extrapolate", _extrapol, "lerp", _interp,
                             "channel", _channel, "face", fptex,
                             "blur", _blur, "pixelblur", _pixelblur,
-                            "srccolorspace", colorspace);
+                            "srccolorspace", _srccolorspace);
                 } else {
                     clr1 = texture(_map_udim, _uv1.x, _uv1.y, "wrap", wrapmode,
                             "filter", _filter, "width", _width,
@@ -2800,20 +3169,14 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
                             "channel", _channel, "face", fptex,
                             "lerp", _interp,
                             "blur", _blur, "pixelblur", _pixelblur,
-                            "srccolorspace", colorspace);
+                            "srccolorspace", _srccolorspace);
                 }
-                if (chkaces==1){
-                if (ocio != ''){
+                if (ocio != '')
                     clr1 = ocio_transform(ocio, "scene_linear", clr1);
-
-
-        }
-        }
-        }
+            }
         } else {
            clr1 = set(_defclr);
         }
-
 
 
 
@@ -2834,7 +3197,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     outval1 = diff;
     outval2 = Value1;
 
-    _mat_megascans_shader_simple1_snippet8(outcheck, outval1, outval2);
+    _obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet8(outcheck, outval1, outval2);
 
 
     Value2 = 1;
@@ -2848,28 +3211,28 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_dscale = isbound("ms_dscale");
-#line 548 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result10 = (0 != 0 ? (bound_ms_dscale != 0 ? dispTex_scale : ms_dscale)
+#line 895 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result12 = (0 != 0 ? (bound_ms_dscale != 0 ? dispTex_scale : ms_dscale)
                                   : (bound_ms_dscale != 0 ? ms_dscale : dispTex_scale));
-#line 563 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result11 = (0 != 0 ? (found1 != 0 ? result10 : val1)
-                                  : (found1 != 0 ? val1 : result10));
-#line 578 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result12 = (0 != 0 ? (bool5 != 0 ? result11 : dispTex_scale)
-                                  : (bool5 != 0 ? dispTex_scale : result11));
+#line 910 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result13 = (0 != 0 ? (found1 != 0 ? result12 : val1)
+                                  : (found1 != 0 ? val1 : result12));
+#line 925 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result14 = (0 != 0 ? (bool5 != 0 ? result13 : dispTex_scale)
+                                  : (bool5 != 0 ? dispTex_scale : result13));
 
 
 
 
-    product = Value2 * result12;
+    product = Value2 * result14;
 
 
     product1 = outval1 * product;
 
 
     sum = product1 + addative_displace;
-#line 602 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result13 = (0 != 0 ? (bound_addative_displace != 0 ? product1 : sum)
+#line 949 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result15 = (0 != 0 ? (bound_addative_displace != 0 ? product1 : sum)
                                   : (bound_addative_displace != 0 ? sum : product1));
 
 
@@ -2883,15 +3246,15 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_opacval = isbound("ms_opacval");
-#line 627 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result14 = (0 != 0 ? (bound_ms_opacval != 0 ? use_opacity : ms_opacval)
+#line 974 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result16 = (0 != 0 ? (bound_ms_opacval != 0 ? use_opacity : ms_opacval)
                                   : (bound_ms_opacval != 0 ? ms_opacval : use_opacity));
-#line 642 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result15 = (0 != 0 ? (found2 != 0 ? result14 : val2)
-                                  : (found2 != 0 ? val2 : result14));
-#line 657 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result16 = (0 != 0 ? (bool6 != 0 ? use_opacity : result15)
-                                  : (bool6 != 0 ? result15 : use_opacity));
+#line 989 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result17 = (0 != 0 ? (found2 != 0 ? result16 : val2)
+                                  : (found2 != 0 ? val2 : result16));
+#line 1004 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result18 = (0 != 0 ? (bool6 != 0 ? result17 : use_opacity)
+                                  : (bool6 != 0 ? use_opacity : result17));
 
 
 
@@ -2907,28 +3270,28 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_opac = isbound("ms_opac");
-#line 685 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result17 = (0 != 0 ? (bound_ms_opac != 0 ? opaccolor_texture : ms_opac)
+#line 1032 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result19 = (0 != 0 ? (bound_ms_opac != 0 ? opaccolor_texture : ms_opac)
                                   : (bound_ms_opac != 0 ? ms_opac : opaccolor_texture));
-#line 700 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result18 = (0 != 0 ? (found3 != 0 ? result17 : val3)
-                                  : (found3 != 0 ? val3 : result17));
-#line 715 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result19 = (0 != 0 ? (bool7 != 0 ? result18 : opaccolor_texture)
-                                  : (bool7 != 0 ? opaccolor_texture : result18));
+#line 1047 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result20 = (0 != 0 ? (found3 != 0 ? result19 : val3)
+                                  : (found3 != 0 ? val3 : result19));
+#line 1062 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result21 = (0 != 0 ? (bool7 != 0 ? result20 : opaccolor_texture)
+                                  : (bool7 != 0 ? opaccolor_texture : result20));
 
 
 
 
     outval11 = check;
-    outval21 = result19;
+    outval21 = result21;
 
-    _mat_megascans_shader_simple1_snippet10(outval11, outval21);
+    _obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet10(outval11, outval21);
 
 
     vector	_uv2 = uv1;
     vector	_duv1 = vector();
-    string	_map1 = result19;
+    string	_map1 = result21;
     int	_udim1 = 1;
     string	_srccolorspace1 = "auto";
     string	_wrap1 = "repeat";
@@ -2939,7 +3302,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     vector4	_border1 = { 0, 0, 0, 1 };
     int	_extrapol1 = 1;
     int	_interp1 = 0;
-    vector4	_defclr1 = { 1, 1, 1, 0 };
+    vector4	_defclr1 = { 0, 0, 0, 0 };
     string	_channel1 = "";
     int	_ptexface1 = 0;
     int	_orient1 = 0;
@@ -2975,40 +3338,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st2 == 0 )
-                result20 = uv6;
+                result22 = uv6;
             else
-                result20 = output12;
+                result22 = output12;
 
 
             if( bound_uv2 == 0 )
-                result21 = result20;
+                result23 = result22;
             else
-                result21 = uv;
+                result23 = uv;
 
 
             if( bool8 == 0 )
-                result22 = result21;
+                result24 = result23;
             else
-                result22 = uv6;
+                result24 = uv6;
 
 
-            assign(fval12,fval22,fval32, result22);
+            assign(fval12,fval22,fval32, result24);
 
 
-            uv5 = result22;
+            uv5 = result24;
             u2 = fval12;
             v2 = fval22;
             w2 = fval32;
         }
 
 
-        result23 = 1 != 0 ? _uv2 : uv5;
+        result25 = 1 != 0 ? _uv2 : uv5;
 
 
-        _uv3 = result23;
-
-
-        chkaces1 = 0;
+        _uv3 = result25;
 
 
         if (_map1 != "") {
@@ -3017,22 +3377,11 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
 
-            string ocio="";
-            string colorspace=_srccolorspace1;
             string wrapmode = _wrap1;
             if (_orient1 & 0x02) { _uv3.y = 1 - _uv3.y; }
             if (_orient1 & 0x04) { float x = _uv3.x; _uv3.x = _uv3.y; _uv3.y = x; }
             string _map_udim = _map1;
-            if (chkaces1==1){
-                ocio = ocio_parsecolorspace(_map1);
-                if(ocio == ''){
-                colorspace='linear';
-                }
-                else{
-                colorspace=_srccolorspace1;
-                }
-            }
-
+            string ocio = ocio_parsecolorspace(_map1);
             if (_udim1 && has_udim(_map1))
                 _map_udim = expand_udim(_uv3.x, _uv3.y, _map1);
             if (_map_udim == '') { clr3 = set(_defclr1); }
@@ -3055,7 +3404,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
                             "extrapolate", _extrapol1, "lerp", _interp1,
                             "channel", _channel1, "face", fptex,
                             "blur", _blur1, "pixelblur", _pixelblur1,
-                            "srccolorspace", colorspace);
+                            "srccolorspace", _srccolorspace1);
                 } else {
                     clr3 = texture(_map_udim, _uv3.x, _uv3.y, "wrap", wrapmode,
                             "filter", _filter1, "width", _width1,
@@ -3063,20 +3412,14 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
                             "channel", _channel1, "face", fptex,
                             "lerp", _interp1,
                             "blur", _blur1, "pixelblur", _pixelblur1,
-                            "srccolorspace", colorspace);
+                            "srccolorspace", _srccolorspace1);
                 }
-                if (chkaces1==1){
-                if (ocio != ''){
+                if (ocio != '')
                     clr3 = ocio_transform(ocio, "scene_linear", clr3);
-
-
-        }
-        }
-        }
+            }
         } else {
            clr3 = set(_defclr1);
         }
-
 
 
 
@@ -3084,42 +3427,759 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     }
 
 
-    surface = clr2;
+    shift = fit(clr2, { 0, 0, 0 }, { 1, 1, 1 }, { 0, 0, 0 }, { 1, 1, 1 });
+
+
+    surface = shift;
 
 
     outcheck1 = outval11;
     outsurface = surface;
 
-    _mat_megascans_shader_simple1_snippet2(outcheck1, outsurface);
-#line 903 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result24 = (0 != 0 ? (result16 != 0 ? { 1, 1, 1 } : outsurface)
-                                  : (result16 != 0 ? outsurface : { 1, 1, 1 }));
+    _obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet2(outcheck1, outsurface);
+#line 1233 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result26 = (0 != 0 ? (result18 != 0 ? { 1, 1, 1 } : outsurface)
+                                  : (result18 != 0 ? outsurface : { 1, 1, 1 }));
 
 
 
 
-    len = length(result24);
+    len = length(result26);
 
 
-    product2 = result13 * len;
+    product2 = result15 * len;
 
 
     if( dmultopacity == 0 )
-        result25 = result13;
+        result27 = result15;
     else
-        result25 = product2;
+        result27 = product2;
 
 
-    vop_displaceAlongNormal((1 != 0) ? P : P,
-    			 (1 != 0) ? N : normalize(N),
-    			 result25, 1, 0, 0,
+    vop_displaceAlongNormal((1 != 0) ? newposition : P,
+    			 (1 != 0) ? newNrm : normalize(N),
+    			 result27, 1, 0, 0,
     			 1, 0, 0, dispP, dispN);
 
 
-    vector myP  = 1  ? dispP  : P;
-    vector myN  = 1  ? dispN  : N;
-    vector myNg = 0 ? vector() : Ng;
-    newN = computenormal(myP, myN, myNg, "extrapolate", 0,
+    bool9 = (normal_texture != "");
+
+
+    found4 = renderstate("packed:ms_normal", val4);
+    if (!found4) val4 = "";
+
+
+    bound_ms_normal = isbound("ms_normal");
+#line 1276 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result28 = (0 != 0 ? (bound_ms_normal != 0 ? normal_texture : ms_normal)
+                                  : (bound_ms_normal != 0 ? ms_normal : normal_texture));
+#line 1291 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result29 = (0 != 0 ? (found4 != 0 ? result28 : val4)
+                                  : (found4 != 0 ? val4 : result28));
+#line 1306 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result30 = (0 != 0 ? (bool9 != 0 ? result29 : normal_texture)
+                                  : (bool9 != 0 ? normal_texture : result29));
+
+
+
+
+    bool10 = (result30 != "\"\"");
+
+
+
+
+
+
+
+
+    vector	_uv4 = uv1;
+    vector	_duv2 = vector();
+    string	_map2 = result30;
+    int	_udim2 = 1;
+    string	_srccolorspace2 = "auto";
+    string	_wrap2 = "repeat";
+    string	_filter2 = "box";
+    float	_width2 = 1;
+    float	_blur2 = 0;
+    float	_pixelblur2 = 0;
+    vector4	_border2 = { 0, 0, 0, 1 };
+    int	_extrapol2 = 1;
+    int	_interp2 = 0;
+    vector4	_defclr2 = { 0, 0, 0, 0 };
+    string	_channel2 = "";
+    int	_ptexface2 = 0;
+    int	_orient2 = 0;
+    vector	clr4 = vector();
+    {
+
+
+        string	_mode3 = "uv";
+        vector	uv7 = vector();
+        float	u3 = 0.0;
+        float	v3 = 0.0;
+        float	w3 = 0.0;
+        {
+
+
+            bool11 = (_mode3 == "st");
+
+
+            bound_uv3 = isbound("uv");
+
+
+            bound_st3 = isbound("st");
+
+
+
+            uv8 = set(s, t, 0);
+
+
+
+
+
+            output13 = st;
+
+
+            if( bound_st3 == 0 )
+                result31 = uv8;
+            else
+                result31 = output13;
+
+
+            if( bound_uv3 == 0 )
+                result32 = result31;
+            else
+                result32 = uv;
+
+
+            if( bool11 == 0 )
+                result33 = result32;
+            else
+                result33 = uv8;
+
+
+            assign(fval13,fval23,fval33, result33);
+
+
+            uv7 = result33;
+            u3 = fval13;
+            v3 = fval23;
+            w3 = fval33;
+        }
+
+
+        result34 = 1 != 0 ? _uv4 : uv7;
+
+
+        _uv5 = result34;
+
+
+        if (_map2 != "") {
+
+            int fptex = 0 ? _ptexface2 : getptextureid();
+
+
+
+            string wrapmode = _wrap2;
+            if (_orient2 & 0x02) { _uv5.y = 1 - _uv5.y; }
+            if (_orient2 & 0x04) { float x = _uv5.x; _uv5.x = _uv5.y; _uv5.y = x; }
+            string _map_udim = _map2;
+            string ocio = ocio_parsecolorspace(_map2);
+            if (_udim2 && has_udim(_map2))
+                _map_udim = expand_udim(_uv5.x, _uv5.y, _map2);
+            if (_map_udim == '') { clr5 = set(_defclr2); }
+            else {
+                if (_map_udim != _map2) {
+                    _uv5.x %= 1.0; _uv5.y %= 1.0;
+                    wrapmode = 'streak';
+                }
+                if (_orient2 & 0x01) { _uv5.x = 1 - _uv5.x; }
+                if (0 != 0) {
+                    vector tduv2 = 0.5 * _duv2;
+                    if (_orient2 & 0x04) { float x = tduv2.x; tduv2.x = tduv2.y; tduv2.y = x; }
+                    clr5 = texture(_map_udim,
+                             _uv5.x - tduv2.x, _uv5.y - tduv2.y,
+                             _uv5.x + tduv2.x, _uv5.y - tduv2.y,
+                             _uv5.x + tduv2.x, _uv5.y + tduv2.y,
+                             _uv5.x - tduv2.x, _uv5.y + tduv2.y,
+                            "wrap", wrapmode, "filter", _filter2,
+                            "width", _width2, "border", _border2,
+                            "extrapolate", _extrapol2, "lerp", _interp2,
+                            "channel", _channel2, "face", fptex,
+                            "blur", _blur2, "pixelblur", _pixelblur2,
+                            "srccolorspace", _srccolorspace2);
+                } else {
+                    clr5 = texture(_map_udim, _uv5.x, _uv5.y, "wrap", wrapmode,
+                            "filter", _filter2, "width", _width2,
+                            "border", _border2, "extrapolate", _extrapol2,
+                            "channel", _channel2, "face", fptex,
+                            "lerp", _interp2,
+                            "blur", _blur2, "pixelblur", _pixelblur2,
+                            "srccolorspace", _srccolorspace2);
+                }
+                if (ocio != '')
+                    clr5 = ocio_transform(ocio, "scene_linear", clr5);
+            }
+        } else {
+           clr5 = set(_defclr2);
+        }
+
+
+
+        clr4 = clr5;
+    }
+
+
+    outcheck2 = bool2;
+    outval12 = result14;
+    outval22 = normal_mult;
+
+    _obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet11(outcheck2, outval12, outval22);
+
+
+    vector	_P1 = dispP;
+    vector	_N1 = dispN;
+    vector	_uv6 = vector();
+    vector	_value = clr4;
+    string	_type = "normal";
+    string	_vectorspace = "uvtangent";
+    string	_channelorder = "xyz";
+    float	_offset = -0.5;
+    float	_scale = outval12;
+    int	_channel3 = 0;
+    int	_normalspace = 1;
+    int	_normalflipx = 0;
+    int	_normalflipy = 0;
+    vector	outP = vector();
+    vector	outN = vector();
+    vector	doffset = vector();
+    float	ddist = 0.0;
+    {
+
+
+        bool12 = (_type == "normal");
+
+
+        bool13 = (_type == "disp");
+
+
+        scaled = (bool13 + 0) * 2 + 0;
+
+
+        bool14 = (_type == "vectordisp");
+
+
+        scaled1 = (bool14 + 0) * 3 + 0;
+
+
+        sum1 = bool12 + scaled + scaled1;
+
+
+        result35 = 1 != 0 ? _P1 : P;
+
+
+
+
+
+
+
+
+        result36 = 1 != 0 ? _N1 : N;
+
+
+        nvec = normalize(result36);
+
+
+        lum1 = luminance(_value);
+
+
+        assign(fval14,fval24,fval34, _value);
+
+
+        if( _channel3 == 0 )
+            result37 = lum1;
+        else if( _channel3 == 1 )
+            result37 = fval14;
+        else if( _channel3 == 2 )
+            result37 = fval24;
+        else
+            result37 = fval34;
+
+
+        sum2 = result37 + _offset;
+
+
+        vop_displaceAlongNormal((1 != 0) ? result35 : P,
+        			 (1 != 0) ? nvec : normalize(N),
+        			 sum2, _scale, 0, 0,
+        			 1, 0, 0, dispP1, dispN1);
+
+
+
+
+
+        product3 = _value * _scale;
+
+
+        outorder = _channelorder;
+        outvec = product3;
+
+        _obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_displace1_swizzle(outorder, outvec);
+
+
+        result38 = 0 != 0 ? _uv6 : uv;
+
+
+        vector	_result = result38;
+        vector	_nvec = nvec;
+        string	__vectorspace = _vectorspace;
+        matrix3	result_2 = matrix3();
+        {
+
+
+            bool15 = (__vectorspace == "world");
+
+
+            bool16 = (__vectorspace == "object");
+
+
+            string	_tstyle = "uv";
+            vector	_uv7 = _result;
+            vector	_N2 = _nvec;
+            vector	_utan = vector();
+            vector	_vtan = vector();
+            float	_angle = 0.0;
+            {
+
+
+                connected2 = 0 ? 1 : 0;
+
+
+                result39 = 1 != 0 ? _N2 : N;
+
+
+                nvec1 = normalize(result39);
+
+
+                quat = quaternion(_angle, nvec1);
+
+
+                tstyle = _tstyle;
+
+
+                in_utan = _utan;
+
+
+                in_vtan = _vtan;
+
+
+                nml = nvec1;
+
+
+                result40 = 1 != 0 ? _uv7 : uv;
+
+
+                uv9 = result40;
+
+
+                vop_computeTangents(tstyle, nml, uv9, in_utan, in_vtan, utan, vtan);
+
+
+                result41 = qrotate(quat, utan);
+#line 1626 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+                    result42 = (0 != 0 ? (connected2 != 0 ? utan : result41)
+                                              : (connected2 != 0 ? result41 : utan));
+
+
+
+
+                result43 = qrotate(quat, vtan);
+#line 1644 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+                    result44 = (0 != 0 ? (connected2 != 0 ? vtan : result43)
+                                              : (connected2 != 0 ? result43 : vtan));
+
+
+
+
+                _utan = result42;
+                _vtan = result44;
+            }
+
+
+            assign(fval15,fval25,fval35, _utan);
+
+
+            assign(fval16,fval26,fval36, _vtan);
+
+
+            assign(fval17,fval27,fval37, _nvec);
+
+
+            matx = set(fval15, fval25, fval35,
+                        fval16, fval26, fval36,
+                        fval17, fval27, fval37);
+
+
+            xform = getspace("space:object", "space:current");
+
+
+            m3 = (matrix3)xform;
+
+
+            if( bool16 == 0 )
+                result45 = matx;
+            else
+                result45 = m3;
+
+
+            xform1 = getspace("space:world", "space:current");
+
+
+            m31 = (matrix3)xform1;
+
+
+            if( bool15 == 0 )
+                result46 = result45;
+            else
+                result46 = m31;
+
+
+            result_2 = result46;
+        }
+
+
+        product4 = outvec * result_2;
+
+
+        sum3 = result35 + product4;
+
+
+
+
+
+        if( sum1 == 0 )
+            result47 = result35;
+        else if( sum1 == 1 )
+            result47 = result35;
+        else if( sum1 == 2 )
+            result47 = dispP1;
+        else
+            result47 = sum3;
+
+
+        vop_displaceAlongNormal((1 != 0) ? result35 : P,
+        			 (1 != 0) ? nvec : normalize(N),
+        			 sum2, _scale, 0, 0,
+        			 1, 0, 1, dispP2, dispN2);
+
+
+
+
+
+        Ns = _value;
+        if (_normalspace == 0) { Ns = vop_fromUnitNormal(Ns); }
+
+
+        Nf = Ns;
+        if (_normalflipx) { Nf.x = -Nf.x; }
+        if (_normalflipy) { Nf.y = -Nf.y; }
+
+
+
+        product5 = Nf * result_2;
+
+
+        nvec2 = normalize(product5);
+
+
+        dotprod = dot(nvec2, nvec);
+
+
+        trig = acos(1*dotprod - 0);
+
+
+        crossprod = cross(nvec, nvec2);
+
+
+        nvec3 = normalize(crossprod);
+
+
+        quat1 = quaternion(trig, nvec3);
+
+
+        blend = slerp({ 0, 0, 0, 1 }, quat1, _scale);
+
+
+        result48 = qrotate(blend, nvec);
+
+
+
+
+
+
+
+
+        vector myP  = 1  ? sum3  : P;
+        vector myN  = 0  ? vector()  : N;
+        vector myNg = 0 ? vector() : Ng;
+        newN = computenormal(myP, myN, myNg, "extrapolate", 0,
+                             "smooth", 1);
+
+
+
+
+
+        if( sum1 == 0 )
+            result49 = dispN2;
+        else if( sum1 == 1 )
+            result49 = result48;
+        else if( sum1 == 2 )
+            result49 = dispN1;
+        else
+            result49 = newN;
+
+
+        Value3 = { 0, 0, 0 };
+
+
+        diff1 = dispP1 - result35;
+
+
+        if( sum1 == 0 )
+            result50 = Value3;
+        else if( sum1 == 1 )
+            result50 = Value3;
+        else if( sum1 == 2 )
+            result50 = diff1;
+        else
+            result50 = product4;
+
+
+        Value4 = 0;
+
+
+        product6 = sum2 * _scale;
+
+
+        len1 = length(product4);
+
+
+        if( sum1 == 0 )
+            result51 = Value4;
+        else if( sum1 == 1 )
+            result51 = Value4;
+        else if( sum1 == 2 )
+            result51 = product6;
+        else
+            result51 = len1;
+
+
+        outP = result47;
+        outN = result49;
+        doffset = result50;
+        ddist = result51;
+    }
+
+
+    bool17 = (bump_texture != "");
+
+
+    found5 = renderstate("packed:ms_bump", val5);
+    if (!found5) val5 = "";
+
+
+    bool18 = (val5 != "");
+
+
+    bound_ms_bump = isbound("ms_bump");
+#line 1852 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result52 = (0 != 0 ? (bound_ms_bump != 0 ? bump_texture : ms_bump)
+                                  : (bound_ms_bump != 0 ? ms_bump : bump_texture));
+#line 1867 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result53 = (0 != 0 ? (bool18 != 0 ? result52 : val5)
+                                  : (bool18 != 0 ? val5 : result52));
+#line 1882 "/obj/props_shading1/matnet1/Concrete_Rubble_Pile_ujriaadga/DisplacementVexCode"
+        result54 = (0 != 0 ? (bool17 != 0 ? result53 : bump_texture)
+                                  : (bool17 != 0 ? bump_texture : result53));
+
+
+
+
+    bool19 = (result54 != "\"\"");
+
+
+    vector	_uv8 = vector();
+    vector	_duv3 = vector();
+    string	_map3 = result54;
+    int	_udim3 = 1;
+    string	_srccolorspace3 = "auto";
+    string	_wrap3 = "repeat";
+    string	_filter3 = "box";
+    float	_width3 = 1;
+    float	_blur3 = 0;
+    float	_pixelblur3 = 0;
+    vector4	_border3 = { 0, 0, 0, 1 };
+    int	_extrapol3 = 1;
+    int	_interp3 = 0;
+    vector4	_defclr3 = { 0, 0, 0, 0 };
+    string	_channel4 = "";
+    int	_ptexface3 = 0;
+    int	_orient3 = 0;
+    vector	clr6 = vector();
+    {
+
+
+        string	_mode4 = "uv";
+        vector	uv10 = vector();
+        float	u4 = 0.0;
+        float	v4 = 0.0;
+        float	w4 = 0.0;
+        {
+
+
+            bool20 = (_mode4 == "st");
+
+
+            bound_uv4 = isbound("uv");
+
+
+            bound_st4 = isbound("st");
+
+
+
+            uv11 = set(s, t, 0);
+
+
+
+
+
+            output14 = st;
+
+
+            if( bound_st4 == 0 )
+                result55 = uv11;
+            else
+                result55 = output14;
+
+
+            if( bound_uv4 == 0 )
+                result56 = result55;
+            else
+                result56 = uv;
+
+
+            if( bool20 == 0 )
+                result57 = result56;
+            else
+                result57 = uv11;
+
+
+            assign(fval18,fval28,fval38, result57);
+
+
+            uv10 = result57;
+            u4 = fval18;
+            v4 = fval28;
+            w4 = fval38;
+        }
+
+
+        result58 = 0 != 0 ? _uv8 : uv10;
+
+
+        _uv9 = result58;
+
+
+        if (_map3 != "") {
+
+            int fptex = 0 ? _ptexface3 : getptextureid();
+
+
+
+            string wrapmode = _wrap3;
+            if (_orient3 & 0x02) { _uv9.y = 1 - _uv9.y; }
+            if (_orient3 & 0x04) { float x = _uv9.x; _uv9.x = _uv9.y; _uv9.y = x; }
+            string _map_udim = _map3;
+            string ocio = ocio_parsecolorspace(_map3);
+            if (_udim3 && has_udim(_map3))
+                _map_udim = expand_udim(_uv9.x, _uv9.y, _map3);
+            if (_map_udim == '') { clr7 = set(_defclr3); }
+            else {
+                if (_map_udim != _map3) {
+                    _uv9.x %= 1.0; _uv9.y %= 1.0;
+                    wrapmode = 'streak';
+                }
+                if (_orient3 & 0x01) { _uv9.x = 1 - _uv9.x; }
+                if (0 != 0) {
+                    vector tduv3 = 0.5 * _duv3;
+                    if (_orient3 & 0x04) { float x = tduv3.x; tduv3.x = tduv3.y; tduv3.y = x; }
+                    clr7 = texture(_map_udim,
+                             _uv9.x - tduv3.x, _uv9.y - tduv3.y,
+                             _uv9.x + tduv3.x, _uv9.y - tduv3.y,
+                             _uv9.x + tduv3.x, _uv9.y + tduv3.y,
+                             _uv9.x - tduv3.x, _uv9.y + tduv3.y,
+                            "wrap", wrapmode, "filter", _filter3,
+                            "width", _width3, "border", _border3,
+                            "extrapolate", _extrapol3, "lerp", _interp3,
+                            "channel", _channel4, "face", fptex,
+                            "blur", _blur3, "pixelblur", _pixelblur3,
+                            "srccolorspace", _srccolorspace3);
+                } else {
+                    clr7 = texture(_map_udim, _uv9.x, _uv9.y, "wrap", wrapmode,
+                            "filter", _filter3, "width", _width3,
+                            "border", _border3, "extrapolate", _extrapol3,
+                            "channel", _channel4, "face", fptex,
+                            "lerp", _interp3,
+                            "blur", _blur3, "pixelblur", _pixelblur3,
+                            "srccolorspace", _srccolorspace3);
+                }
+                if (ocio != '')
+                    clr7 = ocio_transform(ocio, "scene_linear", clr7);
+            }
+        } else {
+           clr7 = set(_defclr3);
+        }
+
+
+
+        clr6 = clr7;
+    }
+
+
+    lum2 = luminance(clr6);
+
+
+    outcheck3 = bool2;
+    outval13 = result14;
+    outval23 = bump_mult;
+
+    _obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet17(outcheck3, outval13, outval23);
+
+
+    vop_displaceAlongNormal((1 != 0) ? dispP : P,
+    			 (1 != 0) ? dispN : normalize(N),
+    			 lum2, outval13, 0, 0,
+    			 1, 0, 1, dispP3, dispN3);
+
+
+    outcheck4 = bool19;
+    outval14 = dispN3;
+    outval24 = dispN;
+
+    _obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet6(outcheck4, outval14, outval24);
+
+
+    outcheck5 = bool10;
+    outval15 = outN;
+    outval25 = outval14;
+
+    _obj_props_shading1_matnet1_Concrete_Rubble_Pile_ujriaadga_snippet7(outcheck5, outval15, outval25);
+
+
+    vector myP1  = 1  ? dispP  : P;
+    vector myN1  = 1  ? outval15  : N;
+    vector myNg1 = 1 ? Ng : Ng;
+    newN1 = computenormal(myP1, myN1, myNg1, "extrapolate", 0,
                          "smooth", 1);
 
 
@@ -3133,21 +4193,24 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     layer1.Of = select(0, vector(), layer1.Of);
     layer1.Ce = select(0, vector(), layer1.Ce);
     layer1.P = select(1, dispP, layer1.P);
-    layer1.N = select(1, newN, layer1.N);
+    layer1.N = select(1, newN1, layer1.N);
     layer1.masks = select(0, {}, layer1.masks);
 
 
     layer = layer1;
 
 
-    lum1 = luminance(outsurface);
+    lum3 = luminance(outsurface);
 
 
-    layer_mask = lum1;
+    layer_mask = lum3;
+
+
+    layer_mask_tmp = layer_mask;
 
 
     vector tempP = dispP;
-    vector tempN = newN;
+    vector tempN = newN1;
     P = tempP;
     N = tempN;
 }
