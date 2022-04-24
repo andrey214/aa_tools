@@ -10,7 +10,8 @@ __all__ = [
     'connect',
     'convert',
     'hda_core',
-    'importer'
+    'importer',
+    'prism_integration',
     ]
 from . import *
 #import os

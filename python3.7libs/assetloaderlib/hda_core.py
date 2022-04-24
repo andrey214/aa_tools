@@ -26,7 +26,7 @@ hou.putenv('Bridge_pid','')
 def collectdir(node):
     data=hou.getenv('JOB')+'/data/cache'
     if os.path.isdir(data):
-        val="$JOB/assets/megascans/"+"`chs("+'"category"'+")`"+"/`chs("+'"name"'+")`"
+        val="$JOB/data/cache/generic/megascans/"+"`chs("+'"category"'+")`"+"/`chs("+'"name"'+")`"
         node.parm("job_path").set(val)
         
 def dorat(node):
@@ -1288,22 +1288,49 @@ def loadasset(node):
     refreshtex(node)
     
 #########Convert Workflow
+
+
 def convertWF(node):
-    name=node.parm('name').eval()
-    nd=node.parm('matn').eval()
-    ops=conf.conformlist()[0]
-    properties=ops[node.parm('shader').eval()]
+    workflow=hou.getenv("MSWORKFLOW")
+    shadername=node.parm('shader').eval()
+    if workflow is None:
+        workflow="Mantra"
+    builders={'renderman':'pxrmaterialbuilder','arnold':'arnold_materialbuilder',
+'vray':'vray_vop_material','redshift':'redshift_vopnet'}        
+    name=node.parm('name').eval() #name
+    nd=node.parm('matn').eval() #root of shader
+    ops=conf.conformlist()[0] 
+    properties=ops[node.parm('shader').eval()] #properties
     matnet=node.node(nd)
-    materialnode=hou.node(node.parm('setcustom_shader').eval())
-    
-    if matnet is not None:
+    materialnode=hou.node(node.parm('setcustom_shader').eval()) #shader
+    material = materialnode
+    if workflow.lower() == 'mantra':
+        if matnet is not None:
+            if materialnode is None:
+                materialnode = matnet.createNode(properties['node'],name)
+                materialnode.moveToGoodPosition()
+            material = materialnode
+    else:
         if materialnode is None:
-            materialnode = matnet.createNode(properties['node'],name)
+            materialnode = matnet.createNode(builders[workflow.lower()],name)
             materialnode.moveToGoodPosition()
-        material = materialnode
-        shadername=node.parm('shader').eval()
-        conv.copyvalues(node,shadername,material)
-        node.parm('converted').set(1)
+        else:
+            materialnode.setName(name , unique_name=True)
+            
+        if workflow.lower() == 'arnold':
+            outputnode=hou.node(materialnode.path()+'/OUT_material')
+            diffuse=hou.node(materialnode.path()+'/'+name)
+            if diffuse is None:
+                diffuse=materialnode.createNode(properties['node'],name)
+                diffuse.setPosition([(outputnode.position()[0]-3),outputnode.position()[1]])
+            outputnode.setInput(0,diffuse,0) 
+            outputnode.setInput(1,diffuse,1)             
+            material = diffuse       
+
+                
+
+    conv.copyvalues(node,shadername,material)
+    node.parm('converted').set(1)
     refreshtex(node)
         
 
