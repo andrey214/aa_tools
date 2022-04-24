@@ -10,5 +10,19 @@ Inputs:       0 to 1
 Subnet:       true
 Python:       false
 Empty:        false
-Modified:     Mon Oct 25 23:47:48 2021
+Modified:     Sat Oct 16 23:47:44 2021
+
+Operator:     asset_loader::1.1
+Label:        Megascans Asset Loader
+Path:         oplib:/Sop/asset_loader::1.1?Sop/asset_loader::1.1
+Icon:         opdef:/Sop/asset_loader::1.1?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Mon Apr 25 01:20:33 2022
 
