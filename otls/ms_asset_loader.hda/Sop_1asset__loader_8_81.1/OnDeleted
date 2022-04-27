@@ -1,3 +1,0 @@
-module = kwargs['type'].hdaModule()
-node = kwargs["node"]
-module.loader.stickprev(node,0)
