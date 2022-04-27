@@ -711,7 +711,7 @@
             label   "Collect Directory"
             type    directory
             joinnext
-            default { "$JOB/library/megascans/`chs(\"category\")`/`chs(\"name\")`" }
+            default { "$JOB/$SHOT/activities/$TASK/cache/megascans/`chs(\"category\")`/`chs(\"name\")`" }
             parmtag { "script_callback_language" "python" }
         }
         parm {

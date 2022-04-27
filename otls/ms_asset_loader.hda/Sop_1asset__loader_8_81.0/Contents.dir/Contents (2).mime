@@ -32,9 +32,9 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position -3.97536 0.108981
+position 0 0
 connectornextid 0
-flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault off exposed on
+flags =  lock off model off template off footprint off xray off bypass off display on render on highlight off unload off savedata off compress on colordefault off exposed on
 outputsNamed3
 {
 }
@@ -48,7 +48,7 @@ stat
 {
   create -1
   modify -1
-  author User@FX-Note
+  author aapalikov@l23.mrpost.lan
   access 0777
 }
 color UT_Color RGB 0.92 0.35 0.35 
@@ -67,8 +67,8 @@ Content-Type: text/plain
 	},
 	"geometry":{
 		"type":"string",
-		"value":"var1_lod0!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var1/Var1_LOD0.fbx*?*var1_lod1!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var1/Var1_LOD1.fbx*?*var1_lod2!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var1/Var1_LOD2.fbx*?*var1_lod3!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var1/Var1_LOD3.fbx*?*var1_lod4!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var1/Var1_LOD4.fbx*?*var2_lod0!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var2/Var2_LOD0.fbx*?*var2_lod1!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var2/Var2_LOD1.fbx*?*var2_lod2!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var2/Var2_LOD2.fbx*?*var2_lod3!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var2/Var2_LOD3.fbx*?*var2_lod4!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var2/Var2_LOD4.fbx*?*var3_lod0!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var3/Var3_LOD0.fbx*?*var3_lod1!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var3/Var3_LOD1.fbx*?*var3_lod2!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var3/Var3_LOD2.fbx*?*var3_lod3!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var3/Var3_LOD3.fbx*?*var3_lod4!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var3/Var3_LOD4.fbx*?*var4_lod0!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var4/Var4_LOD0.fbx*?*var4_lod1!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var4/Var4_LOD1.fbx*?*var4_lod2!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var4/Var4_LOD2.fbx*?*var4_lod3!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var4/Var4_LOD3.fbx*?*var4_lod4!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var4/Var4_LOD4.fbx*?*var5_lod0!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var5/Var5_LOD0.fbx*?*var5_lod1!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var5/Var5_LOD1.fbx*?*var5_lod2!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var5/Var5_LOD2.fbx*?*var5_lod3!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var5/Var5_LOD3.fbx*?*var5_lod4!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var5/Var5_LOD4.fbx*?*var6_lod0!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var6/Var6_LOD0.fbx*?*var6_lod1!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var6/Var6_LOD1.fbx*?*var6_lod2!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var6/Var6_LOD2.fbx*?*var6_lod3!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var6/Var6_LOD3.fbx*?*var6_lod4!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var6/Var6_LOD4.fbx*?*var7_lod0!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var7/Var7_LOD0.fbx*?*var7_lod1!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var7/Var7_LOD1.fbx*?*var7_lod2!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var7/Var7_LOD2.fbx*?*var7_lod3!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var7/Var7_LOD3.fbx*?*var7_lod4!!E:\\libraries\\MEGASCANS\\Downloaded\\3dplant\\plants_perennials_tebqbd0r/Var7/Var7_LOD4.fbx"
-	},
+		"value":"lod_0!!/cg/common/3d_models/Quixel_Megascans/library/Downloaded/3d/Nature_Rock_vdssailfa/vdssailfa_LOD0.obj*?*lod_1!!/cg/common/3d_models/Quixel_Megascans/library/Downloaded/3d/Nature_Rock_vdssailfa/vdssailfa_LOD1.obj*?*lod_2!!/cg/common/3d_models/Quixel_Megascans/library/Downloaded/3d/Nature_Rock_vdssailfa/vdssailfa_LOD2.obj*?*original!!/cg/common/3d_models/Quixel_Megascans/library/Downloaded/3d/Nature_Rock_vdssailfa/vdssailfa_High.obj"},
+	
 	"nodeshape":{
 		"type":"string",
 		"value":"tabbed_left"
@@ -463,7 +463,7 @@ vex_inplace	[ 0	locks=0 ]	(	"off"	)
 vex_selectiongroup	[ 0	locks=0 ]	(	""	)
 vex_precision	[ 0	locks=0 ]	(	auto	)
 folder1	[ 0	locks=0 ]	(	0	0	)
-dispTex_scale	[ 8	locks=0 ]	(	[ dispTex_scale	0.050000000000000003 ] 	)
+dispTex_scale	[ 8	locks=0 ]	(	[ dispTex_scale	0.29999999999999999 ] 	)
 rough	[ 0	locks=0 ]	(	[ rough	1 ] 	)
 reflect_scale	[ 0	locks=0 ]	(	[ reflect_scale	1 ] 	)
 }
@@ -919,7 +919,7 @@ postextend	[ 0	locks=0 ]	(	"black"	)
 posthold	[ 0	locks=0 ]	(	0	)
 stdswitcher5	[ 0	locks=0 ]	(	0	0	0	0	)
 file	[ 8	locks=0 ]	(	`chs(\"../input/filename1\")`	)
-linear	[ 0	locks=0 ]	(	"off"	)
+linear	[ 0	locks=0 ]	(	"on"	)
 }
 
 --HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
@@ -938,7 +938,7 @@ Content-Disposition: attachment; filename="hdaroot/rat/linear.cop2"
 Content-Type: text/plain
 
 2
-193
+191
 0
 
 --HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
@@ -21219,12 +21219,6 @@ Content-Type: text/plain
         label   "convert_aces"
         export  none
     }
-    parm {
-        name    "randomize"
-        baseparm
-        label   "randomize"
-        export  none
-    }
 
 --HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
 Content-Disposition: attachment; filename="hdaroot/ogl_vis/preview.chn"
@@ -21313,7 +21307,6 @@ disp_texture	[ 0	locks=0 ]	(	`chs(\"../../disp_texture\")`	)
 trans_texture	[ 0	locks=0 ]	(	""	)
 opaccolor_texture	[ 8	locks=0 ]	(	`chs(\"../../opaccolor_texture\")`	)
 metallic_texture	[ 0	locks=0 ]	(	""	)
-randomize	[ 0	locks=0 ]	(	"off"	)
 Shift	[ 0	locks=0 ]	(	0	)
 Saturation	[ 0	locks=0 ]	(	1	)
 Value	[ 0	locks=0 ]	(	1	)
@@ -23239,7 +23232,7 @@ missingframe	[ 0	locks=0 ]	(	"empty"	)
 loadtype	[ 0	locks=0 ]	(	"delayed"	)
 packedviewedit	[ 0	locks=0 ]	(	"unchanged"	)
 viewportlod	[ 0	locks=0 ]	(	"full"	)
-packexpanded	[ 0	locks=0 ]	(	"off"	)
+packexpanded	[ 0	locks=0 ]	(	"on"	)
 delayload	[ 0	locks=0 ]	(	"off"	)
 mkpath	[ 0	locks=0 ]	(	"on"	)
 cachesize	[ 0	locks=0 ]	(	0	)
@@ -23898,7 +23891,7 @@ nodename	[ 0	locks=0 ]	(	"userdef"	)
 reload	[ 0	locks=0 ]	(	0	)
 subframes	[ 0	locks=0 ]	(	"off"	)
 overridesize	[ 0	locks=0 ]	(	"natural"	)
-size	[ 0	locks=0 ]	(	4096	4096	)
+size	[ 0	locks=0 ]	(	2048	2048	)
 sizemenu	[ 0	locks=0 ]	(	0	)
 filter	[ 0	locks=0 ]	(	box	)
 overrideaspect	[ 0	locks=0 ]	(	"off"	)
@@ -23956,7 +23949,7 @@ Content-Disposition: attachment; filename="hdaroot/rat/input.cop2"
 Content-Type: text/plain
 
 2
-958
+946
 0
 
 --HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
@@ -24006,12 +23999,12 @@ version 0.8
 execute	[ 0	locks=0 ]	(	0	)
 renderdialog	[ 0	locks=0 ]	(	0	)
 trange	[ 0	locks=0 ]	(	"off"	)
-f	[ 0	locks=0 ]	(	1	1	1	)
+f	[ 0	locks=0 ]	(	0	0	1	)
 take	[ 0	locks=0 ]	(	_current_	)
 copswitcher	[ 0	locks=0 ]	(	0	0	0	0	0	)
-coppath	[ 0	locks=0 ]	(	../../rat/switch1	)
+coppath	[ 0	locks=0 ]	(	/obj/geo1/asset_loader1/rat/switch1	)
 tres	[ 0	locks=0 ]	(	"natural"	)
-res	[ 0	locks=0 ]	(	4096	4096	)
+res	[ 0	locks=0 ]	(	1	1	)
 resmenu	[ 0	locks=0 ]	(	0	)
 copoutput	[ 0	locks=0 ]	(	""	)
 mkpath	[ 0	locks=0 ]	(	"on"	)
@@ -24026,7 +24019,7 @@ batchmode	[ 0	locks=0 ]	(	"off"	)
 batchsize	[ 0	locks=0 ]	(	2	)
 reloadfiles	[ 0	locks=0 ]	(	"on"	)
 outputarea	[ 0	locks=0 ]	(	"frame"	)
-pixelcrop	[ 0	locks=0 ]	(	0	0	4095	4095	)
+pixelcrop	[ 0	locks=0 ]	(	0	0	0	0	)
 uvcrop	[ 0	locks=0 ]	(	0	0	1	1	)
 limitcanvaspixels	[ 0	locks=0 ]	(	"on"	)
 canvaspixels	[ 0	locks=0 ]	(	64	)
@@ -24859,7 +24852,7 @@ Content-Type: text/plain
 version 0.8
 file	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	`chs(\"basename\")`$SLICE.bgeo.sc	)
 reload	[ 0	locks=0 ]	(	[ reload	0 ] 	)
-mergerange	[ 8	locks=0 ]	(	0	[ mergerange2	0 ] 	1	)
+mergerange	[ 8	locks=0 ]	(	0	[ mergerange2	4 ] 	1	)
 deletepoints	[ 0	locks=0 ]	(	"off"	)
 missingfile	[ 0	locks=0 ]	(	"empty"	)
 loadtype	[ 0	locks=0 ]	(	"delayed"	)
@@ -24869,7 +24862,7 @@ packexpanded	[ 0	locks=0 ]	(	"off"	)
 delayload	[ 0	locks=0 ]	(	"off"	)
 merge_var	[ 0	locks=0 ]	(	SLICE	)
 cachesize	[ 0	locks=0 ]	(	0	)
-basename	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ basename	Y:/Projects/FSK_vd/assets/megascans/3dplant/Lily_turf_tebqbd0r/Var1_LOD0_ ] 	)
+basename	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ basename	/cg/common/3d_models/Quixel_Megascans/library/Downloaded/3d/street_props_4353eee4/Var0/Var0_LOD0_ ] 	)
 }
 
 --HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
@@ -25727,7 +25720,7 @@ trange	[ 0	locks=0 ]	(	"off"	)
 f	[ 0	locks=0 ]	(	[ f1	1 ] 	[ f2	250 ] 	1	)
 take	[ 0	locks=0 ]	(	_current_	)
 soppath	[ 0	locks=0 ]	(	../attribcreate1	)
-sopoutput	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ sopoutput	Y:/Projects/FSK_vd/assets/megascans/3dplant/Lily_turf_tebqbd0r/Lily_turf_tebqbd0r_Var1_LOD0.bgeo.sc ] 	)
+sopoutput	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ sopoutput	/cg/projects/iney/episode01/log//activities//cache/megascans/surface//_.bgeo.sc ] 	)
 xformtype	[ 0	locks=0 ]	(	"none"	)
 mkpath	[ 0	locks=0 ]	(	"on"	)
 initsim	[ 0	locks=0 ]	(	"off"	)
@@ -27610,7 +27603,7 @@ Content-Type: text/plain
 {
 version 0.8
 filemode	[ 0	locks=0 ]	(	"read"	)
-file	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ file	Y:/Projects/FSK_vd/assets/megascans/3dplant/Lily_turf_tebqbd0r/Var_LOD0.fbx ] 	)
+file	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ file	"" ] 	)
 reload	[ 0	locks=0 ]	(	0	)
 objpattern	[ 0	locks=0 ]	(	*	)
 geodatapath	[ 0	locks=0 ]	(	""	)
@@ -31803,7 +31796,7 @@ writevalues2	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal2	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value2v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string2	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../normalb_texture\")`	)
-enable3	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable3	1 ] 	)
+enable3	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable3	0 ] 	)
 name3	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_ior	)
 existing3	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap3	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
@@ -31819,7 +31812,7 @@ writevalues3	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal3	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value3v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string3	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../ior_texture\")`	)
-enable4	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable4	1 ] 	)
+enable4	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable4	0 ] 	)
 name4	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_reflect	)
 existing4	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap4	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
@@ -31851,7 +31844,7 @@ writevalues5	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal5	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value5v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string5	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../mask_texture\")`	)
-enable6	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable6	1 ] 	)
+enable6	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable6	0 ] 	)
 name6	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_trans	)
 existing6	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap6	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
@@ -31867,7 +31860,7 @@ writevalues6	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal6	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value6v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string6	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../trans_texture\")`	)
-enable7	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable7	1 ] 	)
+enable7	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable7	0 ] 	)
 name7	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_bump	)
 existing7	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap7	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
@@ -31883,7 +31876,7 @@ writevalues7	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal7	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value7v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string7	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../bump_texture\")`	)
-enable8	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable8	1 ] 	)
+enable8	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable8	0 ] 	)
 name8	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_opac	)
 existing8	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap8	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
@@ -31899,7 +31892,7 @@ writevalues8	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal8	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value8v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string8	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../opaccolor_texture\")`	)
-enable9	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable9	1 ] 	)
+enable9	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable9	0 ] 	)
 name9	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_ao	)
 existing9	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap9	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
@@ -31931,7 +31924,7 @@ writevalues10	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal10	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value10v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string10	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../fuzz_texture\")`	)
-enable11	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable11	1 ] 	)
+enable11	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable11	0 ] 	)
 name11	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_displace	)
 existing11	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap11	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
@@ -31947,7 +31940,7 @@ writevalues11	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal11	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value11v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string11	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../disp_texture\")`	)
-enable12	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable12	1 ] 	)
+enable12	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable12	0 ] 	)
 name12	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_normal	)
 existing12	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap12	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
@@ -31979,7 +31972,7 @@ writevalues13	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal13	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value13v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string13	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../metallic_texture\")`	)
-enable14	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable14	1 ] 	)
+enable14	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable14	0 ] 	)
 name14	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_rough	)
 existing14	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap14	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
@@ -31995,7 +31988,7 @@ writevalues14	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 uselocal14	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"on"	)
 value14v	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	0	0	0	0	)
 string14	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	`chs(\"../rough_texture\")`	)
-enable15	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable15	1 ] 	)
+enable15	[ 0	locks=0	autoscope=1	autosel=4294967295 ]	(	[ enable15	0 ] 	)
 name15	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	ms_diffuse	)
 existing15	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"better"	)
 createvarmap15	[ 0	locks=0	autoscope=0	autosel=4294967295 ]	(	"off"	)
