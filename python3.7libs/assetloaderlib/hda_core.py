@@ -1304,7 +1304,7 @@ def convertWF(node):
     matnet=node.node(nd)
     materialnode=hou.node(node.parm('setcustom_shader').eval()) #shader
     material = materialnode
-    if workflow.lower() == 'mantra':
+    if workflow.lower() == 'mantra' or workflow.lower() == 'redshift':
         if matnet is not None:
             if materialnode is None:
                 materialnode = matnet.createNode(properties['node'],name)
