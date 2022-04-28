@@ -27,7 +27,7 @@ def collectpath(pathtex,jobvar,name):
 #############################################################################
 ##RAT REPLACE
 def rplacerat(path):
-    types=['.jpg','.jpeg','.tiff','.tif','.tga','.exr']
+    types=['.jpg','.jpeg','.tiff','.tif','.tga','.exr','png']
     pathf=path
     for t in types:
         if path.endswith(t):
@@ -73,16 +73,16 @@ def assetnode(name,json='',res='2K'):
                     selname=seldef.nodeTypeName()
                 sop=b.name()
                 if sop == 'Sop' and 'asset_loader' not in selname:
-                    asset=sel[0].createOutputNode('asset_loader::1.0',name)
+                    asset=sel[0].createOutputNode('asset_loader',name)
                 elif sop == 'Object' and not sel[0].isLockedHDA() and not sel[0].isSubNetwork():
                     nodesinside=sel[0].children()
                     if len(nodesinside)>0:
                         for n in nodesinside:
                             if n.isDisplayFlagSet():
-                                asset=n.createOutputNode('asset_loader::1.0',name)
+                                asset=n.createOutputNode('asset_loader',name)
                                 break
                     else:
-                        asset=sel[0].createNode('asset_loader::1.0',name)
+                        asset=sel[0].createNode('asset_loader',name)
                         
                 elif 'asset_loader' in selname:
                     asset=sel[0]
@@ -94,12 +94,12 @@ def assetnode(name,json='',res='2K'):
                     #print(asset.parm('json').eval())
                     #print('ok')
                 else:
-                    asset=sel[0].createNode('asset_loader::1.0',name)
+                    asset=sel[0].createNode('asset_loader',name)
                     
             else:
                 if b.name() == 'Lop' and seldef is not None:
                     if seldef.nodeTypeName()=='sopcreate':
-                        asset=sel[0].createNode('asset_loader::1.0',name)
+                        asset=sel[0].createNode('asset_loader',name)
                 
         else:
             try:

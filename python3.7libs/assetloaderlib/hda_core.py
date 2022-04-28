@@ -1231,61 +1231,64 @@ def refresh(node):
     node.setSelected(1)
 ###Load Asset
 def loadasset(node):
-    tmpstick=0
-    if node.parm('stick').eval()==1:
-        tmpstick=1
-        stickprev(node,0)
+    try:    
+        tmpstick=0
+        if node.parm('stick').eval()==1:
+            tmpstick=1
+            stickprev(node,0)
+        
+        boolsel=node.isSelected()
+        node.parm('lods').set('')
+        node.parm('geometry').set('')
+        jsonpath=''
+        try:
+            jsonpath=node.parm('input_data').eval()
+        except:
+            pass
+        if jsonpath == '':
+            jsonparm=node.parm('json').eval()
+        else:
+            jsonparm=jsonpath
+            node.parm('json').set(jsonpath)
+        cleannodeparm(node)
+        if os.path.isfile(jsonparm):
+            if node.userData('geometry') !=None:
+                node.destroyUserData('geometry')
+            node.parm('lods').set('')
+            opfile=open(jsonparm, 'r')
+            jsondata=json.load(opfile)
+            load3djson(node,jsondata,jsonparm)
+            ###pack for geo
+            if categorytype(node)==0:
+                loadmesh(node,jsondata,jsonparm)
+                varscheck(node)
+                lodslist(node)
+                lodset(node)
+                packedfromgeo(node)
+           ###pack for atlas    
+            elif categorytype(node)==1:
+                packedfromgeo(node)
+                
+            opfile.close()
+            
     
-    boolsel=node.isSelected()
-    node.parm('lods').set('')
-    node.parm('geometry').set('')
-    jsonpath=''
-    try:
-        jsonpath=node.parm('input_data').eval()
+        nodename=node.parm('name').eval()
+        nodename=nodename.replace('.','_')
+        if nodename !="":
+            node.setName(nodename,unique_name=True)
+        
+        shader_parm=node.parm('setcustom_shader').eval()        
+        shader=hou.node(shader_parm)    
+        if node.parm('converted').eval()!=0 and shader is None:
+            node.parm('convertshader').pressButton()
+        if boolsel==1:
+            refresh(node)
+        nodeprop(node)
+        if tmpstick==1:
+            stickprev(node,1)
+        refreshtex(node)
     except:
         pass
-    if jsonpath == '':
-        jsonparm=node.parm('json').eval()
-    else:
-        jsonparm=jsonpath
-        node.parm('json').set(jsonpath)
-    cleannodeparm(node)
-    if os.path.isfile(jsonparm):
-        if node.userData('geometry') !=None:
-            node.destroyUserData('geometry')
-        node.parm('lods').set('')
-        opfile=open(jsonparm, 'r')
-        jsondata=json.load(opfile)
-        load3djson(node,jsondata,jsonparm)
-        ###pack for geo
-        if categorytype(node)==0:
-            loadmesh(node,jsondata,jsonparm)
-            varscheck(node)
-            lodslist(node)
-            lodset(node)
-            packedfromgeo(node)
-       ###pack for atlas    
-        elif categorytype(node)==1:
-            packedfromgeo(node)
-            
-        opfile.close()
-        
-
-    nodename=node.parm('name').eval()
-    nodename=nodename.replace('.','_')
-    if nodename !="":
-        node.setName(nodename,unique_name=True)
-    
-    shader_parm=node.parm('setcustom_shader').eval()        
-    shader=hou.node(shader_parm)    
-    if node.parm('converted').eval()!=0 and shader is None:
-        node.parm('convertshader').pressButton()
-    if boolsel==1:
-        refresh(node)
-    nodeprop(node)
-    if tmpstick==1:
-        stickprev(node,1)
-    refreshtex(node)
     
 #########Convert Workflow
 

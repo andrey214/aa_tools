@@ -46,6 +46,15 @@ class importerSetup():
 #############################################################################################
     def importData(self):
         js=self.json
+        if not os.path.isfile(js):
+            try:
+                dir=os.path.dirname(js)
+                newjs=dir+'//'+'assetData.json'
+                if os.path.isfile(newjs):
+                    js=newjs
+            except:
+                pass
+                
         try:
             if js!=None:
                 material=mrpf.assetnode(self.materialName,js,self.assetres)
