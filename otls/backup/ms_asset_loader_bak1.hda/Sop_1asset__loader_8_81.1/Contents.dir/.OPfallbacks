@@ -50,7 +50,7 @@ Vop/invert C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
 Vop/invert otls/OPlibScripted.hda
 Sop/matchsize C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
 Sop/matchsize otls/OPlibSop.hda
-Vop/megascans_shader_simple::1.1 P:/config/houdini_modules/aa_tools/otls/ms_simple_shader.hda
+Vop/megascans_shader_simple::1.1 Y:/config/houdini_modules/aa_tools/otls/ms_simple_shader.hda
 Vop/megascans_shader_simple::1.1 otls/ms_simple_shader.hda
 Vop/mulconst C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
 Vop/mulconst otls/OPlibScripted.hda
@@ -76,7 +76,7 @@ Vop/split C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
 Vop/split otls/OPlibVop.hda
 Vop/startswith C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
 Vop/startswith otls/OPlibVop.hda
-Vop/texture::2.0 P:/config/houdini_modules/houdini/otls/texture.hda
+Vop/texture::2.0 Y:/config/houdini_modules/houdini/otls/texture.hda
 Vop/texture::2.0 otls/texture.hda
 Vop/twoway C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
 Vop/twoway otls/OPlibScripted.hda

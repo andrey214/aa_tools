@@ -32,7 +32,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position -1.51473 0.782897
+position -1.30392 0.00980393
 connectornextid 0
 flags =  lock off model off template off footprint off xray off bypass off display on render on highlight off unload off savedata off compress on colordefault off exposed on
 outputsNamed3
@@ -48,7 +48,7 @@ stat
 {
   create -1
   modify -1
-  author User@FX-Note
+  author nobody@nowhere-Note
   access 0777
 }
 color UT_Color RGB 0.92 0.35 0.35 
@@ -19277,6 +19277,12 @@ Content-Disposition: attachment; filename="hdaroot/ogl_vis/preview.chn"
 Content-Type: text/plain
 
 {
+    channel ogl_use_tex1 {
+      lefttype = extend
+      righttype = extend
+      flags = 0
+      segment { length = 0 expr = if(strlen(chs(\"albedo_texture\"))>0,1,0) }
+    }
     channel aces {
       lefttype = extend
       righttype = extend
@@ -19294,12 +19300,6 @@ return a" language = python }
       righttype = extend
       flags = 0
       segment { length = 0 expr = if(strlen(chs(\"albedo_texture\"))>0,2.2,1) }
-    }
-    channel ogl_use_tex1 {
-      lefttype = extend
-      righttype = extend
-      flags = 0
-      segment { length = 0 expr = if(strlen(chs(\"albedo_texture\"))>0,1,0) }
     }
     channel ogl_rough {
       lefttype = extend
@@ -41792,14 +41792,10 @@ Content-Type: text/plain
       flags = 0
       segment { options = {	 autoslope  ai ao }
 
-	 length = 0 accel = 0.33333333333333331 0.33333333333333331 expr = "out=1
-try:
-    wf=hou.getenv(\"MSWORKFLOW\")
-    if wf.lower() == \"redshift\":
-        out=0
-    else:
-        out=1
-except:
+	 length = 0 accel = 0.33333333333333331 0.33333333333333331 expr = "wf=hou.getenv(\"MSWORKFLOW\")
+if wf.lower() == \"redshift\":
+    out=0
+else:
     out=1
 return out" language = python }
     }
