@@ -106,12 +106,12 @@ def assetnode(name,json='',res='2K'):
                 currenrui=hou.ui.curDesktop().paneTabOfType(hou.paneTabType.TreeView).pwd().type().name()
                 if currenrui=='geo':
                     geonode=hou.ui.curDesktop().paneTabOfType(hou.paneTabType.TreeView).pwd()
-                    asset=geonode.createNode('asset_loader::1.0',name)
+                    asset=geonode.createNode('asset_loader',name)
                 elif currenrui=='stage':
                     stagenode=hou.node(hou.ui.curDesktop().paneTabOfType(hou.paneTabType.TreeView).pwd().path())
                     lopnode=stagenode.createNode('sopcreate','megascans')
                     createnode=hou.node(lopnode.path()+'/sopnet/create')
-                    asset=createnode.createNode('asset_loader::1.0',name)
+                    asset=createnode.createNode('asset_loader',name)
                     asset.moveToGoodPosition()
                 #elif currenrui=='obj':
                 else:
@@ -121,7 +121,7 @@ def assetnode(name,json='',res='2K'):
                         srcc = obj.createNode('geo', 'megascans')
                         srcc.setColor( hou.Color( (0.5, 0.7882 , 0.5) ) )
                         srcc.setDisplayFlag(True)
-                    asset = srcc.createNode('asset_loader::1.0',name)
+                    asset = srcc.createNode('asset_loader',name)
             except:        
                 raise                                                   
     except:
