@@ -2,37 +2,32 @@ from __future__ import print_function
 import os,json,shutil,sys,re,hou #glob,
 import subprocess
 import atexit
-import bridge_core as bridge
+import toolutils
+
+from . import bridge_core as bridge
 ##########
-import connect as conn
+from . import connect as conn
 conf=None
 try:
     import ms_shading_conform as conf
 except:
     pass
 if conf is None:
-    import conform as conf
-
-import convert as conv
+    from . import conform as conf
+    
+from . import convert as conv
 
 if hou.isUIAvailable():
     import nodegraphutils as utils
 
 
 hou.putenv('Bridge_pid','')
-        
-    
+
 def collectdir(node):
     data=hou.getenv('JOB')+'/data/cache'
-    val=data
     if os.path.isdir(data):
-        val="$JOB/assets/megascans/"+"`chs("+'"category"'+")`"+"/`chs("+'"name"'+")`"
-    try:
-        from . import prism_integration
-        val=prism_integration.prismcollectpath(val)
-    except:
-        pass
-    node.parm("job_path").set(val)
+        val="$JOB/data/cache/generic/megascans/"+"`chs("+'"category"'+")`"+"/`chs("+'"name"'+")`"
+        node.parm("job_path").set(val)
         
 def dorat(node):
     rtconv=hou.getenv('RATPROCESS')
@@ -43,11 +38,11 @@ def dorat(node):
         
 def doaces(node):
     rtconv=hou.getenv('OCIO')
-    if rtconv!='':
+    if rtconv is not None:
         node.parm('aces').set(1)
     else:
-        node.parm('aces').set(0)        
-        
+        node.parm('aces').set(0)
+                
 def evars(node):
 ################EnvVars
     enviroments=[]
@@ -72,6 +67,7 @@ def jobreplace(path,env='JOB'):
             filepath=path.replace(job,'$'+env)
     except:
         pass
+    
     try:
         if get_platform()=='Windows':
             filepath=path.replace('\\','/')
@@ -79,7 +75,6 @@ def jobreplace(path,env='JOB'):
         pass
     filepath=path.replace('\\','/')
     return filepath
-
 #####
 def checkcollect(path,jbpath):
     job=hou.getenv('JOB')
@@ -122,7 +117,10 @@ def kill_child(child_pid):
     if child_pid is None:
         pass
     else:
-        os.kill(child_pid, signal.SIGTERM)
+        try:
+            os.kill(child_pid, signal.SIGTERM)
+        except:
+            pass
 
 def init_connect():
     bridgesetup=hou.getenv('bridgesetup')
@@ -134,6 +132,8 @@ def start_bridge():
     init_connect()
     try: 
         path=hou.getenv('QMEGASCAN_LIB')
+        DETACHED_PROCESS = 0x00000008
+        CREATE_NEW_PROCESS_GROUP = 0x00000200
         if os.path.isfile(path):
             launch=os.path.normpath(path.replace('\\','/'))
         else:
@@ -141,7 +141,7 @@ def start_bridge():
         if os.path.isfile(launch):
             try:
                 with open(os.devnull, 'w') as fp:
-                    proc = subprocess.Popen(launch, shell=False , stdout=fp)
+                    proc = subprocess.Popen(launch, shell=False , stdout=fp, creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP)
                     child_pid = proc.pid
                     atexit.register(kill_child,child_pid)
             except:
@@ -256,7 +256,6 @@ def lodset(node):
         if glibpath !=None and glibpath in geometryfile:
             geometryfile=jobreplace(geometryfile,'ASSETS_LIBRARY')
         geometryfile=geometryfile.replace('\\','/')      
-        
         node.parm('lods').set(geometryfile)
         node.parm('geometry').set(geometryfile)
     else:
@@ -268,7 +267,8 @@ def lodset(node):
             
         if glibpath !=None and glibpath in geometryfile:
             geometryfile=jobreplace(geometryfile,'ASSETS_LIBRARY')
-        geometryfile=geometryfile.replace('\\','/')    
+            
+        geometryfile=geometryfile.replace('\\','/')
         node.parm('geometry').set(geometryfile)
 
     ###try packed
@@ -348,7 +348,7 @@ def convertrat(node,tex,tconvert=0,acesuse=0):
                 tmp_path=os.path.dirname(newname)
                 tmp_name=tmp_name.replace(s,sres)
                 newname=tmp_path+'/'+tmp_name
-                break
+                break  
     newname=os.path.normpath(newname)
     if get_platform()=='Windows':
         newname=newname.replace('\'','/') 
@@ -383,12 +383,12 @@ def convertrat(node,tex,tconvert=0,acesuse=0):
         writenode.parm('copoutput').set('')
         readnode.parm('filename1').set('')    
 
-    newname=jobreplace(newname)
+    newname=jobreplace(newname)     
     glibpath=hou.getenv('ASSETS_LIBRARY')
     if glibpath !=None and glibpath in newname:
         newname=jobreplace(newname,'ASSETS_LIBRARY')       
-
     return newname
+
 def loadjsdata(node):
     jsonpath=''
     jsondata={}
@@ -420,7 +420,7 @@ def resizetex(node):
     except:
         udimed=0
     try:
-        udimcount=jsondata['udimcount']
+        udimcount=int(jsondata['udimcount'])
     except:
         udimcount=1
     try:
@@ -470,9 +470,9 @@ def collect(node):
         work_dir=work_dir.replace('\'','/')
     if not os.path.isdir(work_dir):
         try:
-            os.makedirs(work_dir, 0777)
+            os.makedirs(work_dir, 0o777)
         except OSError:
-            print("Creation of the directory %s failed" % work_dir)
+            print(("Creation of the directory %s failed" % work_dir))
     parms=node.type()       
     parms=parms.definition()
     parms=parms.parmTemplateGroup()
@@ -512,7 +512,7 @@ def collect(node):
                 except:
                     pass
 #            else:
-#                print 'Content path do not exists!!!'
+#                print('Content path do not exists!!!')
                 
             if job in newcont:
                 newcont=newcont.replace(job,'$'+'JOB')
@@ -532,14 +532,14 @@ def collect(node):
         pass
     ######Geometry collect
     if categorytype(node)!=2: #and node.parm('geometry').eval()!="":
-        #print categorytype(node)
+        #print(categorytype(node))
         #if categorytype(node)==0:
         #   basename=os.path.basename(node.parm('geometry').eval())
         #    basepath=os.path.dirname(orig_geo)
         #if categorytype(node)==1:
         #    basename=os.path.basename(node.parm('json').eval())
         #    basepath=os.path.dirname(jsonfile)
-        #print basepath
+        #print(basepath)
         basepath=os.path.dirname(jsonfile)
         #bgeos=glob.glob(basepath+'/*.bgeo.sc')
         bgeos = [dir+'/'+f for (dir, subdirs, fs) in os.walk(basepath) for f in fs if f.endswith(".bgeo.sc")]
@@ -818,7 +818,7 @@ def load3djson(node,jsondata,file):
     except:
         udimed=0
     try:
-        udimcount=jsondata['udimcount']
+        udimcount=int(jsondata['udimcount'])
     except:
         udimcount=1        
     try:
@@ -1013,9 +1013,9 @@ def load3djson(node,jsondata,file):
                 if parmval=='Albedo':nametx='albedo_texture'
                 if parmval=='Bump':nametx='bump_texture'
                 if parmval=='Cavity':nametx='ior_texture'
-                if parmval=='Specular':nametx='spec_texture'
                 if parmval=='Displacement':nametx='disp_texture'
                 if parmval=='Gloss':nametx='reflect_texture'
+                if parmval=='Specular':nametx='spec_texture'
                 if parmval=='Metalness':nametx='metallic_texture'
                 if parmval=='Normal':nametx='normal_texture'
                 if parmval=='SSS':nametx='sss_texture'
@@ -1032,7 +1032,6 @@ def load3djson(node,jsondata,file):
                 mapsprm.append([nametx,map])
                 
     ####Try Fuzz and Mask
-    #print mapsprm
     if len(mapsprm)>0 and mapsprm[0][1] is not None:
         names=['Albedo','AO','Bump','Displacement','Cavity','Gloss','Normal','Opacity']
         tempfile=mapsprm[0][1]
@@ -1052,7 +1051,7 @@ def load3djson(node,jsondata,file):
                 elif os.path.isfile(mask.replace('.exr','.jpg')):
                     mapsprm.append(['fuzz_texture',mask.replace('.exr','.jpg')])
                     break
-        
+                
     glibpath=hou.getenv('ASSETS_LIBRARY')
     for m in mapsprm:
         try:
@@ -1090,7 +1089,7 @@ def load3djson(node,jsondata,file):
                     
             if glibpath !=None and glibpath in tex:
                 tex=jobreplace(tex,'ASSETS_LIBRARY')
-            tex=jobreplace(tex)
+            tex=jobreplace(tex) 
             node.parm(m[0]).set(tex)
         except:
             pass
@@ -1211,6 +1210,20 @@ def loadmesh(node,jsondata,file):
         
         
 ####################################################################
+def refreshtex(node=''):
+    try:
+        hou.hscript("glcache -c")
+        hou.hscript("texcache -c")
+        hou.hscript('opupdate')
+        viewer = toolutils.sceneViewer()
+        viewport = viewer.curViewport()
+        viewport.settings().updateMaterials()
+        viewport.draw()
+        #rnode=node.path()+'/output0'
+        #rnode.setCurrent(1)
+        #node.setCurrent(1)
+    except:
+        pass
 
 def refresh(node):
     hou.node("/").setSelected(1)
@@ -1218,79 +1231,110 @@ def refresh(node):
     node.setSelected(1)
 ###Load Asset
 def loadasset(node):
-    tmpstick=0
-    if node.parm('stick').eval()==1:
-        tmpstick=1
-        stickprev(node,0)
+    try:    
+        tmpstick=0
+        if node.parm('stick').eval()==1:
+            tmpstick=1
+            stickprev(node,0)
+        
+        boolsel=node.isSelected()
+        node.parm('lods').set('')
+        node.parm('geometry').set('')
+        jsonpath=''
+        try:
+            jsonpath=node.parm('input_data').eval()
+        except:
+            pass
+        if jsonpath == '':
+            jsonparm=node.parm('json').eval()
+        else:
+            jsonparm=jsonpath
+            node.parm('json').set(jsonpath)
+        cleannodeparm(node)
+        if os.path.isfile(jsonparm):
+            if node.userData('geometry') !=None:
+                node.destroyUserData('geometry')
+            node.parm('lods').set('')
+            opfile=open(jsonparm, 'r')
+            jsondata=json.load(opfile)
+            load3djson(node,jsondata,jsonparm)
+            ###pack for geo
+            if categorytype(node)==0:
+                loadmesh(node,jsondata,jsonparm)
+                varscheck(node)
+                lodslist(node)
+                lodset(node)
+                packedfromgeo(node)
+           ###pack for atlas    
+            elif categorytype(node)==1:
+                packedfromgeo(node)
+                
+            opfile.close()
+            
     
-    boolsel=node.isSelected()
-    node.parm('lods').set('')
-    node.parm('geometry').set('')
-    jsonpath=''
-    try:
-        jsonpath=node.parm('input_data').eval()
+        nodename=node.parm('name').eval()
+        nodename=nodename.replace('.','_')
+        if nodename !="":
+            node.setName(nodename,unique_name=True)
+        
+        shader_parm=node.parm('setcustom_shader').eval()        
+        shader=hou.node(shader_parm)    
+        if node.parm('converted').eval()!=0 and shader is None:
+            node.parm('convertshader').pressButton()
+        if boolsel==1:
+            refresh(node)
+        nodeprop(node)
+        if tmpstick==1:
+            stickprev(node,1)
+        refreshtex(node)
     except:
         pass
-    if jsonpath == '':
-        jsonparm=node.parm('json').eval()
-    else:
-        jsonparm=jsonpath
-        node.parm('json').set(jsonpath)
-    cleannodeparm(node)
-    if os.path.isfile(jsonparm):
-        if node.userData('geometry') !=None:
-            node.destroyUserData('geometry')
-        node.parm('lods').set('')
-        opfile=open(jsonparm, 'r')
-        jsondata=json.load(opfile)
-        load3djson(node,jsondata,jsonparm)
-        ###pack for geo
-        if categorytype(node)==0:
-            loadmesh(node,jsondata,jsonparm)
-            varscheck(node)
-            lodslist(node)
-            lodset(node)
-            packedfromgeo(node)
-       ###pack for atlas    
-        elif categorytype(node)==1:
-            packedfromgeo(node)
-            
-        opfile.close()
-        
-
-    nodename=node.parm('name').eval()
-    nodename=nodename.replace('.','_')
-    if nodename !="":
-        node.setName(nodename,unique_name=True)
     
-    shader_parm=node.parm('setcustom_shader').eval()        
-    shader=hou.node(shader_parm)    
-    if node.parm('converted').eval()!=0 and shader is None:
-        node.parm('convertshader').pressButton()
-    if boolsel==1:
-        refresh(node)
-    nodeprop(node)
-    if tmpstick==1:
-        stickprev(node,1)
-        
 #########Convert Workflow
+
+
 def convertWF(node):
-    name=node.parm('name').eval()
-    nd=node.parm('matn').eval()
-    ops=conf.conformlist()[0]
-    
-    properties=ops[node.parm('shader').eval()]
+    workflow=hou.getenv("MSWORKFLOW")
+    shadername=node.parm('shader').eval()
+    if workflow is None:
+        workflow="Mantra"
+    builders={'renderman':'pxrmaterialbuilder','arnold':'arnold_materialbuilder',
+'vray':'vray_vop_material','redshift':'redshift_vopnet'}        
+    name=node.parm('name').eval() #name
+    nd=node.parm('matn').eval() #root of shader
+    ops=conf.conformlist()[0] 
+    properties=ops[node.parm('shader').eval()] #properties
     matnet=node.node(nd)
-    materialnode=hou.node(node.parm('setcustom_shader').eval())
-    
-    if matnet is not None:
+    materialnode=hou.node(node.parm('setcustom_shader').eval()) #shader
+    material = materialnode
+    if workflow.lower() == 'mantra' or workflow.lower() == 'redshift':
+        if matnet is not None:
+            if materialnode is None:
+                materialnode = matnet.createNode(properties['node'],name)
+                materialnode.moveToGoodPosition()
+            material = materialnode
+    else:
         if materialnode is None:
-            materialnode = matnet.createNode(properties['node'],name)
+            materialnode = matnet.createNode(builders[workflow.lower()],name)
             materialnode.moveToGoodPosition()
-        material = materialnode
-        shadername=node.parm('shader').eval()
-        conv.copyvalues(node,shadername,material)
-        node.parm('converted').set(1)
+        else:
+            materialnode.setName(name , unique_name=True)
+            
+        if workflow.lower() == 'arnold':
+            outputnode=hou.node(materialnode.path()+'/OUT_material')
+            diffuse=hou.node(materialnode.path()+'/'+name)
+            if diffuse is None:
+                diffuse=materialnode.createNode(properties['node'],name)
+                diffuse.setPosition([(outputnode.position()[0]-3),outputnode.position()[1]])
+            outputnode.setInput(0,diffuse,0) 
+            outputnode.setInput(1,diffuse,1)             
+            material = diffuse       
+
+                
+
+    conv.copyvalues(node,shadername,material)
+    node.parm('converted').set(1)
+    refreshtex(node)
         
 
         
@@ -1329,6 +1373,8 @@ def shaderoplist(node):
             opmenu += [op, op]
     except:
         pass
+#    if len(ops.keys())>0:
+#        node.parm('shader').set(str((ops.keys())[0]))
     return opmenu
     
 def setmenustart(node):

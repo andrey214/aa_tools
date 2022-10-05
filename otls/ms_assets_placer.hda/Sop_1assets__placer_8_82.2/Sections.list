@@ -1,0 +1,14 @@
+""
+DialogScript	DialogScript
+CreateScript	CreateScript
+TypePropertiesOptions	TypePropertiesOptions
+Help	Help
+Tools.shelf	Tools.shelf
+InternalFileOptions	InternalFileOptions
+Contents.gz	Contents.gz
+DefaultState	DefaultState
+IconImage	IconImage
+PythonModule	PythonModule
+OnInstall	OnInstall
+OnUninstall	OnUninstall
+ExtraFileOptions	ExtraFileOptions

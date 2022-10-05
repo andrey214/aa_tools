@@ -1,0 +1,273 @@
+# Dialog script for assets_placer::2.6 automatically generated
+
+{
+    name	assets_placer::2.6
+    script	assets_placer::2.6
+    label	"Assets Placer"
+
+    help {
+	""
+    }
+
+    inputlabel	1	"Geometry For Base (Optional)"
+    inputlabel	2	"Geometry for Instances"
+    inputlabel	3	"Sub-Network Input #3"
+    inputlabel	4	"Sub-Network Input #4"
+    outputlabel	1	"Scattered Geometry"
+
+    parm {
+        name    "mode"
+        label   "Mode:"
+        type    integer
+        joinnext
+        default { "0" }
+        menu {
+            "0" "pick"
+            "1" "stroke"
+        }
+        range   { 0 10 }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "labelparm"
+        label   "Label"
+        type    label
+        nolabel
+        joinnext
+        default { "" }
+    }
+    parm {
+        name    "display_handle"
+        label   "Display Handle"
+        type    toggle
+        default { "0" }
+        parmtag { "script_callback" "hou.phm().show_handles(hou.pwd())" }
+        parmtag { "script_callback_language" "python" }
+    }
+    group {
+        name    "parameters"
+        label   "Parameters"
+
+        parm {
+            name    "hideglobals"
+            label   "hideglobals"
+            type    integer
+            invisible
+            default { "opexist(opinputpath(\".\",0))" }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "checkinstances"
+            label   "inst check"
+            type    integer
+            invisible
+            default { "opexist(opinputpath(\".\",1))" }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "instcol"
+            label   "Use instances for collision"
+            type    toggle
+            joinnext
+            default { "0" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "random_rotate"
+            label   "Random Rotate"
+            type    toggle
+            joinnext
+            default { "1" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "auto_select"
+            label   "Auto Selection"
+            type    toggle
+            joinnext
+            default { "1" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "cleaninfo"
+            label   "Clean Attributes"
+            type    toggle
+            default { "1" }
+            range   { 0! 10 }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "sensetivity"
+            label   "Sensitivity Multiply"
+            type    float
+            default { "1" }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "biasnorm"
+            label   "Bias Normal to Y"
+            type    float
+            default { "0" }
+            range   { 0! 1! }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "sepparm"
+            label   "Separator"
+            type    separator
+            default { "" }
+        }
+    }
+
+    group {
+        name    "parameters_1"
+        label   "Instances"
+
+        parm {
+            name    "sepparm3"
+            label   "Separator"
+            type    separator
+            default { "" }
+        }
+        parm {
+            name    "updp"
+            label   "Update Posinions"
+            type    button
+            joinnext
+            default { "0" }
+            parmtag { "script_callback" "hou.phm().updp(hou.pwd())" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "objautotr"
+            label   "Auto obj transform"
+            type    toggle
+            joinnext
+            default { "0" }
+            hidewhen "{ hideglobals == 1 }"
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "sepparm2"
+            label   "Separator"
+            type    separator
+            default { "" }
+        }
+        multiparm {
+            name    "points"
+            label    "Number of Points"
+            default 0
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "multistartoffset" "0" }
+
+            parm {
+                name    "weight#"
+                label   "W"
+                type    log
+                invisible
+                default { "1" }
+                disablewhen "{ usept# == 0 }"
+                range   { 0.001! 1000 }
+            }
+            parm {
+                name    "geodatapath_#"
+                label   "geo data path"
+                type    string
+                invisible
+                default { "" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "enable#"
+                label   "Label"
+                type    toggle
+                nolabel
+                default { "1" }
+                parmtag { "script_callback_language" "python" }
+            }
+            groupcollapsible {
+                name    "transform#"
+                label   "Transform"
+
+                parm {
+                    name    "position_#"
+                    label   "Position"
+                    type    vector
+                    size    3
+                    default { "0" "0" "0" }
+                    disablewhen "{ enable# == 0 }"
+                    range   { -1 1 }
+                }
+                parm {
+                    name    "rotate_#"
+                    label   "Rotate"
+                    type    vector
+                    size    3
+                    default { "0" "0" "0" }
+                    disablewhen "{ enable# == 0 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "loctransform_#"
+                    label   "Local Transform"
+                    type    vector
+                    size    3
+                    default { "0" "0" "0" }
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "locrotate_#"
+                    label   "Local Rotate"
+                    type    vector
+                    size    3
+                    default { "0" "0" "0" }
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "scale_#"
+                    label   "Local Scale"
+                    type    vector
+                    size    3
+                    default { "1" "1" "1" }
+                    disablewhen "{ enable# == 0 }"
+                    range   { -1 1 }
+                    parmtag { "script_callback_language" "python" }
+                }
+            }
+
+            parm {
+                name    "instance#"
+                label   "Instance"
+                type    string
+                joinnext
+                default { "" }
+                disablewhen "{ enable# == 0 }"
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "random_rot#"
+                label   "Random Rotate"
+                type    toggle
+                default { "1" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "id#"
+                label   "ID"
+                type    integer
+                default { "0" }
+                range   { 0 10 }
+                parmtag { "script_callback_language" "python" }
+            }
+        }
+
+    }
+
+}

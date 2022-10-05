@@ -1,0 +1,4 @@
+try:
+    hou.ui.unregisterViewerState('assets_placer')
+except:
+    pass

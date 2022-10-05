@@ -1,0 +1,112 @@
+Operator:     assets_placer::1.7
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::1.7?Sop/assets_placer::1.7
+Icon:         opdef:/Sop/assets_placer::1.7?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Wed Jan 20 15:48:29 2021
+
+Operator:     assets_placer::1.8
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::1.8?Sop/assets_placer::1.8
+Icon:         opdef:/Sop/assets_placer::1.8?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Wed Jan 20 15:48:29 2021
+
+Operator:     assets_placer::2.0
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::2.0?Sop/assets_placer::2.0
+Icon:         opdef:/Sop/assets_placer::2.0?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Wed Jan 20 15:48:30 2021
+
+Operator:     assets_placer::2.1
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::2.1?Sop/assets_placer::2.1
+Icon:         opdef:/Sop/assets_placer::2.1?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Wed Jan 27 14:07:02 2021
+
+Operator:     assets_placer::2.2
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::2.2?Sop/assets_placer::2.2
+Icon:         opdef:/Sop/assets_placer::2.2?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Sun Jan 31 18:46:10 2021
+
+Operator:     assets_placer::2.5
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::2.5?Sop/assets_placer::2.5
+Icon:         opdef:/Sop/assets_placer::2.5?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Wed Feb 17 14:54:03 2021
+
+Operator:     assets_placer::2.6
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::2.6?Sop/assets_placer::2.6
+Icon:         opdef:/Sop/assets_placer::2.6?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Sun Feb 21 13:53:43 2021
+
+Operator:     assets_placer::2.7
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::2.7?Sop/assets_placer::2.7
+Icon:         opdef:/Sop/assets_placer::2.7?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Tue Apr 20 21:07:21 2021
+
