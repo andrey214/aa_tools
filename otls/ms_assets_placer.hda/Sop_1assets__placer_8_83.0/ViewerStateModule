@@ -760,9 +760,16 @@ class DrawPoints(object):
                 viewport = self.scene_viewer.curViewport()
                 pixpos=[int(device.mouseX()),int(device.mouseY())] 
                 vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
-                if vpnode==node and node.parm('auto_select').eval()==1:                    
-                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
-                    i=rawprim.attribValue('packed_id')
+                if node.parm('auto_select').eval()==1:                    
+                    rawprim=viewport.queryPrimAtPixel(node, pixpos[0], pixpos[1])
+                    i=-1
+                    try:
+                        i=rawprim.points()[0].attribValue('packed_id')
+                    except:
+                        pass
+                    if i==-1:
+                        i=rawprim.attribValue('packed_id')
+                        
                     nbr=self.getindexbyid(i)
                     self._indexes=[nbr]
                     self._setCurrentparm()
@@ -786,9 +793,15 @@ class DrawPoints(object):
                 viewport = self.scene_viewer.curViewport()
                 pixpos=[int(device.mouseX()),int(device.mouseY())] 
                 vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
-                if vpnode==node and node.parm('auto_select').eval()==1:
-                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
-                    i=rawprim.attribValue('packed_id')
+                if node.parm('auto_select').eval()==1:                    
+                    rawprim=viewport.queryPrimAtPixel(node, pixpos[0], pixpos[1])
+                    i=-1
+                    try:
+                        i=rawprim.points()[0].attribValue('packed_id')
+                    except:
+                        pass
+                    if i==-1:
+                        i=rawprim.attribValue('packed_id')
                     nbr=self.getindexbyid(i)
                     self._removeselect([nbr])
                 else:
@@ -803,9 +816,15 @@ class DrawPoints(object):
                 viewport = self.scene_viewer.curViewport()
                 pixpos=[int(device.mouseX()),int(device.mouseY())] 
                 vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
-                if vpnode==node and node.parm('auto_select').eval()==1:
-                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
-                    i=rawprim.attribValue('packed_id')
+                if node.parm('auto_select').eval()==1:                    
+                    rawprim=viewport.queryPrimAtPixel(node, pixpos[0], pixpos[1])
+                    i=-1
+                    try:
+                        i=rawprim.points()[0].attribValue('packed_id')
+                    except:
+                        pass
+                    if i==-1:
+                        i=rawprim.attribValue('packed_id')
                     nbr=self.getindexbyid(i)
                     current=node.parm('instance'+str(nbr)).eval()
                     index=0
@@ -1582,9 +1601,15 @@ class DrawPoints(object):
         if device.isCtrlKey():
             try:
                 vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
-                if vpnode==node and node.parm('auto_select').eval()==1:
-                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
-                    i=rawprim.attribValue('packed_id')
+                if node.parm('auto_select').eval()==1:                    
+                    rawprim=viewport.queryPrimAtPixel(node, pixpos[0], pixpos[1])
+                    i=-1
+                    try:
+                        i=rawprim.points()[0].attribValue('packed_id')
+                    except:
+                        pass
+                    if i==-1:
+                        i=rawprim.attribValue('packed_id')
                     nbr=self.getindexbyid(i)
                     self._indexes=[nbr]
                     self._setCurrentparm()
@@ -1596,9 +1621,15 @@ class DrawPoints(object):
         if scroll!=0 and not device.isCtrlKey() and not device.isShiftKey():
             try:
                 vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
-                if vpnode==node and node.parm('auto_select').eval()==1:
-                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
-                    i=rawprim.attribValue('packed_id')
+                if node.parm('auto_select').eval()==1:                    
+                    rawprim=viewport.queryPrimAtPixel(node, pixpos[0], pixpos[1])
+                    i=-1
+                    try:
+                        i=rawprim.points()[0].attribValue('packed_id')
+                    except:
+                        pass
+                    if i==-1:
+                        i=rawprim.attribValue('packed_id')
                     nbr=self.getindexbyid(i)
                     self._indexes=[nbr]
                     self._setCurrentparm()
@@ -1611,9 +1642,15 @@ class DrawPoints(object):
         
             try:
                 vpnode=viewport.queryNodeAtPixel(pixpos[0], pixpos[1])
-                if vpnode==node and node.parm('auto_select').eval()==1:
-                    rawprim=viewport.queryPrimAtPixel(vpnode, pixpos[0], pixpos[1])
-                    i=rawprim.attribValue('packed_id')
+                if node.parm('auto_select').eval()==1:                    
+                    rawprim=viewport.queryPrimAtPixel(node, pixpos[0], pixpos[1])
+                    i=-1
+                    try:
+                        i=rawprim.points()[0].attribValue('packed_id')
+                    except:
+                        pass
+                    if i==-1:
+                        i=rawprim.attribValue('packed_id')
                     nbr=self.getindexbyid(i)
                     self._indexes=[nbr]
                     self._setCurrentparm()
