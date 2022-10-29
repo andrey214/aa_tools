@@ -19,7 +19,7 @@ My various assets for Houdini
 
 3. ms_asset_loader_lop
 
-[![Watch the video](https://github.com/andrey214/aa_tools/raw/main/imgs/asset_loader_lop.jpg)](https://vimeo.com/765291814)
+[![Watch the video](https://github.com/andrey214/aa_tools/raw/main/imgs/asset_loader_03.jpg)](https://vimeo.com/765291814)
 
 4. asset_placer
 
