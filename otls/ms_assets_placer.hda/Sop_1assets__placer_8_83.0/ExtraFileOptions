@@ -45,7 +45,7 @@
 	},
 	"ViewerStateModule/Cursor":{
 		"type":"intarray",
-		"value":[763,31]
+		"value":[914,41]
 	},
 	"ViewerStateModule/IsPython":{
 		"type":"bool",

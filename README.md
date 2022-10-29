@@ -17,12 +17,22 @@ My various assets for Houdini
 
 [![Watch the video](https://github.com/andrey214/aa_tools/raw/main/imgs/asset_loader_02.jpg)](https://vimeo.com/638435845)
 
-3. asset_placer
+3. ms_asset_loader_lop
+
+[![Watch the video](https://github.com/andrey214/aa_tools/raw/main/imgs/asset_loader_lop.jpg)](https://vimeo.com/765291814)
+
+4. asset_placer
 
 [![Watch the video](https://github.com/andrey214/aa_tools/raw/main/imgs/asset_placer_01.jpg)](https://vimeo.com/638435766)
+
 
 # Installation:
 
 1. Edit package jsonfile (root/packages/aatools.json). Change "H_CONFIG" is folder where you cloned repository.
 "QMEGASCAN_LIB" is path to bridge application
 2. Copy edited json to "packages" folder in home Houdini directory.($HOUDINI_USER_PREF_DIR/packages)
+
+Optional Variables:
+"MS_AUTOSHADING" enables automatic shader creation when loading an asset.
+"MS_AUTOCONNECT" enables automatic connection to the Bridge when the program starts.
+"MS_COLLECT" sets the path to the directory for the asset collection.

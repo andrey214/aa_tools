@@ -604,6 +604,20 @@
             parmtag { "takecontrol" "always" }
         }
         parm {
+            name    "converttype"
+            label   "converttype"
+            type    integer
+            nolabel
+            joinnext
+            default { "1" }
+            menu {
+                "0" "usd"
+                "1" "packed"
+            }
+            range   { 0 10 }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
             name    "pdisk"
             label   "use packed disk"
             type    toggle

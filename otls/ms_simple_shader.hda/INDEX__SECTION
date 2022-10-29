@@ -19,12 +19,12 @@ Path:         oplib:/Vop/megascans_shader_simple::1.1?Vop/megascans_shader_simpl
 Icon:         opdef:/Vop/megascans_shader_simple::1.1?IconImage
 Table:        Vop
 License:      
-Extra:        subtype=material shadertype=vopmaterial 
+Extra:        shadertype=vopmaterial subtype=material visibleoutputs=5 
 User:         
-Inputs:       0 to 22
+Inputs:       0 to 21
 Outputs:      2048
 Subnet:       true
 Python:       false
 Empty:        false
-Modified:     Sun Nov 14 12:38:31 2021
+Modified:     Mon Oct 24 18:00:40 2022
 

@@ -32,21 +32,22 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position -2.69631 1.20988
-connectornextid 2
+position 12.3133 -8.31459
+connectornextid 3
 flags =  lock off model off template off footprint off xray off bypass off display on render on highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
 {
+2 "output1"
 }
 inputsNamed3
 {
-0 	"" "" 1 "input1"
-1 	mountain1 1 1 "input2"
+0 	normal2 1 1 "input1"
+1 	scale_optional 0 1 "input2"
 }
 inputs
 {
-0 	"" 0 1
-1 	mountain1 0 1
+0 	normal2 0 1
+1 	scale_optional 0 1
 }
 stat
 {
@@ -19745,6 +19746,861 @@ Content-Type: text/plain
 }
 
 --HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform.init"
+Content-Type: text/plain
+
+type = attribvop
+matchesdef = 0
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform.def"
+Content-Type: text/plain
+
+sopflags sopflags = 
+comment ""
+position 19.9007 -34.5016
+connectornextid 2
+flags =  lock off model off template off footprint off xray off bypass off display on render on highlight off unload off savedata off compress on colordefault off exposed on
+outputsNamed3
+{
+1 "output1"
+}
+inputsNamed3
+{
+0 	attribdelete4 1 1 "input1"
+}
+inputs
+{
+0 	attribdelete4 0 1
+}
+stat
+{
+  create -1
+  modify -1
+  author User@FX-Note
+  access 0777
+}
+color UT_Color RGB 0.451 0.369 0.796 
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform.spareparmdef"
+Content-Type: text/plain
+
+    parm {
+        name    "bindgroup"
+        baseparm
+        label   "Group"
+        export  none
+        bindselector uvselect "Modify Points"
+            "Select the points to affect and press Enter to complete."
+            0 1 0xffffffff 0 bindgrouptype 0
+    }
+    parm {
+        name    "bindgrouptype"
+        baseparm
+        label   "Group Type"
+        export  none
+    }
+    parm {
+        name    "bindclass"
+        baseparm
+        label   "Run Over"
+        export  none
+    }
+    parm {
+        name    "vex_numcount"
+        baseparm
+        label   "Number Count"
+        export  none
+    }
+    parm {
+        name    "vex_threadjobsize"
+        baseparm
+        label   "Thread Job Size"
+        export  none
+    }
+    group {
+        name    "stdswitcher3"
+        label   "Vex Setup"
+
+        parm {
+            name    "vexsrc"
+            baseparm
+            label   "Vex Source"
+            export  all
+        }
+        parm {
+            name    "shoppath"
+            baseparm
+            label   "Shop Path"
+            export  all
+        }
+        parm {
+            name    "script"
+            baseparm
+            label   "Script"
+            export  all
+        }
+        parm {
+            name    "clear"
+            baseparm
+            label   "Re-load VEX Functions"
+            export  all
+        }
+        parm {
+            name    "vexsnippet"
+            baseparm
+            label   "Snippet"
+            export  none
+        }
+        parm {
+            name    "vex_strict"
+            baseparm
+            label   "Enforce Prototypes"
+            export  none
+        }
+        parm {
+            name    "vex_exportlist"
+            baseparm
+            label   "Attributes to Create"
+            export  none
+        }
+        parm {
+            name    "vop_compiler"
+            baseparm
+            label   "Compiler"
+            export  none
+        }
+        parm {
+            name    "vop_forcecompile"
+            baseparm
+            label   "Force Compile"
+            export  none
+        }
+        parm {
+            name    "vex_cwdpath"
+            baseparm
+            label   "Evaluation Node Path"
+            export  none
+        }
+        parm {
+            name    "vex_outputmask"
+            baseparm
+            label   "Export Parameters"
+            export  none
+        }
+        parm {
+            name    "vex_multithread"
+            baseparm
+            label   "Enable Multithreading"
+            export  none
+        }
+    }
+
+    group {
+        name    "stdswitcher3_1"
+        label   "Attribute Bindings"
+
+        parm {
+            name    "vex_precision"
+            baseparm
+            label   "VEX Precision"
+            export  none
+        }
+        parm {
+            name    "autobind"
+            baseparm
+            label   "Autobind by Name"
+            export  none
+        }
+        multiparm {
+            name    "bindings"
+            label    "Number of Bindings"
+            baseparm
+            default 0
+            parmtag { "multistartoffset" "1" }
+
+            parm {
+                name    "bindname#"
+                baseparm
+                label   "Attribute Name"
+                export  none
+            }
+            parm {
+                name    "bindparm#"
+                baseparm
+                label   "VEX Parameter"
+                export  none
+            }
+        }
+
+        parm {
+            name    "groupautobind"
+            baseparm
+            label   "Autobind Groups by Name"
+            export  none
+        }
+        multiparm {
+            name    "groupbindings"
+            label    "Group Bindings"
+            baseparm
+            default 0
+            parmtag { "multistartoffset" "1" }
+
+            parm {
+                name    "bindgroupname#"
+                baseparm
+                label   "Group Name"
+                export  none
+            }
+            parm {
+                name    "bindgroupparm#"
+                baseparm
+                label   "VEX Parameter"
+                export  none
+            }
+        }
+
+        parm {
+            name    "vex_updatenmls"
+            baseparm
+            label   "Update Normals If Displaced"
+            export  none
+        }
+        parm {
+            name    "vex_matchattrib"
+            baseparm
+            label   "Attribute to Match"
+            export  none
+        }
+        parm {
+            name    "vex_inplace"
+            baseparm
+            label   "Compute Results In Place"
+            export  none
+        }
+        parm {
+            name    "vex_selectiongroup"
+            baseparm
+            label   "Output Selection Group"
+            export  none
+        }
+    }
+
+    parm {
+        name    "ptnum"
+        label   "Point Number"
+        type    integer
+        invisible
+        default { "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "vtxnum"
+        label   "Vertex Number"
+        type    integer
+        invisible
+        default { "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "primnum"
+        label   "Primitive Number"
+        type    integer
+        invisible
+        default { "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "id"
+        label   "Id"
+        type    integer
+        invisible
+        default { "-1" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "numpt"
+        label   "Number of Points"
+        type    integer
+        invisible
+        default { "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "numvtx"
+        label   "Number of Vertices"
+        type    integer
+        invisible
+        default { "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "numprim"
+        label   "Number of Prims"
+        type    integer
+        invisible
+        default { "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "Time"
+        label   "Time"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 1 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "TimeInc"
+        label   "Time Inc"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 1 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "Frame"
+        label   "Frame"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 1 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "life"
+        label   "Life"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 1 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "age"
+        label   "Age"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 1 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "OpInput2"
+        label   "Second Input"
+        type    string
+        invisible
+        default { "" }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "OpInput3"
+        label   "Third Input"
+        type    string
+        invisible
+        default { "" }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "OpInput4"
+        label   "Fourth Input"
+        type    string
+        invisible
+        default { "" }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "OpInput1"
+        label   "First Input"
+        type    string
+        invisible
+        default { "" }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "uv"
+        label   "UV"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "P"
+        label   "P"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "v"
+        label   "Velocity"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "force"
+        label   "Force"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "Cd"
+        label   "Cd"
+        type    float
+        invisible
+        size    3
+        default { "1" "1" "1" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "N"
+        label   "N"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+bindgroup	[ 0	locks=0 ]	(	""	)
+bindgrouptype	[ 0	locks=0 ]	(	"guess"	)
+bindclass	[ 0	locks=0 ]	(	"point"	)
+vex_numcount	[ 0	locks=0 ]	(	10	)
+vex_threadjobsize	[ 0	locks=0 ]	(	1024	)
+stdswitcher	[ 0	locks=0 ]	(	0	0	)
+vexsrc	[ 0	locks=0 ]	(	"myself"	)
+shoppath	[ 0	locks=0 ]	(	""	)
+script	[ 0	locks=0 ]	(	null	)
+clear	[ 0	locks=0 ]	(	0	)
+vexsnippet	[ 0	locks=0 ]	(	""	)
+vex_strict	[ 0	locks=0 ]	(	"off"	)
+vex_exportlist	[ 0	locks=0 ]	(	*	)
+vop_compiler	[ 0	locks=0 ]	(	"vcc -q $VOP_INCLUDEPATH -o $VOP_OBJECTFILE -e $VOP_ERRORFILE $VOP_SOURCEFILE"	)
+vop_forcecompile	[ 0	locks=0 ]	(	0	)
+vex_cwdpath	[ 0	locks=0 ]	(	""	)
+vex_outputmask	[ 0	locks=0 ]	(	*	)
+vex_multithread	[ 0	locks=0 ]	(	"on"	)
+vex_precision	[ 0	locks=0 ]	(	auto	)
+autobind	[ 0	locks=0 ]	(	"on"	)
+bindings	[ 0	locks=0 ]	(	0	)
+groupautobind	[ 0	locks=0 ]	(	"on"	)
+groupbindings	[ 0	locks=0 ]	(	0	)
+vex_updatenmls	[ 0	locks=0 ]	(	"off"	)
+vex_matchattrib	[ 0	locks=0 ]	(	id	)
+vex_inplace	[ 0	locks=0 ]	(	"off"	)
+vex_selectiongroup	[ 0	locks=0 ]	(	""	)
+stdswitcher3	[ 0	locks=0 ]	(	0	0	)
+ptnum	[ 0	locks=0 ]	(	0	)
+vtxnum	[ 0	locks=0 ]	(	0	)
+primnum	[ 0	locks=0 ]	(	0	)
+id	[ 0	locks=0 ]	(	-1	)
+numpt	[ 0	locks=0 ]	(	0	)
+numvtx	[ 0	locks=0 ]	(	0	)
+numprim	[ 0	locks=0 ]	(	0	)
+Time	[ 0	locks=0 ]	(	0	)
+TimeInc	[ 0	locks=0 ]	(	0	)
+Frame	[ 0	locks=0 ]	(	0	)
+life	[ 0	locks=0 ]	(	0	)
+age	[ 0	locks=0 ]	(	0	)
+OpInput2	[ 0	locks=0 ]	(	""	)
+OpInput3	[ 0	locks=0 ]	(	""	)
+OpInput4	[ 0	locks=0 ]	(	""	)
+OpInput1	[ 0	locks=0 ]	(	""	)
+uv	[ 0	locks=0 ]	(	0	0	0	)
+P	[ 0	locks=0 ]	(	0	0	0	)
+v	[ 0	locks=0 ]	(	0	0	0	)
+force	[ 0	locks=0 ]	(	0	0	0	)
+Cd	[ 0	locks=0 ]	(	1	1	1	)
+N	[ 0	locks=0 ]	(	0	0	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":"___EXTERNAL___"
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/geometryvopglobal1.init"
+Content-Type: text/plain
+
+type = geometryvopglobal::2.0
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/geometryvopglobal1.def"
+Content-Type: text/plain
+
+comment ""
+position 1.90579 1.97631
+connectornextid 20
+flags =  lock off model off template off footprint off xray off bypass off display on render on highlight off unload off savedata off compress on colordefault on exposed on lowdetail off mediumdetail off highdetail on material off
+outputsNamed3
+{
+0 "P"
+1 "v"
+2 "force"
+3 "age"
+4 "life"
+5 "id"
+6 "Cd"
+7 "uv"
+8 "N"
+9 "Time"
+10 "TimeInc"
+11 "Frame"
+12 "ptnum"
+13 "primnum"
+14 "vtxnum"
+15 "numpt"
+16 "numprim"
+17 "numvtx"
+18 "OpInput1"
+19 "OpInput2"
+}
+inputsNamed3
+{
+}
+inputs
+{
+}
+stat
+{
+  create -1
+  modify -1
+  author User@FX-Note
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8 
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/geometryvopglobal1.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/geometryvopglobal1.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/geometryvopoutput1.init"
+Content-Type: text/plain
+
+type = geometryvopoutput
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/geometryvopoutput1.def"
+Content-Type: text/plain
+
+comment ""
+position 6.64696 3.67056
+connectornextid 5
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on lowdetail off mediumdetail off highdetail on material off
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	"" "" 1 "P"
+1 	"" "" 1 "v"
+2 	"" "" 1 "force"
+3 	"" "" 1 "Cd"
+4 	"" "" 1 "N"
+}
+inputs
+{
+0 	"" 0 1
+1 	"" 0 1
+2 	"" 0 1
+3 	"" 0 1
+4 	"" 0 1
+}
+stat
+{
+  create -1
+  modify -1
+  author User@FX-Note
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8 
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/geometryvopoutput1.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/geometryvopoutput1.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/primintrinsic1.init"
+Content-Type: text/plain
+
+type = primintrinsic
+matchesdef = 0
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/primintrinsic1.def"
+Content-Type: text/plain
+
+comment ""
+position 5.03783 0.032742
+connectornextid 4
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on lowdetail off mediumdetail off highdetail on material off
+outputsNamed3
+{
+3 "adata"
+}
+inputsNamed3
+{
+0 	geometryvopglobal1 18 1 "file"
+1 	"" "" 1 "intrinsic"
+2 	geometryvopglobal1 13 1 "prim"
+}
+inputs
+{
+0 	geometryvopglobal1 18 1
+1 	"" 0 1
+2 	geometryvopglobal1 13 1
+}
+stat
+{
+  create -1
+  modify -1
+  author User@FX-Note
+  access 0777
+}
+color UT_Color RGB 0.8 0.8 0.8 
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/primintrinsic1.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+signature	[ 0	locks=0 ]	(	default	)
+opinput	[ 0	locks=0 ]	(	file	)
+file	[ 0	locks=0 ]	(	$HH/geo/defgeo.bgeo	)
+intrinsic	[ 0	locks=0 ]	(	transform	)
+prim	[ 0	locks=0 ]	(	0	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/primintrinsic1.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":""
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/bind1.init"
+Content-Type: text/plain
+
+type = bind
+matchesdef = 1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/bind1.def"
+Content-Type: text/plain
+
+comment ""
+position 9.82574 0.032742
+connectornextid 1
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on lowdetail off mediumdetail off highdetail on material off
+outputsNamed3
+{
+}
+inputsNamed3
+{
+0 	primintrinsic1 3 1 "input"
+}
+inputs
+{
+0 	primintrinsic1 0 1
+}
+stat
+{
+  create -1
+  modify -1
+  author User@FX-Note
+  access 0777
+}
+color UT_Color RGB 0.6 0.6 1 
+delscript ""
+exprlanguage hscript
+end
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/bind1.parm"
+Content-Type: text/plain
+
+{
+version 0.8
+parmname	[ 0	locks=0 ]	(	transform	)
+parmtype	[ 0	locks=0 ]	(	"float9"	)
+parmtypename	[ 0	locks=0 ]	(	""	)
+overridetype	[ 0	locks=0 ]	(	"on"	)
+floatdef	[ 0	locks=0 ]	(	0	)
+intdef	[ 0	locks=0 ]	(	0	)
+toggledef	[ 0	locks=0 ]	(	"off"	)
+angledef	[ 0	locks=0 ]	(	0	)
+logfloatdef	[ 0	locks=0 ]	(	0	)
+float2def	[ 0	locks=0 ]	(	0	0	)
+float3def	[ 0	locks=0 ]	(	0	0	0	)
+vectordef	[ 0	locks=0 ]	(	0	0	0	)
+normaldef	[ 0	locks=0 ]	(	0	0	0	)
+pointdef	[ 0	locks=0 ]	(	0	0	0	)
+directiondef	[ 0	locks=0 ]	(	1	0	0	)
+float4def	[ 0	locks=0 ]	(	0	0	0	0	)
+floatm2def	[ 0	locks=0 ]	(	1	0	0	1	)
+float9def	[ 0	locks=0 ]	(	1	0	0	0	1	0	0	0	1	)
+float16def	[ 0	locks=0 ]	(	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	1	)
+stringdef	[ 0	locks=0 ]	(	""	)
+filedef	[ 0	locks=0 ]	(	""	)
+imagedef	[ 0	locks=0 ]	(	""	)
+geometrydef	[ 0	locks=0 ]	(	""	)
+colordef	[ 0	locks=0 ]	(	0	0	0	)
+color4def	[ 0	locks=0 ]	(	0	0	0	0	)
+bsdfdef	[ 0	locks=0 ]	(	""	)
+dictdef	[ 0	locks=0 ]	(	""	)
+coshaderdef	[ 0	locks=0 ]	(	""	)
+surfacedef	[ 0	locks=0 ]	(	""	)
+displacementdef	[ 0	locks=0 ]	(	""	)
+atmospheredef	[ 0	locks=0 ]	(	""	)
+lightdef	[ 0	locks=0 ]	(	""	)
+lightfilterdef	[ 0	locks=0 ]	(	""	)
+floatadef	[ 0	locks=0 ]	(	)
+intadef	[ 0	locks=0 ]	(	)
+vector2adef	[ 0	locks=0 ]	(	)
+vectoradef	[ 0	locks=0 ]	(	)
+pointadef	[ 0	locks=0 ]	(	)
+normaladef	[ 0	locks=0 ]	(	)
+coloradef	[ 0	locks=0 ]	(	)
+floatm2adef	[ 0	locks=0 ]	(	)
+float4adef	[ 0	locks=0 ]	(	)
+float9adef	[ 0	locks=0 ]	(	)
+float16adef	[ 0	locks=0 ]	(	)
+stringadef	[ 0	locks=0 ]	(	)
+dictadef	[ 0	locks=0 ]	(	)
+coshaderadef	[ 0	locks=0 ]	(	""	)
+structdef	[ 0	locks=0 ]	(	""	)
+useasparmdefiner	[ 0	locks=0 ]	(	"on"	)
+useownexportcontext	[ 0	locks=0 ]	(	"off"	)
+parmuniform	[ 0	locks=0 ]	(	"on"	)
+usebound	[ 0	locks=0 ]	(	"off"	)
+exportparm	[ 0	locks=0 ]	(	"whenconnected"	)
+exportcontext	[ 0	locks=0 ]	(	cvex	)
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform/bind1.userdata"
+Content-Type: text/plain
+
+{
+	"___Version___":{
+		"type":"string",
+		"value":"___EXTERNAL___"
+	}
+}
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
 Content-Disposition: attachment; filename="hdaroot/orient_guide.order"
 Content-Type: text/plain
 
@@ -20027,7 +20883,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position -0.908966 -43.387
+position -0.908966 -43.9153
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -20350,7 +21206,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 16.7617 -37.8549
+position 16.9479 -43.4913
 connectornextid 1
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -20471,7 +21327,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 27.216 -6.21435
+position 27.2159 -4.31138
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -20613,7 +21469,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 19.7775 -33.5167
+position 19.9007 -32.1082
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -20687,7 +21543,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 7.04674 -38.1188
+position 7.04674 -38.6471
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -20756,7 +21612,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 3.30013 -38.9248
+position 3.30013 -39.4531
 connectornextid 3
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -20817,7 +21673,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 0.884769 -44.5551
+position 0.884769 -45.0834
 connectornextid 1
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -21294,7 +22150,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 0.884769 -40.5503
+position 0.884769 -41.0786
 connectornextid 3
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -21369,7 +22225,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 20.0055 -36.7868
+position 20.1917 -42.4232
 connectornextid 1
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -21428,7 +22284,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 7.04674 -36.7899
+position 7.04674 -37.3182
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -21688,7 +22544,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 7.04674 -43.387
+position 7.04674 -43.9153
 connectornextid 1
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -22222,7 +23078,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 20.0096 -35.7059
+position 20.085 -41.3977
 connectornextid 3
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -22231,12 +23087,12 @@ outputsNamed3
 }
 inputsNamed3
 {
-0 	attribdelete4 1 1 "input1"
+0 	retransform 1 1 "input1"
 2 	attribdelete7 1 1 "input2"
 }
 inputs
 {
-0 	attribdelete4 0 1
+0 	retransform 0 1
 1 	attribdelete7 0 1
 }
 stat
@@ -22542,7 +23398,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 20.4952 -47.1237
+position 20.4952 -47.652
 connectornextid 3
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -22622,7 +23478,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 18.7651 -45.4831
+position 18.7651 -46.0114
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -22731,9 +23587,9 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 20.3221 -54.9899
+position 20.3221 -56.7952
 connectornextid 2
-flags =  lock off model off template off footprint off xray off bypass off display on render on highlight off unload off savedata off compress on colordefault on exposed on
+flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
 {
 1 "output1"
@@ -22837,7 +23693,7 @@ targetgroup	[ 0	locks=0 ]	(	""	)
 useidattrib	[ 0	locks=0 ]	(	"on"	)
 idattrib	[ 0	locks=0 ]	(	tmp_name	)
 pack	[ 0	locks=0 ]	(	"off"	)
-pivot	[ 0	locks=0 ]	(	"centroid"	)
+pivot	[ 0	locks=0 ]	(	"origin"	)
 viewportlod	[ 0	locks=0 ]	(	"full"	)
 transform	[ 0	locks=0 ]	(	"on"	)
 useimplicitn	[ 0	locks=0 ]	(	"off"	)
@@ -22949,7 +23805,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 22.8231 -34.8602
+position 25.2988 -37.5206
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -22958,11 +23814,11 @@ outputsNamed3
 }
 inputsNamed3
 {
-0 	attribdelete4 1 1 "input1"
+0 	retransform 1 1 "input1"
 }
 inputs
 {
-0 	attribdelete4 0 1
+0 	retransform 0 1
 }
 stat
 {
@@ -23023,7 +23879,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 18.1354 -48.8126
+position 18.1354 -49.3409
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -23107,7 +23963,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 20.3221 -50.9085
+position 20.3221 -51.4368
 connectornextid 3
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -23182,7 +24038,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 24.9161 -25.5626
+position 26.3158 -25.4728
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -23313,7 +24169,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 20.3221 -53.197
+position 20.3221 -55.0023
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -23552,7 +24408,7 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position 19.7775 -30.9112
+position 19.7775 -30.916
 connectornextid 2
 flags =  lock off model off template off footprint off xray off bypass off display off render off highlight off unload off savedata off compress on colordefault on exposed on
 outputsNamed3
@@ -23729,10 +24585,26 @@ Content-Type: text/plain
 }
 
 --HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform.order"
+Content-Type: text/plain
+
+4
+geometryvopglobal1
+geometryvopoutput1
+primintrinsic1
+bind1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
+Content-Disposition: attachment; filename="hdaroot/retransform.net"
+Content-Type: text/plain
+
+1
+
+--HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
 Content-Disposition: attachment; filename="hdaroot.order"
 Content-Type: text/plain
 
-56
+57
 orient_guide
 primitivevop1
 attribwrangle1
@@ -23789,6 +24661,7 @@ load1
 attribpromote1
 snap
 switch9
+retransform
 
 --HOUDINIMIMEBOUNDARY0xD3ADD339-0x00000F49-0x56B122C9-0x00000001HOUDINIMIMEBOUNDARY
 Content-Disposition: attachment; filename="hdaroot.net"

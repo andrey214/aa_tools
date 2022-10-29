@@ -18,11 +18,25 @@ Path:         oplib:/Sop/asset_loader::1.1?Sop/asset_loader::1.1
 Icon:         opdef:/Sop/asset_loader::1.1?IconImage
 Table:        Sop
 License:      
+Extra:        inputcolors='1 "RGB 0 0 0" ' outputcolors='1 "RGB 0 0 0" ' 
+User:         
+Inputs:       0 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Sat Oct 15 22:23:05 2022
+
+Operator:     asset_loader::1.2
+Label:        Megascans Asset Loader
+Path:         oplib:/Sop/asset_loader::1.2?Sop/asset_loader::1.2
+Icon:         opdef:/Sop/asset_loader::1.2?IconImage
+Table:        Sop
+License:      
 Extra:        
 User:         
 Inputs:       0 to 1
 Subnet:       true
 Python:       false
 Empty:        false
-Modified:     Tue May 24 20:56:40 2022
+Modified:     Sun Oct 23 01:15:13 2022
 

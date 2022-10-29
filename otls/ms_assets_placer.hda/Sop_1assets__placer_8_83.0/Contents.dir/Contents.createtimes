@@ -30,6 +30,9 @@
 	"hdaroot/load.def":1589634200,
 	"hdaroot/foreach_end3.def":1589633568,
 	"hdaroot/attribwrangle1.def":1589633708,
+	"hdaroot/retransform/bind1.def":1666519702,
+	"hdaroot/retransform/geometryvopoutput1.def":1666519668,
+	"hdaroot/retransform/geometryvopglobal1.def":1666519668,
 	"hdaroot/snap/bind3.def":1660238134,
 	"hdaroot/snap/switcher1.def":1659280089,
 	"hdaroot/snap/switch2.def":1659280046,
@@ -57,6 +60,7 @@
 	"hdaroot/geo_select.def":1589478871,
 	"hdaroot/snap_global/switcher.def":1659273538,
 	"hdaroot/snap_global/switch3.def":1659273533,
+	"hdaroot/retransform.def":1666519668,
 	"hdaroot/snap_global/compare4.def":1659270941,
 	"hdaroot/add2.def":1589399407,
 	"hdaroot/snap_global/primuv1.def":1659270898,
@@ -157,6 +161,7 @@
 	"hdaroot/names.def":1589532235,
 	"hdaroot/primitivevop1/compare2.def":1589534030,
 	"hdaroot/snap_global/bind5.def":1597691703,
+	"hdaroot/retransform/primintrinsic1.def":1666519682,
 	"hdaroot/snap/bind5.def":1597691703,
 	"hdaroot/primitivevop1/twoway3.def":1589534985,
 	"hdaroot/primitivevop1/twoway2.def":1589534050,
@@ -233,5 +238,5 @@
 	"hdaroot/snap_global/split4.def":1597691828,
 	"hdaroot/snap_global/strtovector/const1.def":1597691882,
 	"hdaroot/orient2/extractxform1.def":1609705743,
-	"hdaroot.def":1665156259
+	"hdaroot.def":1666523659
 }

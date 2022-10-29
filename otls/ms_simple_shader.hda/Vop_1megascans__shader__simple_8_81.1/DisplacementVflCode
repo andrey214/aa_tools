@@ -41,8 +41,8 @@ _Pragma("hint	dmultopacity	joinnext");
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
-#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
+#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 struct ShaderExports
 {
     string	names_f[];
@@ -88,40 +88,40 @@ void init_layer(export ShaderLayer layer)
     layer.masks = {};
     init_layerexports(layer.exports);
 }
-#line 135 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 135 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 void comp_export_arrays_aoverb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a+(1-Aa)*Ba*val_b); } } void comp_export_arrays_ainsideb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba); } } void comp_export_arrays_aoutsideb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba)); } } void comp_export_arrays_aatopb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba + Ba*val_b*(1-Aa)); } } void comp_export_arrays_axorb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba) + Ba*val_b*(1-Aa)); } }
 void comp_export_arrays_aoverb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a+(1-Aa)*Ba*val_b); } } void comp_export_arrays_ainsideb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba); } } void comp_export_arrays_aoutsideb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba)); } } void comp_export_arrays_aatopb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba + Ba*val_b*(1-Aa)); } } void comp_export_arrays_axorb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba) + Ba*val_b*(1-Aa)); } }
 void comp_export_arrays_aoverb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a+(1-Aa)*Ba*val_b); } } void comp_export_arrays_ainsideb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba); } } void comp_export_arrays_aoutsideb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba)); } } void comp_export_arrays_aatopb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba + Ba*val_b*(1-Aa)); } } void comp_export_arrays_axorb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba) + Ba*val_b*(1-Aa)); } }
-#line 160 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 160 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 void composite_exports_aoverb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_aoverb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_aoverb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_aoverb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_ainsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_ainsideb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_ainsideb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_ainsideb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_aoutsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_aoutsideb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_aoutsideb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_aoutsideb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_aatopb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_aatopb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_aatopb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_aatopb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_axorb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_axorb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_axorb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_axorb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
-#line 200 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 200 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 ShaderLayer composite_aoverb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F+(1-Aa)*Ba*B.F; C.Of = Aa*A.Of+(1-Aa)*Ba*B.Of; C.Ce = Aa*A.Ce+(1-Aa)*Ba*B.Ce; C.P = Aa*A.P+(1-Aa)*Ba*B.P; C.N = normalize(Aa*A.N+(1-Aa)*Ba*B.N); C.layeralpha = Aa+(1-Aa)*Ba; composite_exports_aoverb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a+(1-Aa)*Ba*mask_b; } return C; } ShaderLayer composite_aoverb(const ShaderLayer A; const ShaderLayer B) { return composite_aoverb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_ainsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*Ba; C.Of = Aa*A.Of*Ba; C.Ce = Aa*A.Ce*Ba; C.P = Aa*A.P*Ba; C.N = normalize(Aa*A.N*Ba); C.layeralpha = Aa*Ba; composite_exports_ainsideb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*Ba; } return C; } ShaderLayer composite_ainsideb(const ShaderLayer A; const ShaderLayer B) { return composite_ainsideb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_aoutsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*(1-Ba); C.Of = Aa*A.Of*(1-Ba); C.Ce = Aa*A.Ce*(1-Ba); C.P = Aa*A.P*(1-Ba); C.N = normalize(Aa*A.N*(1-Ba)); C.layeralpha = Aa*(1-Ba); composite_exports_aoutsideb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*(1-Ba); } return C; } ShaderLayer composite_aoutsideb(const ShaderLayer A; const ShaderLayer B) { return composite_aoutsideb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_aatopb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*Ba + Ba*B.F*(1-Aa); C.Of = Aa*A.Of*Ba + Ba*B.Of*(1-Aa); C.Ce = Aa*A.Ce*Ba + Ba*B.Ce*(1-Aa); C.P = Aa*A.P*Ba + Ba*B.P*(1-Aa); C.N = normalize(Aa*A.N*Ba + Ba*B.N*(1-Aa)); C.layeralpha = Ba; composite_exports_aatopb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*Ba + Ba*mask_b*(1-Aa); } return C; } ShaderLayer composite_aatopb(const ShaderLayer A; const ShaderLayer B) { return composite_aatopb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_axorb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*(1-Ba) + Ba*B.F*(1-Aa); C.Of = Aa*A.Of*(1-Ba) + Ba*B.Of*(1-Aa); C.Ce = Aa*A.Ce*(1-Ba) + Ba*B.Ce*(1-Aa); C.P = Aa*A.P*(1-Ba) + Ba*B.P*(1-Aa); C.N = normalize(Aa*A.N*(1-Ba) + Ba*B.N*(1-Aa)); C.layeralpha = Aa+Ba-2*(Aa*Ba); composite_exports_axorb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*(1-Ba) + Ba*mask_b*(1-Aa); } return C; } ShaderLayer composite_axorb(const ShaderLayer A; const ShaderLayer B) { return composite_axorb(A, A.layeralpha, B, B.layeralpha); }
-#line 216 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 216 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 void set_layer_export(ShaderLayer layer; string name; float value) { int index = find(layer.exports.names_f, name); if(index < 0) index = len(layer.exports.names_f); layer.exports.names_f[index] = name; layer.exports.values_f[index] = value; }
 void set_layer_export(ShaderLayer layer; string name; vector value) { int index = find(layer.exports.names_v, name); if(index < 0) index = len(layer.exports.names_v); layer.exports.names_v[index] = name; layer.exports.values_v[index] = value; }
 void set_layer_export(ShaderLayer layer; string name; vector4 value) { int index = find(layer.exports.names_v4, name); if(index < 0) index = len(layer.exports.names_v4); layer.exports.names_v4[index] = name; layer.exports.values_v4[index] = value; }
 #line 56 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 58 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 45 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 45 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
-#line 36 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shading.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shading.h"
+#line 36 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shading.h"
 vector
 shading_computeEnvAngleScale(vector dir; vector axis; float anglescale)
 {
@@ -388,8 +388,8 @@ dirtmask_fan(vector P;
 
     return max_dirt;
 }
-#line 46 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 97 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 46 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 97 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_grandom(float u0, u1; float sigma)
 {
@@ -926,7 +926,7 @@ vop_BoxStamp(float px, py, fu, fv; string filter)
     dx *= vop_Pulse(-1, 1, py, fv, filter);
     return dx;
 }
-#line 645 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 645 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 int
 vop_TileGen(float u, v; float fx, fy, ox, oy, stagger, jitter)
 {
@@ -978,7 +978,7 @@ vop_HexTileGen(float u, v; float fx, fy, ox, oy)
     v = (v*2+1)/3;
     return row * 938 + col;
 }
-#line 710 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 710 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_aaCell2D(float ss, tt, jx, jy, bwidth, bsoft, centerx, centery;
 		float f1, f2; int seed)
@@ -1092,7 +1092,7 @@ vop_RipplePattern(float x, y, decay, toff)
     d = sqrt(x*x + y*y);
     return sin(d-toff) * exp(d*(-decay));
 }
-#line 850 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 850 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 vector
 vop_FlowNoiseGradVV(vector pos; float flow; float delta)
 {
@@ -1217,7 +1217,7 @@ vop_fbmlength_vector4(vector4 val)
 {
     return length(val);
 }
-#line 1002 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1002 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_fbmNoiseFF(float pos; float rough; int maxoctaves; string noisetype)
 {
@@ -1318,7 +1318,7 @@ vop_fbmFlowNoiseVP(vector4 pos; float rough; int maxoctaves; float flow, flowrat
     float amp, scale, plimit, blend, M, flowv; int octaves; vector namount; plimit = 2*blur; M = advect; flowv = flow; nval = 0; octaves = 0; scale = 1; amp = 1; while (scale > plimit && octaves < maxoctaves) { namount = amp * (vector(flownoise(pp, flowv)) - 0.5); nval += namount; amp *= rough; flowv *= flowrate; scale *= 0.5; if (M != 0.0) { pp -= M * vop_fbmlength_vector(namount) * vop_FlowNoiseGrad4P (pp, flow, 0.01); } pp *= 2; M *= advect; octaves++; } if (scale > blur) { blend = amp * clamp(scale/blur - 1, 0, 1); nval += blend*(vector(flownoise(pp, flowv)) - 0.5); }
     return nval;
 }
-#line 1118 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1118 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_dampenFbmFF(float pos, freq, offset; float lacun, amp; int maxoctaves)
 {
@@ -1363,7 +1363,7 @@ vop_dampenFbmFP(vector4 pos, freq, offset; float lacun, amp; int maxoctaves)
     fbm = amp * fit(fbm, -1.25, 1.25, 0, 1);
     return fbm;
 }
-#line 1178 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1178 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 vector
 vop_dampenFbmVF(float pos, freq, offset; float lacun, amp; int maxoctaves)
 {
@@ -1408,7 +1408,7 @@ vop_dampenFbmVP(vector4 pos, freq, offset; float lacun, amp; int maxoctaves)
     fbm = amp * vector(fit(fbm,{-1.25,-1.25,-1.25},{1.25,1.25,1.25},{0,0,0},{1,1,1}));
     return fbm;
 }
-#line 1249 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1255 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_perlinNoiseVF(vector pos; int turb; float amp, rough, atten)
 {
@@ -1518,6 +1518,33 @@ vop_simplexCurlNoiseVP(vector4 pos; int turb; float amp, rough, atten)
 }
 
 vector
+vop_simplexCurlGXNoiseVV(vector pos; int turb; float amp, rough, atten)
+{
+    vector pp = pos;
+    vector nval;
+    float scale = amp; int i; nval = 0; for (i = 0; i < turb; i++, pp *= 2.0, scale *= rough) nval += 0.5 * scale * ((vector(curlgxnoise(pp))) + 0); nval = (vector(pow(nval, atten)));
+    return nval;
+}
+
+vector
+vop_simplexCurlGXNoiseVP(vector4 pos; int turb; float amp, rough, atten)
+{
+    vector4 pp = pos;
+    vector nval;
+    float scale = amp; int i; nval = 0; for (i = 0; i < turb; i++, pp *= 2.0, scale *= rough) nval += 0.5 * scale * ((vector(curlgxnoise(pp))) + 0); nval = (vector(pow(nval, atten)));
+    return nval;
+}
+
+vector
+vop_simplexCurlGXNoise2DVV(vector pos; int turb; float amp, rough, atten)
+{
+    vector pp = pos;
+    vector nval;
+    float scale = amp; int i; nval = 0; for (i = 0; i < turb; i++, pp *= 2.0, scale *= rough) nval += 0.5 * scale * ((vector(curlgxnoise2d(pp))) + 0); nval = (vector(pow(nval, atten)));
+    return nval;
+}
+
+vector
 vop_perlinCurlNoiseVV(vector pos; int turb; float amp, rough, atten)
 {
     vector pp = pos;
@@ -1543,7 +1570,7 @@ vop_perlinCurlNoiseVP(vector4 pos; int turb; float amp, rough, atten)
     float scale = amp; int i; nval = 0; for (i = 0; i < turb; i++, pp *= 2.0, scale *= rough) nval += 1 * scale * ((vector(curlnoise(pp))) + 0); nval = (vector(pow(nval, atten)));
     return nval;
 }
-#line 1446 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1479 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 vector
 vop_curlNoiseVV(vector pos, freq, offset, nml;
 		string type, geo;
@@ -1559,6 +1586,10 @@ vop_curlNoiseVV(vector pos, freq, offset, nml;
     else if (type == "exact_xnoise")
     {
 	return vop_simplexCurlNoiseVV(pos*freq-offset, turb, amp, rough*2, atten);
+    }
+    else if (type == "exact_gxnoise")
+    {
+        return vop_simplexCurlGXNoiseVV(pos*freq-offset, turb, amp, rough*2, atten);
     }
 
 
@@ -1627,6 +1658,10 @@ vop_curlNoiseVP(vector4 pos, freq, offset;
     {
 	return vop_simplexCurlNoiseVP(pos*freq-offset, turb, amp, rough*2, atten);
     }
+    else if (type == "exact_gxnoise")
+    {
+        return vop_simplexCurlGXNoiseVP(pos*freq-offset, turb, amp, rough*2, atten);
+    }
 
 
     vector4 xDiff = pos;	xDiff.x += h;
@@ -1672,6 +1707,10 @@ vop_curlNoise2DVV(vector pos, freq, offset;
     else if (type == "exact_xnoise")
     {
 	return vop_simplexCurlNoise2DVV(pos*freq-offset, turb, amp, rough*2, atten);
+    }
+    else if (type == "exact_gxnoise")
+    {
+        return vop_simplexCurlGXNoise2DVV(pos*freq-offset, turb, amp, rough*2, atten);
     }
 
 
@@ -1845,13 +1884,13 @@ vop_setmatcomp(matrix in; float fval; int row, col)
     setcomp(out, fval, row, col);
     return out;
 }
-#line 1757 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1802 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 matrix vop_translate(matrix in; vector t) { matrix out = in; translate(out, t); return out; }
 matrix vop_translate(matrix in; vector4 t) { matrix out = in; translate(out, t); return out; }
-#line 1770 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1815 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 matrix vop_rotate(matrix in; float angle; vector axis) { matrix out = in; rotate(out, angle, axis); return out; }
 matrix3 vop_rotate(matrix3 in; float angle; vector axis) { matrix3 out = in; rotate(out, angle, axis); return out; }
-#line 1784 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1829 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 matrix vop_scale(matrix in; vector s) { matrix out = in; scale(out, s); return out; }
 matrix3 vop_scale(matrix3 in; vector s) { matrix3 out = in; scale(out, s); return out; }
 
@@ -1910,6 +1949,14 @@ vop_computeTangents(string tstyle;
 	out_utan = normalize(cross(nn, out_vtan));
 	if (isshadingRHS())
 	    out_vtan = -out_vtan;
+
+        string orient;
+        if (objectstate("orientation", orient) &&
+            orient == "rightHanded")
+        {
+            out_utan = -out_utan;
+            out_vtan = -out_vtan;
+        }
     }
     else
     {
@@ -1992,7 +2039,7 @@ vop_anisotropic_eval(vector ll; vector nn; vector V;
     }
     return clr;
 }
-#line 1975 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 2028 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 bsdf
 vop_sheen_bsdf(vector nn, ii; float eta, rough; int facefwd)
 {
@@ -2043,7 +2090,7 @@ vop_specular_eval(string lmodel; vector ll, nf, ii, uv, tanu, tanv;
     }
     return seval;
 }
-#line 2294 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 2347 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 bsdf
 vop_SSS_bsdf(vector nn, ii; float  eta, depth; int facefwd)
 {
@@ -2062,7 +2109,7 @@ vop_SSS_bsdf(vector nn, ii; float  eta, depth; int facefwd)
 	f = Kt * bsdf(diffuse(nf));
     return f;
 }
-#line 2368 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 2421 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 vector
 vop_trace_environment(string envmap, envobj; vector raydir, bg;)
 {
@@ -2376,32 +2423,32 @@ vop_curvature(vector p;
 #line 59 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 61 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 #line 62 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 #line 64 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 66 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 #line 67 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 69 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 #line 70 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
 #line 72 "/mat/megascans_shader_simple1/DisplacementVexCode"
 void
 _mat_megascans_shader_simple1_snippet8(int check; float val1; float val2)
@@ -2417,7 +2464,7 @@ _mat_megascans_shader_simple1_snippet8(int check; float val1; float val2)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
 #line 86 "/mat/megascans_shader_simple1/DisplacementVexCode"
 void
 _mat_megascans_shader_simple1_snippet10(int val1; string val2)
@@ -2433,14 +2480,14 @@ _mat_megascans_shader_simple1_snippet10(int val1; string val2)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 100 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 #line 101 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
 #line 103 "/mat/megascans_shader_simple1/DisplacementVexCode"
 void
 _mat_megascans_shader_simple1_snippet2(int check; vector surface)
@@ -2456,20 +2503,20 @@ _mat_megascans_shader_simple1_snippet2(int check; vector surface)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 117 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 #line 118 "/mat/megascans_shader_simple1/DisplacementVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 #line 120 "/mat/megascans_shader_simple1/DisplacementVexCode"
 displace
 mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 	vector2 st = { 0, 0 };
 	string ms_displace = "";
-	float ms_dscale = 0;
+	float ms_dscale = 1;
 	export ShaderLayer layer = {};
 	string disp_texture = "";
 	float dispTex_scale = 1;
@@ -2496,11 +2543,12 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	bool1;
     string	val;
     int	found;
+    int	bool2;
     string	result;
     string	result1;
     string	result2;
-    int	bool2;
     int	bool3;
+    int	bool4;
     vector	uv2;
     vector	output1;
     vector	result3;
@@ -2509,7 +2557,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     float	fval1;
     float	fval2;
     float	fval3;
-    int	bool4;
+    int	bool5;
     vector	uv4;
     vector	output11;
     vector	result6;
@@ -2528,52 +2576,49 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	outcheck;
     float	outval1;
     float	outval2;
-    float	Value2;
-    int	bool5;
     float	val1;
     int	found1;
     float	result10;
     float	result11;
-    float	result12;
     float	product;
     float	product1;
     float	sum;
-    float	result13;
+    float	result12;
     int	bool6;
     int	val2;
     int	found2;
+    int	result13;
     int	result14;
     int	result15;
-    int	result16;
     int	check;
     int	bool7;
     string	val3;
     int	found3;
+    string	result16;
     string	result17;
     string	result18;
-    string	result19;
     int	outval11;
     string	outval21;
     int	bool8;
     vector	uv6;
     vector	output12;
+    vector	result19;
     vector	result20;
     vector	result21;
-    vector	result22;
     float	fval12;
     float	fval22;
     float	fval32;
-    vector	result23;
+    vector	result22;
     vector	_uv3;
     int	chkaces1;
     vector	clr3;
     vector	surface;
     int	outcheck1;
     vector	outsurface;
-    vector	result24;
+    vector	result23;
     float	len;
     float	product2;
-    float	result25;
+    float	result24;
     vector	dispP;
     vector	dispN;
     vector	newN;
@@ -2591,21 +2636,24 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     if (!found) val = "";
 
 
+    bool2 = (val != "");
+
+
     bound_ms_displace = isbound("ms_displace");
-#line 258 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 259 "/mat/megascans_shader_simple1/DisplacementVexCode"
         result = (0 != 0 ? (bound_ms_displace != 0 ? disp_texture : ms_displace)
                                   : (bound_ms_displace != 0 ? ms_displace : disp_texture));
-#line 273 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result1 = (0 != 0 ? (found != 0 ? result : val)
-                                  : (found != 0 ? val : result));
-#line 288 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 274 "/mat/megascans_shader_simple1/DisplacementVexCode"
+        result1 = (0 != 0 ? (bool2 != 0 ? result : val)
+                                  : (bool2 != 0 ? val : result));
+#line 289 "/mat/megascans_shader_simple1/DisplacementVexCode"
         result2 = (0 != 0 ? (bool1 != 0 ? result1 : disp_texture)
                                   : (bool1 != 0 ? disp_texture : result1));
 
 
 
 
-    bool2 = (result2 != "");
+    bool3 = (result2 != "");
 
 
     string	_mode = "uv";
@@ -2616,7 +2664,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     {
 
 
-        bool3 = (_mode == "st");
+        bool4 = (_mode == "st");
 
 
         bound_uv = isbound("uv");
@@ -2647,7 +2695,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
             result4 = uv;
 
 
-        if( bool3 == 0 )
+        if( bool4 == 0 )
             result5 = result4;
         else
             result5 = uv2;
@@ -2692,7 +2740,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool4 = (_mode1 == "st");
+            bool5 = (_mode1 == "st");
 
 
             bound_uv1 = isbound("uv");
@@ -2723,7 +2771,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
                 result7 = uv;
 
 
-            if( bool4 == 0 )
+            if( bool5 == 0 )
                 result8 = result7;
             else
                 result8 = uv4;
@@ -2830,46 +2878,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     Value1 = 0;
 
 
-    outcheck = bool2;
+    outcheck = bool3;
     outval1 = diff;
     outval2 = Value1;
 
     _mat_megascans_shader_simple1_snippet8(outcheck, outval1, outval2);
 
 
-    Value2 = 1;
-
-
-    bool5 = (dispTex_scale != 1);
-
-
     found1 = renderstate("packed:ms_dscale", val1);
-    if (!found1) val1 = 0;
+    if (!found1) val1 = 1;
 
 
     bound_ms_dscale = isbound("ms_dscale");
-#line 548 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 543 "/mat/megascans_shader_simple1/DisplacementVexCode"
         result10 = (0 != 0 ? (bound_ms_dscale != 0 ? dispTex_scale : ms_dscale)
                                   : (bound_ms_dscale != 0 ? ms_dscale : dispTex_scale));
-#line 563 "/mat/megascans_shader_simple1/DisplacementVexCode"
+#line 558 "/mat/megascans_shader_simple1/DisplacementVexCode"
         result11 = (0 != 0 ? (found1 != 0 ? result10 : val1)
                                   : (found1 != 0 ? val1 : result10));
-#line 578 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result12 = (0 != 0 ? (bool5 != 0 ? result11 : dispTex_scale)
-                                  : (bool5 != 0 ? dispTex_scale : result11));
 
 
 
 
-    product = Value2 * result12;
+    product = result11 * dispTex_scale;
 
 
     product1 = outval1 * product;
 
 
     sum = product1 + addative_displace;
-#line 602 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result13 = (0 != 0 ? (bound_addative_displace != 0 ? product1 : sum)
+#line 582 "/mat/megascans_shader_simple1/DisplacementVexCode"
+        result12 = (0 != 0 ? (bound_addative_displace != 0 ? product1 : sum)
                                   : (bound_addative_displace != 0 ? sum : product1));
 
 
@@ -2883,15 +2922,15 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_opacval = isbound("ms_opacval");
-#line 627 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result14 = (0 != 0 ? (bound_ms_opacval != 0 ? use_opacity : ms_opacval)
+#line 607 "/mat/megascans_shader_simple1/DisplacementVexCode"
+        result13 = (0 != 0 ? (bound_ms_opacval != 0 ? use_opacity : ms_opacval)
                                   : (bound_ms_opacval != 0 ? ms_opacval : use_opacity));
-#line 642 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result15 = (0 != 0 ? (found2 != 0 ? result14 : val2)
-                                  : (found2 != 0 ? val2 : result14));
-#line 657 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result16 = (0 != 0 ? (bool6 != 0 ? use_opacity : result15)
-                                  : (bool6 != 0 ? result15 : use_opacity));
+#line 622 "/mat/megascans_shader_simple1/DisplacementVexCode"
+        result14 = (0 != 0 ? (found2 != 0 ? result13 : val2)
+                                  : (found2 != 0 ? val2 : result13));
+#line 637 "/mat/megascans_shader_simple1/DisplacementVexCode"
+        result15 = (0 != 0 ? (bool6 != 0 ? use_opacity : result14)
+                                  : (bool6 != 0 ? result14 : use_opacity));
 
 
 
@@ -2907,28 +2946,28 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_opac = isbound("ms_opac");
-#line 685 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result17 = (0 != 0 ? (bound_ms_opac != 0 ? opaccolor_texture : ms_opac)
+#line 665 "/mat/megascans_shader_simple1/DisplacementVexCode"
+        result16 = (0 != 0 ? (bound_ms_opac != 0 ? opaccolor_texture : ms_opac)
                                   : (bound_ms_opac != 0 ? ms_opac : opaccolor_texture));
-#line 700 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result18 = (0 != 0 ? (found3 != 0 ? result17 : val3)
-                                  : (found3 != 0 ? val3 : result17));
-#line 715 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result19 = (0 != 0 ? (bool7 != 0 ? result18 : opaccolor_texture)
-                                  : (bool7 != 0 ? opaccolor_texture : result18));
+#line 680 "/mat/megascans_shader_simple1/DisplacementVexCode"
+        result17 = (0 != 0 ? (found3 != 0 ? result16 : val3)
+                                  : (found3 != 0 ? val3 : result16));
+#line 695 "/mat/megascans_shader_simple1/DisplacementVexCode"
+        result18 = (0 != 0 ? (bool7 != 0 ? result17 : opaccolor_texture)
+                                  : (bool7 != 0 ? opaccolor_texture : result17));
 
 
 
 
     outval11 = check;
-    outval21 = result19;
+    outval21 = result18;
 
     _mat_megascans_shader_simple1_snippet10(outval11, outval21);
 
 
     vector	_uv2 = uv1;
     vector	_duv1 = vector();
-    string	_map1 = result19;
+    string	_map1 = result18;
     int	_udim1 = 1;
     string	_srccolorspace1 = "auto";
     string	_wrap1 = "repeat";
@@ -2975,37 +3014,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st2 == 0 )
-                result20 = uv6;
+                result19 = uv6;
             else
-                result20 = output12;
+                result19 = output12;
 
 
             if( bound_uv2 == 0 )
-                result21 = result20;
+                result20 = result19;
             else
-                result21 = uv;
+                result20 = uv;
 
 
             if( bool8 == 0 )
-                result22 = result21;
+                result21 = result20;
             else
-                result22 = uv6;
+                result21 = uv6;
 
 
-            assign(fval12,fval22,fval32, result22);
+            assign(fval12,fval22,fval32, result21);
 
 
-            uv5 = result22;
+            uv5 = result21;
             u2 = fval12;
             v2 = fval22;
             w2 = fval32;
         }
 
 
-        result23 = 1 != 0 ? _uv2 : uv5;
+        result22 = 1 != 0 ? _uv2 : uv5;
 
 
-        _uv3 = result23;
+        _uv3 = result22;
 
 
         chkaces1 = 0;
@@ -3091,28 +3130,28 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     outsurface = surface;
 
     _mat_megascans_shader_simple1_snippet2(outcheck1, outsurface);
-#line 903 "/mat/megascans_shader_simple1/DisplacementVexCode"
-        result24 = (0 != 0 ? (result16 != 0 ? { 1, 1, 1 } : outsurface)
-                                  : (result16 != 0 ? outsurface : { 1, 1, 1 }));
+#line 883 "/mat/megascans_shader_simple1/DisplacementVexCode"
+        result23 = (0 != 0 ? (result15 != 0 ? { 1, 1, 1 } : outsurface)
+                                  : (result15 != 0 ? outsurface : { 1, 1, 1 }));
 
 
 
 
-    len = length(result24);
+    len = length(result23);
 
 
-    product2 = result13 * len;
+    product2 = result12 * len;
 
 
     if( dmultopacity == 0 )
-        result25 = result13;
+        result24 = result12;
     else
-        result25 = product2;
+        result24 = product2;
 
 
     vop_displaceAlongNormal((1 != 0) ? P : P,
     			 (1 != 0) ? N : normalize(N),
-    			 result25, 1, 0, 0,
+    			 result24, 1, 0, 0,
     			 1, 0, 0, dispP, dispN);
 
 

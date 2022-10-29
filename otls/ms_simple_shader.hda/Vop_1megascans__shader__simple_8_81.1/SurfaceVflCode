@@ -121,8 +121,8 @@ _Pragma("hint	randomize	toggle");
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
-#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
+#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 struct ShaderExports
 {
     string	names_f[];
@@ -168,30 +168,30 @@ void init_layer(export ShaderLayer layer)
     layer.masks = {};
     init_layerexports(layer.exports);
 }
-#line 135 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 135 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 void comp_export_arrays_aoverb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a+(1-Aa)*Ba*val_b); } } void comp_export_arrays_ainsideb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba); } } void comp_export_arrays_aoutsideb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba)); } } void comp_export_arrays_aatopb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba + Ba*val_b*(1-Aa)); } } void comp_export_arrays_axorb(const string names_a[]; const float vals_a[]; const float Aa; const string names_b[]; const float vals_b[]; const float Ba; string out_names[]; float out_values[]) { float val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba) + Ba*val_b*(1-Aa)); } }
 void comp_export_arrays_aoverb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a+(1-Aa)*Ba*val_b); } } void comp_export_arrays_ainsideb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba); } } void comp_export_arrays_aoutsideb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba)); } } void comp_export_arrays_aatopb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba + Ba*val_b*(1-Aa)); } } void comp_export_arrays_axorb(const string names_a[]; const vector vals_a[]; const float Aa; const string names_b[]; const vector vals_b[]; const float Ba; string out_names[]; vector out_values[]) { vector val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba) + Ba*val_b*(1-Aa)); } }
 void comp_export_arrays_aoverb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a+(1-Aa)*Ba*val_b); } } void comp_export_arrays_ainsideb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba); } } void comp_export_arrays_aoutsideb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba)); } } void comp_export_arrays_aatopb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*Ba + Ba*val_b*(1-Aa)); } } void comp_export_arrays_axorb(const string names_a[]; const vector4 vals_a[]; const float Aa; const string names_b[]; const vector4 vals_b[]; const float Ba; string out_names[]; vector4 out_values[]) { vector4 val_a, val_b; int done_in_b[]; foreach(int index_a; string name_a; names_a) { int index_b = index_a; if (names_b[index_b] != name_a) index_b = find(names_b, name_a); int found = index_b >= 0; val_b = select(found, vals_b[index_b], 0.0); append(out_names, name_a); append(out_values, Aa*vals_a[index_a]+(1-Aa)*Ba*val_b); done_in_b[index_b] = found; } foreach(int index_b; string name_b; names_b) { if(done_in_b[index_b]) continue; val_a = 0.0; val_b = vals_b[index_b]; append(out_names, name_b); append(out_values, Aa*val_a*(1-Ba) + Ba*val_b*(1-Aa)); } }
-#line 160 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 160 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 void composite_exports_aoverb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_aoverb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_aoverb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_aoverb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_ainsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_ainsideb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_ainsideb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_ainsideb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_aoutsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_aoutsideb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_aoutsideb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_aoutsideb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_aatopb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_aatopb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_aatopb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_aatopb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
 void composite_exports_axorb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba; ShaderLayer out) { out.exports.names_f = {}; out.exports.values_f = {}; out.exports.names_v = {}; out.exports.values_v = {}; out.exports.names_v4 = {}; out.exports.values_v4 = {}; comp_export_arrays_axorb(A.exports.names_f, A.exports.values_f, Aa, B.exports.names_f, B.exports.values_f, Ba, out.exports.names_f, out.exports.values_f); comp_export_arrays_axorb(A.exports.names_v, A.exports.values_v, Aa, B.exports.names_v, B.exports.values_v, Ba, out.exports.names_v, out.exports.values_v); comp_export_arrays_axorb(A.exports.names_v4, A.exports.values_v4, Aa, B.exports.names_v4, B.exports.values_v4, Ba, out.exports.names_v4, out.exports.values_v4); }
-#line 200 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 200 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 ShaderLayer composite_aoverb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F+(1-Aa)*Ba*B.F; C.Of = Aa*A.Of+(1-Aa)*Ba*B.Of; C.Ce = Aa*A.Ce+(1-Aa)*Ba*B.Ce; C.P = Aa*A.P+(1-Aa)*Ba*B.P; C.N = normalize(Aa*A.N+(1-Aa)*Ba*B.N); C.layeralpha = Aa+(1-Aa)*Ba; composite_exports_aoverb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a+(1-Aa)*Ba*mask_b; } return C; } ShaderLayer composite_aoverb(const ShaderLayer A; const ShaderLayer B) { return composite_aoverb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_ainsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*Ba; C.Of = Aa*A.Of*Ba; C.Ce = Aa*A.Ce*Ba; C.P = Aa*A.P*Ba; C.N = normalize(Aa*A.N*Ba); C.layeralpha = Aa*Ba; composite_exports_ainsideb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*Ba; } return C; } ShaderLayer composite_ainsideb(const ShaderLayer A; const ShaderLayer B) { return composite_ainsideb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_aoutsideb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*(1-Ba); C.Of = Aa*A.Of*(1-Ba); C.Ce = Aa*A.Ce*(1-Ba); C.P = Aa*A.P*(1-Ba); C.N = normalize(Aa*A.N*(1-Ba)); C.layeralpha = Aa*(1-Ba); composite_exports_aoutsideb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*(1-Ba); } return C; } ShaderLayer composite_aoutsideb(const ShaderLayer A; const ShaderLayer B) { return composite_aoutsideb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_aatopb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*Ba + Ba*B.F*(1-Aa); C.Of = Aa*A.Of*Ba + Ba*B.Of*(1-Aa); C.Ce = Aa*A.Ce*Ba + Ba*B.Ce*(1-Aa); C.P = Aa*A.P*Ba + Ba*B.P*(1-Aa); C.N = normalize(Aa*A.N*Ba + Ba*B.N*(1-Aa)); C.layeralpha = Ba; composite_exports_aatopb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*Ba + Ba*mask_b*(1-Aa); } return C; } ShaderLayer composite_aatopb(const ShaderLayer A; const ShaderLayer B) { return composite_aatopb(A, A.layeralpha, B, B.layeralpha); }
 ShaderLayer composite_axorb(const ShaderLayer A; const float Aa; const ShaderLayer B; const float Ba) { ShaderLayer C; C.masks = {}; C.F = Aa*A.F*(1-Ba) + Ba*B.F*(1-Aa); C.Of = Aa*A.Of*(1-Ba) + Ba*B.Of*(1-Aa); C.Ce = Aa*A.Ce*(1-Ba) + Ba*B.Ce*(1-Aa); C.P = Aa*A.P*(1-Ba) + Ba*B.P*(1-Aa); C.N = normalize(Aa*A.N*(1-Ba) + Ba*B.N*(1-Aa)); C.layeralpha = Aa+Ba-2*(Aa*Ba); composite_exports_axorb(A, Aa, B, Ba, C); int nummasks_a = len(A.masks); int nummasks_b = len(B.masks); int maxmasks = max(nummasks_a, nummasks_b); for(int i=0; i<maxmasks; i++) { float mask_a = select(i<nummasks_a, A.masks[i], 0.0); float mask_b = select(i<nummasks_b, B.masks[i], 0.0); C.masks[i] = Aa*mask_a*(1-Ba) + Ba*mask_b*(1-Aa); } return C; } ShaderLayer composite_axorb(const ShaderLayer A; const ShaderLayer B) { return composite_axorb(A, A.layeralpha, B, B.layeralpha); }
-#line 216 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 216 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 void set_layer_export(ShaderLayer layer; string name; float value) { int index = find(layer.exports.names_f, name); if(index < 0) index = len(layer.exports.names_f); layer.exports.names_f[index] = name; layer.exports.values_f[index] = value; }
 void set_layer_export(ShaderLayer layer; string name; vector value) { int index = find(layer.exports.names_v, name); if(index < 0) index = len(layer.exports.names_v); layer.exports.names_v[index] = name; layer.exports.values_v[index] = value; }
 void set_layer_export(ShaderLayer layer; string name; vector4 value) { int index = find(layer.exports.names_v4, name); if(index < 0) index = len(layer.exports.names_v4); layer.exports.names_v4[index] = name; layer.exports.values_v4[index] = value; }
 #line 159 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
 #line 161 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_snippet10(int val1; string val2)
@@ -207,17 +207,17 @@ _mat_megascans_shader_simple1_snippet10(int val1; string val2)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 175 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 45 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 45 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
-#line 36 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shading.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 22 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shading.h"
+#line 36 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shading.h"
 vector
 shading_computeEnvAngleScale(vector dir; vector axis; float anglescale)
 {
@@ -484,8 +484,8 @@ dirtmask_fan(vector P;
 
     return max_dirt;
 }
-#line 46 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 97 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 46 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 97 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_grandom(float u0, u1; float sigma)
 {
@@ -1022,7 +1022,7 @@ vop_BoxStamp(float px, py, fu, fv; string filter)
     dx *= vop_Pulse(-1, 1, py, fv, filter);
     return dx;
 }
-#line 645 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 645 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 int
 vop_TileGen(float u, v; float fx, fy, ox, oy, stagger, jitter)
 {
@@ -1074,7 +1074,7 @@ vop_HexTileGen(float u, v; float fx, fy, ox, oy)
     v = (v*2+1)/3;
     return row * 938 + col;
 }
-#line 710 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 710 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_aaCell2D(float ss, tt, jx, jy, bwidth, bsoft, centerx, centery;
 		float f1, f2; int seed)
@@ -1188,7 +1188,7 @@ vop_RipplePattern(float x, y, decay, toff)
     d = sqrt(x*x + y*y);
     return sin(d-toff) * exp(d*(-decay));
 }
-#line 850 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 850 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 vector
 vop_FlowNoiseGradVV(vector pos; float flow; float delta)
 {
@@ -1313,7 +1313,7 @@ vop_fbmlength_vector4(vector4 val)
 {
     return length(val);
 }
-#line 1002 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1002 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_fbmNoiseFF(float pos; float rough; int maxoctaves; string noisetype)
 {
@@ -1414,7 +1414,7 @@ vop_fbmFlowNoiseVP(vector4 pos; float rough; int maxoctaves; float flow, flowrat
     float amp, scale, plimit, blend, M, flowv; int octaves; vector namount; plimit = 2*blur; M = advect; flowv = flow; nval = 0; octaves = 0; scale = 1; amp = 1; while (scale > plimit && octaves < maxoctaves) { namount = amp * (vector(flownoise(pp, flowv)) - 0.5); nval += namount; amp *= rough; flowv *= flowrate; scale *= 0.5; if (M != 0.0) { pp -= M * vop_fbmlength_vector(namount) * vop_FlowNoiseGrad4P (pp, flow, 0.01); } pp *= 2; M *= advect; octaves++; } if (scale > blur) { blend = amp * clamp(scale/blur - 1, 0, 1); nval += blend*(vector(flownoise(pp, flowv)) - 0.5); }
     return nval;
 }
-#line 1118 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1118 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_dampenFbmFF(float pos, freq, offset; float lacun, amp; int maxoctaves)
 {
@@ -1459,7 +1459,7 @@ vop_dampenFbmFP(vector4 pos, freq, offset; float lacun, amp; int maxoctaves)
     fbm = amp * fit(fbm, -1.25, 1.25, 0, 1);
     return fbm;
 }
-#line 1178 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1178 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 vector
 vop_dampenFbmVF(float pos, freq, offset; float lacun, amp; int maxoctaves)
 {
@@ -1504,7 +1504,7 @@ vop_dampenFbmVP(vector4 pos, freq, offset; float lacun, amp; int maxoctaves)
     fbm = amp * vector(fit(fbm,{-1.25,-1.25,-1.25},{1.25,1.25,1.25},{0,0,0},{1,1,1}));
     return fbm;
 }
-#line 1249 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1255 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 float
 vop_perlinNoiseVF(vector pos; int turb; float amp, rough, atten)
 {
@@ -1614,6 +1614,33 @@ vop_simplexCurlNoiseVP(vector4 pos; int turb; float amp, rough, atten)
 }
 
 vector
+vop_simplexCurlGXNoiseVV(vector pos; int turb; float amp, rough, atten)
+{
+    vector pp = pos;
+    vector nval;
+    float scale = amp; int i; nval = 0; for (i = 0; i < turb; i++, pp *= 2.0, scale *= rough) nval += 0.5 * scale * ((vector(curlgxnoise(pp))) + 0); nval = (vector(pow(nval, atten)));
+    return nval;
+}
+
+vector
+vop_simplexCurlGXNoiseVP(vector4 pos; int turb; float amp, rough, atten)
+{
+    vector4 pp = pos;
+    vector nval;
+    float scale = amp; int i; nval = 0; for (i = 0; i < turb; i++, pp *= 2.0, scale *= rough) nval += 0.5 * scale * ((vector(curlgxnoise(pp))) + 0); nval = (vector(pow(nval, atten)));
+    return nval;
+}
+
+vector
+vop_simplexCurlGXNoise2DVV(vector pos; int turb; float amp, rough, atten)
+{
+    vector pp = pos;
+    vector nval;
+    float scale = amp; int i; nval = 0; for (i = 0; i < turb; i++, pp *= 2.0, scale *= rough) nval += 0.5 * scale * ((vector(curlgxnoise2d(pp))) + 0); nval = (vector(pow(nval, atten)));
+    return nval;
+}
+
+vector
 vop_perlinCurlNoiseVV(vector pos; int turb; float amp, rough, atten)
 {
     vector pp = pos;
@@ -1639,7 +1666,7 @@ vop_perlinCurlNoiseVP(vector4 pos; int turb; float amp, rough, atten)
     float scale = amp; int i; nval = 0; for (i = 0; i < turb; i++, pp *= 2.0, scale *= rough) nval += 1 * scale * ((vector(curlnoise(pp))) + 0); nval = (vector(pow(nval, atten)));
     return nval;
 }
-#line 1446 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1479 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 vector
 vop_curlNoiseVV(vector pos, freq, offset, nml;
 		string type, geo;
@@ -1655,6 +1682,10 @@ vop_curlNoiseVV(vector pos, freq, offset, nml;
     else if (type == "exact_xnoise")
     {
 	return vop_simplexCurlNoiseVV(pos*freq-offset, turb, amp, rough*2, atten);
+    }
+    else if (type == "exact_gxnoise")
+    {
+        return vop_simplexCurlGXNoiseVV(pos*freq-offset, turb, amp, rough*2, atten);
     }
 
 
@@ -1723,6 +1754,10 @@ vop_curlNoiseVP(vector4 pos, freq, offset;
     {
 	return vop_simplexCurlNoiseVP(pos*freq-offset, turb, amp, rough*2, atten);
     }
+    else if (type == "exact_gxnoise")
+    {
+        return vop_simplexCurlGXNoiseVP(pos*freq-offset, turb, amp, rough*2, atten);
+    }
 
 
     vector4 xDiff = pos;	xDiff.x += h;
@@ -1768,6 +1803,10 @@ vop_curlNoise2DVV(vector pos, freq, offset;
     else if (type == "exact_xnoise")
     {
 	return vop_simplexCurlNoise2DVV(pos*freq-offset, turb, amp, rough*2, atten);
+    }
+    else if (type == "exact_gxnoise")
+    {
+        return vop_simplexCurlGXNoise2DVV(pos*freq-offset, turb, amp, rough*2, atten);
     }
 
 
@@ -1941,13 +1980,13 @@ vop_setmatcomp(matrix in; float fval; int row, col)
     setcomp(out, fval, row, col);
     return out;
 }
-#line 1757 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1802 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 matrix vop_translate(matrix in; vector t) { matrix out = in; translate(out, t); return out; }
 matrix vop_translate(matrix in; vector4 t) { matrix out = in; translate(out, t); return out; }
-#line 1770 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1815 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 matrix vop_rotate(matrix in; float angle; vector axis) { matrix out = in; rotate(out, angle, axis); return out; }
 matrix3 vop_rotate(matrix3 in; float angle; vector axis) { matrix3 out = in; rotate(out, angle, axis); return out; }
-#line 1784 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1829 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 matrix vop_scale(matrix in; vector s) { matrix out = in; scale(out, s); return out; }
 matrix3 vop_scale(matrix3 in; vector s) { matrix3 out = in; scale(out, s); return out; }
 
@@ -2006,6 +2045,14 @@ vop_computeTangents(string tstyle;
 	out_utan = normalize(cross(nn, out_vtan));
 	if (isshadingRHS())
 	    out_vtan = -out_vtan;
+
+        string orient;
+        if (objectstate("orientation", orient) &&
+            orient == "rightHanded")
+        {
+            out_utan = -out_utan;
+            out_vtan = -out_vtan;
+        }
     }
     else
     {
@@ -2395,8 +2442,8 @@ vop_lighting_bsdf(string lmodel;
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/singlescatter.h"
-#line 16 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/singlescatter.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/singlescatter.h"
+#line 16 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/singlescatter.h"
 float
 phase(vector v1, v2; float g)
 {
@@ -2434,11 +2481,11 @@ efresnel(vector ii, nn; float eta; float Kr, Kt;)
     Kt = 1.0 - Kr;
     return normalize(T);
 }
-#line 2231 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 2284 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/pcscatter.h"
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shading.h"
-#line 14 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/pcscatter.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/pcscatter.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shading.h"
+#line 14 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/pcscatter.h"
 
 float vop_hgphase(float g; vector Wi, Wo) {
    float g2=g*g;
@@ -2678,7 +2725,7 @@ vector vop_ssIntegSingle (
    }
       return 2.0 * scatt / realsamples;
 }
-#line 2232 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 2285 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 
 vector
 vop_hairspec(vector nn, V, T; float exp;)
@@ -2706,7 +2753,7 @@ vop_hairspec(vector nn, V, T; float exp;)
 vector
 vop_simpleSSS(vector nn, ii; float  eta, depth; int facefwd)
 {
-#line 2270 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 2323 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
     vector	illum = 0;
     float	Kr, fKr = 1;
     float	Kt = 1;
@@ -3118,25 +3165,25 @@ vop_curvature(vector p;
 #line 176 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 178 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 #line 179 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 #line 181 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 183 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 #line 184 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
 #line 186 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_snippet2(int check; vector surface)
@@ -3152,7 +3199,7 @@ _mat_megascans_shader_simple1_snippet2(int check; vector surface)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
 #line 200 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_snippet14(int val1; string val2)
@@ -3168,7 +3215,7 @@ _mat_megascans_shader_simple1_snippet14(int val1; string val2)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
 #line 214 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_snippet13(int val1; string val2)
@@ -3184,101 +3231,85 @@ _mat_megascans_shader_simple1_snippet13(int val1; string val2)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 228 "/mat/megascans_shader_simple1/SurfaceVexCode"
-void
-_mat_megascans_shader_simple1_snippet15(int val1; string val2)
-{
-    if(val2 !=""){
-    val1=1;
-    }
-    else{
-    val1=0;
-    }
 
-}
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 229 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 231 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 242 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 232 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 234 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 235 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 237 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 238 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 240 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 241 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 243 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 244 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 245 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 246 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 247 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 248 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 249 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 250 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 251 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 252 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 253 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 254 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 255 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 256 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 257 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 258 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 259 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 260 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
 #line 261 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 263 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 264 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 266 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 267 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 269 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 270 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 272 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 273 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 275 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_displacetexture1_strlen1_snippet1(string str; int resultcharacter)
 {
@@ -3288,15 +3319,15 @@ _mat_megascans_shader_simple1_displacetexture1_strlen1_snippet1(string str; int 
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 284 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 270 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 285 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 271 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 287 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 273 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_displacetexture1_displace2_swizzle(string order; vector vec)
 {
@@ -3307,66 +3338,66 @@ _mat_megascans_shader_simple1_displacetexture1_displace2_swizzle(string order; v
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 283 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
+#line 285 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 287 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 289 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 290 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 292 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 294 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 295 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
 #line 297 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
 #line 299 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 300 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 301 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 302 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
 #line 303 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 304 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 306 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 308 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 309 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
-#line 311 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 313 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 314 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 316 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 317 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/bsdf.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/bsdf.h"
 
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 5 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/bsdf.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 5 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/bsdf.h"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/pbr.h"
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 23 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/pbr.h"
-#line 130 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/pbr.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/pbr.h"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 23 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/pbr.h"
+#line 130 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/pbr.h"
 vector
 pbr_get_pixel(vector p;)
 {
@@ -3897,15 +3928,15 @@ get_lpe_labels(string event; string scatter; int bounce)
     }
     return 1;
 }
-#line 6 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/bsdf.h"
+#line 6 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/bsdf.h"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/ggx_utils.h"
-
-
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/ggx_utils.h"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 5 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/ggx_utils.h"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 5 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/ggx_utils.h"
 
 int SameHemisphere(vector w; vector wp) {
     return (w.z * wp.z) > 0.0f;
@@ -3947,6 +3978,18 @@ vector ggx_albedo_estimate(const float cosTheta, rough, ior; const vector F0)
     float pow2 = pow(rough, 1-rough);
     vector grazing = (vector) lerp(1, rough * divide3 * 0.9, pow2);
     return select(ior > 1.000001, lerp(facing, grazing, tmp2), 0.0);
+}
+
+vector ggx_albedo_curve_fit(float ndotv, roughness; vector F0, F90)
+{
+    vector4 r = {-0.03056, 0.91808, 1.0, 1.0} +
+                {5.73633, -2.21942, 4.23817, -0.05271} * ndotv +
+                {8.03663, -0.02122, 4.90296, 10.64834} * roughness +
+                {-16.71761, 0.05680, -6.25996, -5.42338} * ndotv * roughness +
+                {6.94236, 1.34623, 6.45697, 11.04905} * (ndotv * ndotv) +
+                {0.40356, -0.05725, 3.81770, 21.41884} * (roughness * roughness);
+    vector2 AB = set(r.x, r.y) / set(r.z, r.w);
+    return F0 * AB.x + F90*AB.y;
 }
 
 
@@ -4029,8 +4072,8 @@ vector sample_ggx(const vector wi; const float alpha_x, alpha_y, sx, sy)
 
     return normalize(set(-slope.x, -slope.y, 1.0));
 }
-#line 7 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/bsdf.h"
-#line 19 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/bsdf.h"
+#line 7 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/bsdf.h"
+#line 19 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/bsdf.h"
 float
 pbrspecular_toexponent(float width)
 {
@@ -4076,7 +4119,7 @@ float eta_to_fzero(float eta)
 
 vector combined_fresnel_reflect(float eta, kr; vector F0)
 {
-#line 74 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/bsdf.h"
+#line 74 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/bsdf.h"
     float fresf0 = eta_to_fzero(eta);
 
     return lerp(fresf0*F0, {1,1,1}, fit(kr, fresf0, 1.0, 0.0, 1.0));
@@ -4161,14 +4204,13 @@ bsdf get_bsdf(string model; vector nNg, nN, nI, utan, vtan, F0, F90;
             else if (model == "ggx")
             {
 
-                vtan_ = normalize(cross(nN,utan_));
-                utan_ = normalize(cross(nN,vtan_));
+                makebasis(vtan_, utan_, nN, utan_);
 
                 int flip = aniso < 0;
 
                 float aspect = sqrt(1.0-abs(aniso)*0.9);
-                float alphax = max(0.001, rough2/aspect);
-                float alphay = max(0.001, rough2*aspect);
+                float alphax = max(0.00005, rough2/aspect);
+                float alphay = max(0.00005, rough2*aspect);
 
 		f = ggx(nNg,
 			nN,
@@ -4209,13 +4251,11 @@ bsdf get_bsdf(string model; vector nNg, nN, nI, utan, vtan, F0, F90;
             else if(model == "ggx")
             {
 
-		matrix3 to_world = dihedral({0.0,0.0,1.0}, nN);
-		utan_ = {1,0,0} * to_world;
-		vtan_ = {0,1,0} * to_world;
+                makebasis(vtan_, utan_, nN);
 
                 int flip = aniso < 0;
 
-                float alpha = max(0.001, rough2);
+                float alpha = max(0.00005, rough2);
 
 		f = ggx(nNg,
 			nN,
@@ -4328,21 +4368,21 @@ bsdf get_bsdf(string model, label; vector nNg, nN, nI, utan, vtan; vector F0; fl
 {
     return get_bsdf(model, label, nNg, nN, nI, utan, vtan, F0, eta, rough, aniso, aniso_dir, masking, 0             , 0              );
 }
-#line 319 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 305 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
-#line 320 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 322 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 323 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
+#line 306 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 325 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 308 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 309 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 311 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_snippet5(int check; vector gloss)
 {
@@ -4357,22 +4397,22 @@ _mat_megascans_shader_simple1_snippet5(int check; vector gloss)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 339 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 325 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 340 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/bsdf.h"
-#line 342 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
-#line 343 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 326 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 345 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/bsdf.h"
+#line 328 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
+#line 329 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 331 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_snippet3(int check; bsdf surface; bsdf reflect)
 {
@@ -4387,15 +4427,15 @@ _mat_megascans_shader_simple1_snippet3(int check; bsdf surface; bsdf reflect)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 359 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 345 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 360 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 346 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 362 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 348 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_snippet1(int check; bsdf surface; bsdf trans)
 {
@@ -4410,36 +4450,36 @@ _mat_megascans_shader_simple1_snippet1(int check; bsdf surface; bsdf trans)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 376 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 362 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 377 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 363 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/pbr.h"
-#line 378 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 380 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 381 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/pbr.h"
+#line 364 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/shaderlayer.h"
-#line 383 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 366 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 367 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 385 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 386 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/shaderlayer.h"
+#line 369 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 388 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 371 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 372 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 374 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_snippet8(int check; float val1; float val2)
 {
@@ -4454,29 +4494,29 @@ _mat_megascans_shader_simple1_snippet8(int check; float val1; float val2)
 
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 402 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 388 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 403 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 405 "/mat/megascans_shader_simple1/SurfaceVexCode"
-
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 406 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 389 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voptype.h"
-#line 408 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 391 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/voplib.h"
-#line 409 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 392 "/mat/megascans_shader_simple1/SurfaceVexCode"
 
 
-#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 18.5.696/houdini/vex/include/math.h"
-#line 411 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voptype.h"
+#line 394 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/voplib.h"
+#line 395 "/mat/megascans_shader_simple1/SurfaceVexCode"
+
+
+#line 1 "C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/vex/include/math.h"
+#line 397 "/mat/megascans_shader_simple1/SurfaceVexCode"
 void
 _mat_megascans_shader_simple1_asset_bake_exports1_add_layer_exports(ShaderLayer layer; vector export_diffcolor; float export_rough; vector export_ior; float export_metallness; vector export_speccolor; vector export_translucency; vector export_sss; vector export_emission; float export_mask; float export_fuzz; vector export_uv; vector export_dispcolor; vector export_normal; vector export_bump; vector export_ao; vector export_opacity)
 {
@@ -4535,12 +4575,12 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 	string ms_diffuse = "";
 	string ms_ior = "";
 	string ms_rough = "";
-	float ms_rscale = 0;
+	float ms_rscale = 1;
 	string ms_ao = "";
 	string ms_normal = "";
 	string ms_reflect = "";
 	string ms_displace = "";
-	float ms_dscale = 0;
+	float ms_dscale = 1;
 	string ms_bump = "";
 	string ao_texture = "";
 	string albedo_texture = "";
@@ -4558,7 +4598,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 	string ms_opac = "";
 	string opaccolor_texture = "";
 	export float ms_occlusion = 0;
-	float ms_reflectscale = 0;
+	float ms_reflectscale = 1;
 	float reflect_scale = 1;
 	float Shift = 0;
 	float Saturation = 1;
@@ -4613,9 +4653,9 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	bound_st1;
     int	bound_ms_trans;
     int	bound_ms_diffuse;
-    int	bound_ms_ao;
     int	bound_uv2;
     int	bound_st2;
+    int	bound_ms_ao;
     int	bound_uv3;
     int	bound_st3;
     int	bound_ms_normal;
@@ -4625,6 +4665,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	bound_ms_rough;
     int	bound_uv5;
     int	bound_st5;
+    int	bound_ms_rscale;
     int	bound_ms_ior;
     int	bound_uv6;
     int	bound_st6;
@@ -4708,35 +4749,25 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     string	result19;
     int	outval12;
     string	outval22;
-    int	check3;
-    int	outval13;
-    string	outval23;
-    string	val4;
+    int	val4;
     int	found4;
-    int	bool8;
-    string	result20;
-    string	result21;
-    string	result22;
-    int	bool9;
-    int	val5;
-    int	found5;
     int	and;
-    int	bool10;
+    int	bool8;
     vector	uv6;
     vector	output12;
-    vector	result23;
-    vector	result24;
-    vector	result25;
+    vector	result20;
+    vector	result21;
+    vector	result22;
     float	fval12;
     float	fval22;
     float	fval32;
-    vector	result26;
+    vector	result23;
     vector	_uv3;
     int	chkaces1;
     vector	clr3;
     vector	to;
-    vector	result27;
-    vector	result28;
+    vector	result24;
+    vector	result25;
     float	rand;
     float	shift;
     int	added;
@@ -4757,8 +4788,14 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     vector	gain;
     float	inverse;
     vector	pow;
-    vector	result29;
-    vector	diff;
+    vector	result26;
+    int	bool9;
+    string	val5;
+    int	found5;
+    int	bool10;
+    string	result27;
+    string	result28;
+    string	result29;
     int	bool11;
     vector	uv8;
     vector	output13;
@@ -4773,9 +4810,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	chkaces2;
     vector	clr5;
     float	lum;
-    float	shift2;
     vector	product2;
-    vector	result34;
     vector	hsv1;
     float	fval15;
     float	fval25;
@@ -4791,24 +4826,25 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     vector	gain1;
     float	inverse1;
     vector	pow1;
-    vector	result35;
+    vector	result34;
     vector	nvec;
     int	bool12;
     string	val6;
     int	found6;
+    int	bool13;
+    string	result35;
     string	result36;
     string	result37;
-    string	result38;
-    int	bool13;
+    int	bool14;
     vector	uv10;
     vector	output14;
+    vector	result38;
     vector	result39;
     vector	result40;
-    vector	result41;
     float	fval16;
     float	fval26;
     float	fval36;
-    vector	result42;
+    vector	result41;
     float	fval17;
     float	fval27;
     float	fval37;
@@ -4816,47 +4852,47 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	Value2;
     string	outstr;
     int	outresultcharacter;
-    int	bool14;
-    float	product5;
     int	bool15;
+    float	product5;
     int	bool16;
-    int	scaled;
     int	bool17;
+    int	scaled;
+    int	bool18;
     int	scaled1;
     int	sum2;
+    vector	result42;
     vector	result43;
-    vector	result44;
     vector	nvec1;
     float	lum1;
     float	fval18;
     float	fval28;
     float	fval38;
-    float	result45;
+    float	result44;
     float	sum3;
     vector	dispP;
     vector	dispN;
     vector	product6;
     string	outorder;
     vector	outvec;
-    vector	result46;
-    int	bool18;
+    vector	result45;
     int	bool19;
+    int	bool20;
     int	connected;
-    vector	result47;
+    vector	result46;
     vector	nvec2;
     vector4	quat;
     string	tstyle;
     vector	in_utan;
     vector	in_vtan;
     vector	nml;
-    vector	result48;
+    vector	result47;
     vector	uv11;
     vector	utan;
     vector	vtan;
+    vector	result48;
     vector	result49;
     vector	result50;
     vector	result51;
-    vector	result52;
     float	fval19;
     float	fval29;
     float	fval39;
@@ -4869,13 +4905,13 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     matrix3	matx;
     matrix	xform;
     matrix3	m3;
-    matrix3	result53;
+    matrix3	result52;
     matrix	xform1;
     matrix3	m31;
-    matrix3	result54;
+    matrix3	result53;
     vector	product7;
     vector	sum4;
-    vector	result55;
+    vector	result54;
     vector	dispP1;
     vector	dispN1;
     vector	Ns;
@@ -4888,98 +4924,96 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     vector	nvec4;
     vector4	quat1;
     vector4	blend;
-    vector	result56;
+    vector	result55;
     vector	newN;
-    vector	result57;
+    vector	result56;
     vector	Value3;
-    vector	diff1;
-    vector	result58;
+    vector	diff;
+    vector	result57;
     float	Value4;
     float	product9;
     float	len;
-    float	result59;
+    float	result58;
     vector	nvec5;
     ShaderLayer	layer1;
     bsdf	f;
-    int	bool20;
+    int	bool21;
     string	val7;
     int	found7;
-    int	bool21;
+    int	bool22;
+    string	result59;
     string	result60;
     string	result61;
-    string	result62;
-    int	bool22;
     int	bool23;
+    int	bool24;
     string	val8;
     int	found8;
-    int	bool24;
+    int	bool25;
+    string	result62;
     string	result63;
     string	result64;
-    string	result65;
-    int	bool25;
+    int	bool26;
     vector	uv13;
     vector	output15;
+    vector	result65;
     vector	result66;
     vector	result67;
-    vector	result68;
     float	fval112;
     float	fval212;
     float	fval312;
-    vector	result69;
+    vector	result68;
     vector	_uv10;
     int	chkaces3;
     vector	clr8;
     float	lum2;
     float	val9;
     int	found9;
-    int	bool26;
+    float	result69;
     float	result70;
-    float	result71;
-    int	bool27;
-    float	result72;
     float	product10;
+    float	product11;
     float	clamp;
-    int	bool28;
+    int	bool27;
     string	val10;
     int	found10;
-    int	bool29;
+    int	bool28;
+    string	result71;
+    string	result72;
     string	result73;
-    string	result74;
-    string	result75;
-    int	bool30;
+    int	bool29;
     vector	uv15;
     vector	output16;
+    vector	result74;
+    vector	result75;
     vector	result76;
-    vector	result77;
-    vector	result78;
     float	fval113;
     float	fval213;
     float	fval313;
-    vector	result79;
+    vector	result77;
     vector	_uv12;
     int	chkaces4;
     vector	clr10;
     float	lum3;
     ShaderLayer	layer2;
     bsdf	f1;
-    int	bool31;
+    int	bool30;
     string	val11;
     int	found11;
-    int	bool32;
+    int	bool31;
+    string	result78;
+    string	result79;
     string	result80;
-    string	result81;
-    string	result82;
+    int	bool32;
     int	bool33;
-    int	bool34;
     vector	uv17;
     vector	output17;
+    vector	result81;
+    vector	result82;
     vector	result83;
-    vector	result84;
-    vector	result85;
     float	fval114;
     float	fval214;
     float	fval314;
-    vector	result86;
+    vector	result84;
     vector	_uv14;
     int	chkaces5;
     vector	clr12;
@@ -4987,57 +5021,51 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	outcheck1;
     vector	outgloss;
     vector	clamp2;
-    bsdf	product11;
-    int	bool35;
+    bsdf	product12;
+    int	bool34;
     vector	uv19;
     vector	output18;
+    vector	result85;
+    vector	result86;
     vector	result87;
-    vector	result88;
-    vector	result89;
     float	fval115;
     float	fval215;
     float	fval315;
-    vector	result90;
+    vector	result88;
     vector	_uv16;
     int	chkaces6;
     vector	clr14;
     ShaderLayer	layer3;
     bsdf	f2;
     bsdf	sum5;
-    bsdf	result91;
-    float	shift3;
-    bsdf	product12;
-    bsdf	result92;
-    int	bool36;
-    float	val12;
-    int	found12;
-    float	result93;
-    float	result94;
-    float	result95;
+    bsdf	result89;
+    float	shift2;
     bsdf	product13;
+    bsdf	result90;
+    bsdf	product14;
     int	outcheck2;
     bsdf	outsurface1;
     bsdf	outreflect;
     bsdf	f3;
-    int	bool37;
+    int	bool35;
     vector	uv21;
     vector	output19;
-    vector	result96;
-    vector	result97;
-    vector	result98;
+    vector	result91;
+    vector	result92;
+    vector	result93;
     float	fval116;
     float	fval216;
     float	fval316;
-    vector	result99;
+    vector	result94;
     vector	_uv18;
     int	chkaces7;
     vector	clr16;
     vector	to1;
-    vector	result100;
-    vector	result101;
-    vector	shift4;
+    vector	result95;
+    vector	result96;
+    vector	shift3;
     vector	Value5;
-    vector	result102;
+    vector	result97;
     vector	hsv2;
     float	fval117;
     float	fval217;
@@ -5045,8 +5073,8 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     float	fraction4;
     float	sum6;
     float	fraction5;
-    float	product14;
     float	product15;
+    float	product16;
     vector	vec2;
     vector	rgb2;
     vector	bias2;
@@ -5060,17 +5088,17 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     float	fraction6;
     float	sum7;
     float	fraction7;
-    float	product16;
     float	product17;
+    float	product18;
     vector	vec3;
     vector	rgb3;
     vector	bias3;
     vector	gain3;
     float	inverse3;
     vector	pow3;
-    vector	result103;
+    vector	result98;
     float	Value7;
-    bsdf	product18;
+    bsdf	product19;
     int	outcheck3;
     bsdf	outsurface2;
     bsdf	outtrans;
@@ -5081,11 +5109,11 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     float	inverse4;
     float	input2;
     float	min;
-    bsdf	product19;
-    float	scale45;
+    bsdf	product20;
+    float	scale40;
     int	raylevel;
     int	Value8;
-    int	bool38;
+    int	bool36;
     vector	frontN;
     vector	nvec6;
     vector	Value9;
@@ -5096,85 +5124,88 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     vector	albedo1;
     ShaderLayer	layer4;
     bsdf	f4;
-    bsdf	product20;
-    bsdf	result104;
+    bsdf	product21;
+    bsdf	result99;
     float	lum5;
     ShaderLayer	layer5;
     float	len1;
-    vector	product21;
-    vector	product22;
+    float	val12;
+    int	found12;
+    float	result100;
+    float	result101;
+    float	product22;
+    vector	product23;
+    vector	product24;
     vector	export_uv1;
-    int	bool39;
+    int	bool37;
     string	val13;
     int	found13;
-    string	result105;
-    string	result106;
-    string	result107;
+    int	bool38;
+    string	result102;
+    string	result103;
+    string	result104;
+    int	bool39;
     int	bool40;
-    int	bool41;
     vector	uv23;
     vector	output110;
-    vector	result108;
-    vector	result109;
-    vector	result110;
+    vector	result105;
+    vector	result106;
+    vector	result107;
     float	fval119;
     float	fval219;
     float	fval319;
-    vector	result111;
+    vector	result108;
     vector	_uv20;
     int	chkaces8;
     vector	clr18;
     float	lum6;
-    float	diff2;
+    float	diff1;
     float	Value10;
     int	outcheck4;
-    float	outval14;
-    float	outval24;
-    float	Value11;
-    int	bool42;
+    float	outval13;
+    float	outval23;
     float	val14;
     int	found14;
-    float	result112;
-    float	result113;
-    float	result114;
-    float	product23;
-    float	product24;
-    float	sum8;
-    float	result115;
-    float	len2;
+    float	result109;
+    float	result110;
     float	product25;
-    float	result116;
+    float	product26;
+    float	sum8;
+    float	result111;
+    float	len2;
+    float	product27;
+    float	result112;
     vector	vec4;
-    int	bool43;
+    int	bool41;
     vector	uv25;
     vector	output111;
-    vector	result117;
-    vector	result118;
-    vector	result119;
+    vector	result113;
+    vector	result114;
+    vector	result115;
     float	fval120;
     float	fval220;
     float	fval320;
-    vector	result120;
+    vector	result116;
     vector	_uv22;
     int	chkaces9;
     vector	clr20;
-    int	bool44;
+    int	bool42;
     string	val15;
     int	found15;
-    int	bool45;
-    string	result121;
-    string	result122;
-    string	result123;
-    int	bool46;
+    int	bool43;
+    string	result117;
+    string	result118;
+    string	result119;
+    int	bool44;
     vector	uv27;
     vector	output112;
-    vector	result124;
-    vector	result125;
-    vector	result126;
+    vector	result120;
+    vector	result121;
+    vector	result122;
     float	fval121;
     float	fval221;
     float	fval321;
-    vector	result127;
+    vector	result123;
     vector	_uv24;
     int	chkaces10;
     vector	clr22;
@@ -5188,7 +5219,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	found17;
     int	flipnormal;
     vector	Ds1;
-    vector	result128;
+    vector	result124;
     int	val18;
     int	found18;
     int	usemikkt;
@@ -5202,24 +5233,24 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     int	found21;
     int	ntincludedisp;
     vector	nvec7;
-    vector	result129;
+    vector	result125;
     vector	_N4;
     int	connected1;
-    vector	result130;
+    vector	result126;
     vector	nvec8;
     vector4	quat2;
     string	tstyle1;
     vector	in_utan1;
     vector	in_vtan1;
     vector	nml1;
-    vector	result131;
+    vector	result127;
     vector	uv28;
     vector	utan1;
     vector	vtan1;
-    vector	result132;
-    vector	result133;
-    vector	result134;
-    vector	result135;
+    vector	result128;
+    vector	result129;
+    vector	result130;
+    vector	result131;
     int	val22;
     int	found22;
     int	faceforward;
@@ -5228,11 +5259,11 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     vector	utan2;
     vector	vtan2;
     vector	Nf1;
-    vector	result136;
+    vector	result132;
     vector	tangentN1;
     vector	tangentN2;
     vector	nN1;
-    vector	result137;
+    vector	result133;
     int	val23;
     int	found23;
     int	samples;
@@ -5242,7 +5273,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     float	occlusionbias;
     float	bias4;
     vector	vec5;
-    vector	result138;
+    vector	result134;
     float	val25;
     int	found25;
     float	cavitydistance;
@@ -5252,30 +5283,30 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     float	cavitybias;
     float	bias5;
     vector	vec6;
+    vector	result135;
+    vector	result136;
+    vector	result137;
+    vector	result138;
     vector	result139;
-    vector	result140;
-    vector	result141;
-    vector	result142;
-    vector	result143;
-    float	result144;
-    float	result145;
-    float	result146;
-    float	result147;
-    int	bool47;
+    float	result140;
+    float	result141;
+    float	result142;
+    float	result143;
+    int	bool45;
     vector	uv30;
     vector	output113;
-    vector	result148;
-    vector	result149;
-    vector	result150;
+    vector	result144;
+    vector	result145;
+    vector	result146;
     float	fval122;
     float	fval222;
     float	fval322;
-    vector	result151;
-    vector	result152;
-    vector	result153;
-    vector	result154;
+    vector	result147;
+    vector	result148;
+    vector	result149;
+    vector	result150;
     ShaderLayer	layer6;
-    vector	result155;
+    vector	result151;
     vector	export_diffcolor1;
     float	export_rough1;
     vector	export_ior1;
@@ -5331,7 +5362,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     vector	vtan4;
     matrix3	matx1;
     matrix3	inverse5;
-    vector	product26;
+    vector	product28;
 
 
     bool1 = (use_opacity != 0);
@@ -5342,13 +5373,13 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_opacval = isbound("ms_opacval");
-#line 1287 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1264 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result = (0 != 0 ? (bound_ms_opacval != 0 ? use_opacity : ms_opacval)
                                   : (bound_ms_opacval != 0 ? ms_opacval : use_opacity));
-#line 1302 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1279 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result1 = (0 != 0 ? (found != 0 ? result : val)
                                   : (found != 0 ? val : result));
-#line 1317 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1294 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result2 = (0 != 0 ? (bool1 != 0 ? use_opacity : result1)
                                   : (bool1 != 0 ? result1 : use_opacity));
 
@@ -5366,13 +5397,13 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_opac = isbound("ms_opac");
-#line 1345 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1322 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result3 = (0 != 0 ? (bound_ms_opac != 0 ? opaccolor_texture : ms_opac)
                                   : (bound_ms_opac != 0 ? ms_opac : opaccolor_texture));
-#line 1360 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1337 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result4 = (0 != 0 ? (found1 != 0 ? result3 : val1)
                                   : (found1 != 0 ? val1 : result3));
-#line 1375 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1352 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result5 = (0 != 0 ? (bool2 != 0 ? result4 : opaccolor_texture)
                                   : (bool2 != 0 ? opaccolor_texture : result4));
 
@@ -5605,7 +5636,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     outsurface = surface;
 
     _mat_megascans_shader_simple1_snippet2(outcheck, outsurface);
-#line 1618 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1595 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result13 = (0 != 0 ? (result2 != 0 ? { 1, 1, 1 } : outsurface)
                                   : (result2 != 0 ? outsurface : { 1, 1, 1 }));
 
@@ -5620,13 +5651,13 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_trans = isbound("ms_trans");
-#line 1643 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1620 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result14 = (0 != 0 ? (bound_ms_trans != 0 ? trans_texture : ms_trans)
                                   : (bound_ms_trans != 0 ? ms_trans : trans_texture));
-#line 1658 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1635 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result15 = (0 != 0 ? (found2 != 0 ? result14 : val2)
                                   : (found2 != 0 ? val2 : result14));
-#line 1673 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1650 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result16 = (0 != 0 ? (bool5 != 0 ? result15 : trans_texture)
                                   : (bool5 != 0 ? trans_texture : result15));
 
@@ -5656,13 +5687,13 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     bound_ms_diffuse = isbound("ms_diffuse");
-#line 1713 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1690 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result17 = (0 != 0 ? (bound_ms_diffuse != 0 ? albedo_texture : ms_diffuse)
                                   : (bound_ms_diffuse != 0 ? ms_diffuse : albedo_texture));
-#line 1728 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1705 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result18 = (0 != 0 ? (bool7 != 0 ? result17 : val3)
                                   : (bool7 != 0 ? val3 : result17));
-#line 1743 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1720 "/mat/megascans_shader_simple1/SurfaceVexCode"
         result19 = (0 != 0 ? (outval11 != 0 ? result18 : albedo_texture)
                                   : (outval11 != 0 ? albedo_texture : result18));
 
@@ -5675,44 +5706,11 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     _mat_megascans_shader_simple1_snippet13(outval12, outval22);
 
 
-    check3 = 0;
+    found4 = renderstate("packed:packed_id", val4);
+    if (!found4) val4 = 0;
 
 
-    outval13 = check3;
-    outval23 = ao_texture;
-
-    _mat_megascans_shader_simple1_snippet15(outval13, outval23);
-
-
-    found4 = renderstate("packed:ms_ao", val4);
-    if (!found4) val4 = "";
-
-
-    bool8 = (val4 != "");
-
-
-    bound_ms_ao = isbound("ms_ao");
-#line 1783 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result20 = (0 != 0 ? (bound_ms_ao != 0 ? ao_texture : ms_ao)
-                                  : (bound_ms_ao != 0 ? ms_ao : ao_texture));
-#line 1798 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result21 = (0 != 0 ? (bool8 != 0 ? result20 : val4)
-                                  : (bool8 != 0 ? val4 : result20));
-#line 1813 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result22 = (0 != 0 ? (outval13 != 0 ? ao_texture : result21)
-                                  : (outval13 != 0 ? result21 : ao_texture));
-
-
-
-
-    bool9 = (result22 != "\"\"");
-
-
-    found5 = renderstate("packed:packed_id", val5);
-    if (!found5) val5 = 0;
-
-
-    and = randomize && found5;
+    and = randomize && found4;
 
 
     vector	_uv2 = uv1;
@@ -5744,7 +5742,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool10 = (_mode2 == "st");
+            bool8 = (_mode2 == "st");
 
 
             bound_uv2 = isbound("uv");
@@ -5764,37 +5762,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st2 == 0 )
-                result23 = uv6;
+                result20 = uv6;
             else
-                result23 = output12;
+                result20 = output12;
 
 
             if( bound_uv2 == 0 )
-                result24 = result23;
+                result21 = result20;
             else
-                result24 = uv;
+                result21 = uv;
 
 
-            if( bool10 == 0 )
-                result25 = result24;
+            if( bool8 == 0 )
+                result22 = result21;
             else
-                result25 = uv6;
+                result22 = uv6;
 
 
-            assign(fval12,fval22,fval32, result25);
+            assign(fval12,fval22,fval32, result22);
 
 
-            uv5 = result25;
+            uv5 = result22;
             u2 = fval12;
             v2 = fval22;
             w2 = fval32;
         }
 
 
-        result26 = 1 != 0 ? _uv2 : uv5;
+        result23 = 1 != 0 ? _uv2 : uv5;
 
 
-        _uv3 = result26;
+        _uv3 = result23;
 
 
         chkaces1 = 0;
@@ -5881,26 +5879,26 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
         if( 1 == 0 )
-            result27 = _clr;
+            result24 = _clr;
         else
-            result27 = to;
+            result24 = to;
 
 
         if( 1 == 0 )
-            result28 = _clr;
+            result25 = _clr;
         else
-            result28 = result27;
+            result25 = result24;
 
 
-        _clr = result28;
+        _clr = result25;
     }
 
 
 
         if (1)
-        	rand = random(val5);
+        	rand = random(val4);
         else
-           rand = rand(val5);
+           rand = rand(val4);
 
 
 
@@ -5909,7 +5907,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     shift = fit(rand, 0, 1, 0.94999999999999996, 1.05);
 
 
-    added = val5 + 7;
+    added = val4 + 7;
 
 
 
@@ -5961,17 +5959,17 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
         rgb = hsvtorgb(vec);
-#line 2086 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 1996 "/mat/megascans_shader_simple1/SurfaceVexCode"
            float cr = vop_bias(rgb.x, _Bias.x);
            float cg = vop_bias(rgb.y, _Bias.y);
            float cb = vop_bias(rgb.z, _Bias.z);
            bias = set(cr, cg, cb);
-#line 2111 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 2021 "/mat/megascans_shader_simple1/SurfaceVexCode"
            float cr1 = vop_gain(bias.x, _Gain.x);
            float cg1 = vop_gain(bias.y, _Gain.y);
            float cb1 = vop_gain(bias.z, _Gain.z);
            gain = set(cr1, cg1, cb1);
-#line 2127 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 2037 "/mat/megascans_shader_simple1/SurfaceVexCode"
           inverse = 1.0 / _Gamma;
 
 
@@ -5983,19 +5981,40 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
         ClrOut = pow;
     }
-#line 2149 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result29 = (0 != 0 ? (and != 0 ? _clr : ClrOut)
+#line 2059 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result26 = (0 != 0 ? (and != 0 ? _clr : ClrOut)
                                   : (and != 0 ? ClrOut : _clr));
 
 
 
 
-    diff = result29;
+    bool9 = (ao_texture != "");
+
+
+    found5 = renderstate("packed:ms_ao", val5);
+    if (!found5) val5 = "";
+
+
+    bool10 = (val5 != "");
+
+
+    bound_ms_ao = isbound("ms_ao");
+#line 2087 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result27 = (0 != 0 ? (bound_ms_ao != 0 ? ao_texture : ms_ao)
+                                  : (bound_ms_ao != 0 ? ms_ao : ao_texture));
+#line 2102 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result28 = (0 != 0 ? (bool10 != 0 ? result27 : val5)
+                                  : (bool10 != 0 ? val5 : result27));
+#line 2117 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result29 = (0 != 0 ? (bool9 != 0 ? result28 : ao_texture)
+                                  : (bool9 != 0 ? ao_texture : result28));
+
+
 
 
     vector	_uv4 = uv1;
     vector	_duv2 = vector();
-    string	_map2 = result22;
+    string	_map2 = result29;
     int	_udim2 = 1;
     string	_srccolorspace2 = "auto";
     string	_wrap2 = "repeat";
@@ -6006,7 +6025,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     vector4	_border2 = { 0, 0, 0, 1 };
     int	_extrapol2 = 1;
     int	_interp2 = 0;
-    vector4	_defclr2 = { 0, 0, 0, 0 };
+    vector4	_defclr2 = { 1, 1, 1, 0 };
     string	_channel2 = "";
     int	_ptexface2 = 0;
     int	_orient2 = 0;
@@ -6154,24 +6173,16 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     lum = luminance(clr4);
 
 
-    shift2 = fit(lum, 0, 1, 0.5, 1);
+    product2 = result26 * lum;
 
 
-    product2 = result29 * shift2;
-#line 2334 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result34 = (0 != 0 ? (bool9 != 0 ? product2 : diff)
-                                  : (bool9 != 0 ? diff : product2));
-
-
-
-
-    vector	_result = result34;
+    vector	_product = product2;
     int	_outval1 = outval11;
     float	Value1 = 0.0;
     {
 
 
-        vector	_ClrIn1 = _result;
+        vector	_ClrIn1 = _product;
         float	_Shift1 = Shift;
         float	_Saturation1 = Saturation;
         float	_Value1 = Value;
@@ -6207,17 +6218,17 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             rgb1 = hsvtorgb(vec1);
-#line 2393 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 2340 "/mat/megascans_shader_simple1/SurfaceVexCode"
                float cr2 = vop_bias(rgb1.x, _Bias1.x);
                float cg2 = vop_bias(rgb1.y, _Bias1.y);
                float cb2 = vop_bias(rgb1.z, _Bias1.z);
                bias1 = set(cr2, cg2, cb2);
-#line 2418 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 2365 "/mat/megascans_shader_simple1/SurfaceVexCode"
                float cr3 = vop_gain(bias1.x, _Gain1.x);
                float cg3 = vop_gain(bias1.y, _Gain1.y);
                float cb3 = vop_gain(bias1.z, _Gain1.z);
                gain1 = set(cr3, cg3, cb3);
-#line 2434 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 2381 "/mat/megascans_shader_simple1/SurfaceVexCode"
               inverse1 = 1.0 / _Gamma1;
 
 
@@ -6232,12 +6243,12 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
         if( _outval1 == 0 )
-            result35 = _result;
+            result34 = _product;
         else
-            result35 = ClrOut1;
+            result34 = ClrOut1;
 
 
-        _result = result35;
+        _product = result34;
         Value1 = Value;
     }
 
@@ -6258,16 +6269,19 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     if (!found6) val6 = "";
 
 
+    bool13 = (val6 != "");
+
+
     bound_ms_normal = isbound("ms_normal");
-#line 2486 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result36 = (0 != 0 ? (bound_ms_normal != 0 ? normal_texture : ms_normal)
+#line 2436 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result35 = (0 != 0 ? (bound_ms_normal != 0 ? normal_texture : ms_normal)
                                   : (bound_ms_normal != 0 ? ms_normal : normal_texture));
-#line 2501 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result37 = (0 != 0 ? (found6 != 0 ? result36 : val6)
-                                  : (found6 != 0 ? val6 : result36));
-#line 2516 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result38 = (0 != 0 ? (bool12 != 0 ? result37 : normal_texture)
-                                  : (bool12 != 0 ? normal_texture : result37));
+#line 2451 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result36 = (0 != 0 ? (bool13 != 0 ? result35 : val6)
+                                  : (bool13 != 0 ? val6 : result35));
+#line 2466 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result37 = (0 != 0 ? (bool12 != 0 ? result36 : normal_texture)
+                                  : (bool12 != 0 ? normal_texture : result36));
 
 
 
@@ -6281,7 +6295,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     string	_channelorder = "xyz";
     float	_offset = -0.5;
     float	_scale = normal_mult;
-    string	_texture = result38;
+    string	_texture = result37;
     int	_udim3 = 1;
     string	_texwrap = "repeat";
     string	_texfilter = "gauss";
@@ -6306,7 +6320,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool13 = (_mode4 == "st");
+            bool14 = (_mode4 == "st");
 
 
             bound_uv4 = isbound("uv");
@@ -6326,37 +6340,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st4 == 0 )
-                result39 = uv10;
+                result38 = uv10;
             else
-                result39 = output14;
+                result38 = output14;
 
 
             if( bound_uv4 == 0 )
+                result39 = result38;
+            else
+                result39 = uv;
+
+
+            if( bool14 == 0 )
                 result40 = result39;
             else
-                result40 = uv;
+                result40 = uv10;
 
 
-            if( bool13 == 0 )
-                result41 = result40;
-            else
-                result41 = uv10;
+            assign(fval16,fval26,fval36, result40);
 
 
-            assign(fval16,fval26,fval36, result41);
-
-
-            uv9 = result41;
+            uv9 = result40;
             u4 = fval16;
             v4 = fval26;
             w4 = fval36;
         }
 
 
-        result42 = 1 != 0 ? _uv6 : uv9;
+        result41 = 1 != 0 ? _uv6 : uv9;
 
 
-        assign(fval17,fval27,fval37, result42);
+        assign(fval17,fval27,fval37, result41);
 
 
         if (_texture != "") {
@@ -6374,7 +6388,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
             if (0 & 0x02) { myT = 1 - myT; }
             if (0 & 0x04) { float x = myS; myS = myT; myT = x; }
             string map_udim = _texture;
-            string ocio = ocio_parsecolorspace(_texture);
+            string ocio = (_texcolorspace == 'auto') ? ocio_parsecolorspace(_texture) : '';
             if (_udim3 && has_udim(_texture)) { map_udim = expand_udim(myS, myT, _texture); }
             if (map_udim == '') { clr6 = set({ 0, 0, 0, 0 }); }
             else {
@@ -6430,15 +6444,15 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         }
 
 
-        bool14 = (length > 0);
+        bool15 = (length > 0);
 
 
-        product5 = _scale * bool14;
+        product5 = _scale * bool15;
 
 
         vector	_P1 = _P;
         vector	_N1 = _N;
-        vector	_uv7 = result42;
+        vector	_uv7 = result41;
         vector	_value = clr6;
         string	_type1 = _type;
         string	_vectorspace1 = _vectorspace;
@@ -6456,37 +6470,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool15 = (_type1 == "normal");
+            bool16 = (_type1 == "normal");
 
 
-            bool16 = (_type1 == "disp");
+            bool17 = (_type1 == "disp");
 
 
-            scaled = (bool16 + 0) * 2 + 0;
+            scaled = (bool17 + 0) * 2 + 0;
 
 
-            bool17 = (_type1 == "vectordisp");
+            bool18 = (_type1 == "vectordisp");
 
 
-            scaled1 = (bool17 + 0) * 3 + 0;
+            scaled1 = (bool18 + 0) * 3 + 0;
 
 
-            sum2 = bool15 + scaled + scaled1;
+            sum2 = bool16 + scaled + scaled1;
 
 
-            result43 = 1 != 0 ? _P1 : P;
-
-
-
+            result42 = 1 != 0 ? _P1 : P;
 
 
 
 
 
-            result44 = 1 != 0 ? _N1 : N;
 
 
-            nvec1 = normalize(result44);
+
+            result43 = 1 != 0 ? _N1 : N;
+
+
+            nvec1 = normalize(result43);
 
 
             lum1 = luminance(_value);
@@ -6496,19 +6510,19 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( _channel3 == 0 )
-                result45 = lum1;
+                result44 = lum1;
             else if( _channel3 == 1 )
-                result45 = fval18;
+                result44 = fval18;
             else if( _channel3 == 2 )
-                result45 = fval28;
+                result44 = fval28;
             else
-                result45 = fval38;
+                result44 = fval38;
 
 
-            sum3 = result45 + _offset1;
+            sum3 = result44 + _offset1;
 
 
-            vop_displaceAlongNormal((1 != 0) ? result43 : P,
+            vop_displaceAlongNormal((1 != 0) ? result42 : P,
             			 (1 != 0) ? nvec1 : normalize(N),
             			 sum3, _scale1, 0, 0,
             			 1, 0, 0, dispP, dispN);
@@ -6526,24 +6540,24 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
             _mat_megascans_shader_simple1_displacetexture1_displace2_swizzle(outorder, outvec);
 
 
-            result46 = 1 != 0 ? _uv7 : uv;
+            result45 = 1 != 0 ? _uv7 : uv;
 
 
-            vector	_result1 = result46;
+            vector	_result = result45;
             vector	_nvec = nvec1;
             string	__vectorspace = _vectorspace1;
             matrix3	result_2 = matrix3();
             {
 
 
-                bool18 = (__vectorspace == "world");
+                bool19 = (__vectorspace == "world");
 
 
-                bool19 = (__vectorspace == "object");
+                bool20 = (__vectorspace == "object");
 
 
                 string	_tstyle = "uv";
-                vector	_uv8 = _result1;
+                vector	_uv8 = _result;
                 vector	_N2 = _nvec;
                 vector	_utan = vector();
                 vector	_vtan = vector();
@@ -6554,10 +6568,10 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
                     connected = 0 ? 1 : 0;
 
 
-                    result47 = 1 != 0 ? _N2 : N;
+                    result46 = 1 != 0 ? _N2 : N;
 
 
-                    nvec2 = normalize(result47);
+                    nvec2 = normalize(result46);
 
 
                     quat = quaternion(_angle, nvec2);
@@ -6575,33 +6589,33 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
                     nml = nvec2;
 
 
-                    result48 = 1 != 0 ? _uv8 : uv;
+                    result47 = 1 != 0 ? _uv8 : uv;
 
 
-                    uv11 = result48;
+                    uv11 = result47;
 
 
                     vop_computeTangents(tstyle, nml, uv11, in_utan, in_vtan, utan, vtan);
 
 
-                    result49 = qrotate(quat, utan);
-#line 2846 "/mat/megascans_shader_simple1/SurfaceVexCode"
-                        result50 = (0 != 0 ? (connected != 0 ? utan : result49)
-                                                  : (connected != 0 ? result49 : utan));
+                    result48 = qrotate(quat, utan);
+#line 2796 "/mat/megascans_shader_simple1/SurfaceVexCode"
+                        result49 = (0 != 0 ? (connected != 0 ? utan : result48)
+                                                  : (connected != 0 ? result48 : utan));
 
 
 
 
-                    result51 = qrotate(quat, vtan);
-#line 2864 "/mat/megascans_shader_simple1/SurfaceVexCode"
-                        result52 = (0 != 0 ? (connected != 0 ? vtan : result51)
-                                                  : (connected != 0 ? result51 : vtan));
+                    result50 = qrotate(quat, vtan);
+#line 2814 "/mat/megascans_shader_simple1/SurfaceVexCode"
+                        result51 = (0 != 0 ? (connected != 0 ? vtan : result50)
+                                                  : (connected != 0 ? result50 : vtan));
 
 
 
 
-                    _utan = result50;
-                    _vtan = result52;
+                    _utan = result49;
+                    _vtan = result51;
                 }
 
 
@@ -6625,10 +6639,10 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
                 m3 = (matrix3)xform;
 
 
-                if( bool19 == 0 )
-                    result53 = matx;
+                if( bool20 == 0 )
+                    result52 = matx;
                 else
-                    result53 = m3;
+                    result52 = m3;
 
 
                 xform1 = getspace("space:world", "space:current");
@@ -6637,36 +6651,36 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
                 m31 = (matrix3)xform1;
 
 
-                if( bool18 == 0 )
-                    result54 = result53;
+                if( bool19 == 0 )
+                    result53 = result52;
                 else
-                    result54 = m31;
+                    result53 = m31;
 
 
-                result_2 = result54;
+                result_2 = result53;
             }
 
 
             product7 = outvec * result_2;
 
 
-            sum4 = result43 + product7;
+            sum4 = result42 + product7;
 
 
 
 
 
             if( sum2 == 0 )
-                result55 = result43;
+                result54 = result42;
             else if( sum2 == 1 )
-                result55 = result43;
+                result54 = result42;
             else if( sum2 == 2 )
-                result55 = dispP;
+                result54 = dispP;
             else
-                result55 = sum4;
+                result54 = sum4;
 
 
-            vop_displaceAlongNormal((1 != 0) ? result43 : P,
+            vop_displaceAlongNormal((1 != 0) ? result42 : P,
             			 (1 != 0) ? nvec1 : normalize(N),
             			 sum3, _scale1, 0, 0,
             			 1, 0, 1, dispP1, dispN1);
@@ -6709,7 +6723,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
             blend = slerp({ 0, 0, 0, 1 }, quat1, _scale1);
 
 
-            result56 = qrotate(blend, nvec1);
+            result55 = qrotate(blend, nvec1);
 
 
 
@@ -6729,29 +6743,29 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( sum2 == 0 )
-                result57 = dispN1;
+                result56 = dispN1;
             else if( sum2 == 1 )
-                result57 = result56;
+                result56 = result55;
             else if( sum2 == 2 )
-                result57 = dispN;
+                result56 = dispN;
             else
-                result57 = newN;
+                result56 = newN;
 
 
             Value3 = { 0, 0, 0 };
 
 
-            diff1 = dispP - result43;
+            diff = dispP - result42;
 
 
             if( sum2 == 0 )
-                result58 = Value3;
+                result57 = Value3;
             else if( sum2 == 1 )
-                result58 = Value3;
+                result57 = Value3;
             else if( sum2 == 2 )
-                result58 = diff1;
+                result57 = diff;
             else
-                result58 = product7;
+                result57 = product7;
 
 
             Value4 = 0;
@@ -6764,19 +6778,19 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( sum2 == 0 )
-                result59 = Value4;
+                result58 = Value4;
             else if( sum2 == 1 )
-                result59 = Value4;
+                result58 = Value4;
             else if( sum2 == 2 )
-                result59 = product9;
+                result58 = product9;
             else
-                result59 = len;
+                result58 = len;
 
 
-            outP1 = result55;
-            outN1 = result57;
-            doffset1 = result58;
-            ddist1 = result59;
+            outP1 = result54;
+            outN1 = result56;
+            doffset1 = result57;
+            ddist1 = result58;
         }
 
 
@@ -6790,7 +6804,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
 
-    nvec5 = normalize(outN);
+    nvec5 = outN;
 
 
 
@@ -6820,64 +6834,64 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     }
 
     init_layer(layer1);
-    f *= _result;
+    f *= _product;
     layer1.F = f;
 
 
-    bool20 = (metallic_texture != "");
+    bool21 = (metallic_texture != "");
 
 
     found7 = renderstate("packed:ms_metal", val7);
     if (!found7) val7 = "";
 
 
-    bool21 = (val7 != "");
+    bool22 = (val7 != "");
 
 
     bound_ms_metal = isbound("ms_metal");
-#line 3116 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result60 = (0 != 0 ? (bound_ms_metal != 0 ? metallic_texture : ms_metal)
+#line 3066 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result59 = (0 != 0 ? (bound_ms_metal != 0 ? metallic_texture : ms_metal)
                                   : (bound_ms_metal != 0 ? ms_metal : metallic_texture));
-#line 3131 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result61 = (0 != 0 ? (bool21 != 0 ? result60 : val7)
-                                  : (bool21 != 0 ? val7 : result60));
-#line 3146 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result62 = (0 != 0 ? (bool20 != 0 ? result61 : metallic_texture)
-                                  : (bool20 != 0 ? metallic_texture : result61));
+#line 3081 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result60 = (0 != 0 ? (bool22 != 0 ? result59 : val7)
+                                  : (bool22 != 0 ? val7 : result59));
+#line 3096 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result61 = (0 != 0 ? (bool21 != 0 ? result60 : metallic_texture)
+                                  : (bool21 != 0 ? metallic_texture : result60));
 
 
 
 
-    bool22 = (result62 != "");
+    bool23 = (result61 != "");
 
 
-    bool23 = (rough_texture != "");
+    bool24 = (rough_texture != "");
 
 
     found8 = renderstate("packed:ms_rough", val8);
     if (!found8) val8 = "";
 
 
-    bool24 = (val8 != "");
+    bool25 = (val8 != "");
 
 
     bound_ms_rough = isbound("ms_rough");
-#line 3177 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result63 = (0 != 0 ? (bound_ms_rough != 0 ? rough_texture : ms_rough)
+#line 3127 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result62 = (0 != 0 ? (bound_ms_rough != 0 ? rough_texture : ms_rough)
                                   : (bound_ms_rough != 0 ? ms_rough : rough_texture));
-#line 3192 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result64 = (0 != 0 ? (bool24 != 0 ? result63 : val8)
-                                  : (bool24 != 0 ? val8 : result63));
-#line 3207 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result65 = (0 != 0 ? (bool23 != 0 ? result64 : rough_texture)
-                                  : (bool23 != 0 ? rough_texture : result64));
+#line 3142 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result63 = (0 != 0 ? (bool25 != 0 ? result62 : val8)
+                                  : (bool25 != 0 ? val8 : result62));
+#line 3157 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result64 = (0 != 0 ? (bool24 != 0 ? result63 : rough_texture)
+                                  : (bool24 != 0 ? rough_texture : result63));
 
 
 
 
     vector	_uv9 = uv1;
     vector	_duv3 = vector();
-    string	_map3 = result65;
+    string	_map3 = result64;
     int	_udim4 = 1;
     string	_srccolorspace3 = "auto";
     string	_wrap3 = "repeat";
@@ -6904,7 +6918,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool25 = (_mode5 == "st");
+            bool26 = (_mode5 == "st");
 
 
             bound_uv5 = isbound("uv");
@@ -6924,37 +6938,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st5 == 0 )
-                result66 = uv13;
+                result65 = uv13;
             else
-                result66 = output15;
+                result65 = output15;
 
 
             if( bound_uv5 == 0 )
+                result66 = result65;
+            else
+                result66 = uv;
+
+
+            if( bool26 == 0 )
                 result67 = result66;
             else
-                result67 = uv;
+                result67 = uv13;
 
 
-            if( bool25 == 0 )
-                result68 = result67;
-            else
-                result68 = uv13;
+            assign(fval112,fval212,fval312, result67);
 
 
-            assign(fval112,fval212,fval312, result68);
-
-
-            uv12 = result68;
+            uv12 = result67;
             u5 = fval112;
             v5 = fval212;
             w5 = fval312;
         }
 
 
-        result69 = 1 != 0 ? _uv9 : uv12;
+        result68 = 1 != 0 ? _uv9 : uv12;
 
 
-        _uv10 = result69;
+        _uv10 = result68;
 
 
         chkaces3 = 0;
@@ -7037,61 +7051,56 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     found9 = renderstate("packed:ms_rscale", val9);
-    if (!found9) val9 = 0;
+    if (!found9) val9 = 1;
 
 
-    bool26 = (ms_rscale != 0);
-#line 3390 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result70 = (0 != 0 ? (bool26 != 0 ? rough : ms_rscale)
-                                  : (bool26 != 0 ? ms_rscale : rough));
-#line 3405 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result71 = (0 != 0 ? (found9 != 0 ? result70 : val9)
-                                  : (found9 != 0 ? val9 : result70));
-
-
-
-
-    bool27 = (rough != 1);
-#line 3423 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result72 = (0 != 0 ? (bool27 != 0 ? result71 : rough)
-                                  : (bool27 != 0 ? rough : result71));
+    bound_ms_rscale = isbound("ms_rscale");
+#line 3340 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result69 = (0 != 0 ? (bound_ms_rscale != 0 ? rough : ms_rscale)
+                                  : (bound_ms_rscale != 0 ? ms_rscale : rough));
+#line 3355 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result70 = (0 != 0 ? (found9 != 0 ? result69 : val9)
+                                  : (found9 != 0 ? val9 : result69));
 
 
 
 
-    product10 = lum2 * result71 * result72;
+    product10 = result70 * rough;
 
 
-    clamp = clamp(product10, 0, 0.99990000000000001);
+    product11 = lum2 * product10 * product10;
 
 
-    bool28 = (ior_texture != "");
+    clamp = clamp(product11, 0, 0.99990000000000001);
+
+
+    bool27 = (ior_texture != "");
 
 
     found10 = renderstate("packed:ms_ior", val10);
     if (!found10) val10 = "";
 
 
-    bool29 = (val10 != "");
+    bool28 = (val10 != "");
 
 
     bound_ms_ior = isbound("ms_ior");
-#line 3457 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result73 = (0 != 0 ? (bound_ms_ior != 0 ? ior_texture : ms_ior)
+#line 3392 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result71 = (0 != 0 ? (bound_ms_ior != 0 ? ior_texture : ms_ior)
                                   : (bound_ms_ior != 0 ? ms_ior : ior_texture));
-#line 3472 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result74 = (0 != 0 ? (bool29 != 0 ? result73 : val10)
-                                  : (bool29 != 0 ? val10 : result73));
-#line 3487 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result75 = (0 != 0 ? (bool28 != 0 ? result74 : ior_texture)
-                                  : (bool28 != 0 ? ior_texture : result74));
+#line 3407 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result72 = (0 != 0 ? (bool28 != 0 ? result71 : val10)
+                                  : (bool28 != 0 ? val10 : result71));
+#line 3422 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result73 = (0 != 0 ? (bool27 != 0 ? result72 : ior_texture)
+                                  : (bool27 != 0 ? ior_texture : result72));
 
 
 
 
     vector	_uv11 = uv1;
     vector	_duv4 = vector();
-    string	_map4 = result75;
+    string	_map4 = result73;
     int	_udim5 = 1;
     string	_srccolorspace4 = "auto";
     string	_wrap4 = "repeat";
@@ -7118,7 +7127,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool30 = (_mode6 == "st");
+            bool29 = (_mode6 == "st");
 
 
             bound_uv6 = isbound("uv");
@@ -7138,37 +7147,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st6 == 0 )
-                result76 = uv15;
+                result74 = uv15;
             else
-                result76 = output16;
+                result74 = output16;
 
 
             if( bound_uv6 == 0 )
-                result77 = result76;
+                result75 = result74;
             else
-                result77 = uv;
+                result75 = uv;
 
 
-            if( bool30 == 0 )
-                result78 = result77;
+            if( bool29 == 0 )
+                result76 = result75;
             else
-                result78 = uv15;
+                result76 = uv15;
 
 
-            assign(fval113,fval213,fval313, result78);
+            assign(fval113,fval213,fval313, result76);
 
 
-            uv14 = result78;
+            uv14 = result76;
             u6 = fval113;
             v6 = fval213;
             w6 = fval313;
         }
 
 
-        result79 = 1 != 0 ? _uv11 : uv14;
+        result77 = 1 != 0 ? _uv11 : uv14;
 
 
-        _uv12 = result79;
+        _uv12 = result77;
 
 
         chkaces4 = 0;
@@ -7319,36 +7328,36 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     }
 
 
-    bool31 = (reflect_texture != "");
+    bool30 = (reflect_texture != "");
 
 
     found11 = renderstate("packed:ms_reflect", val11);
     if (!found11) val11 = "";
 
 
-    bool32 = (val11 != "");
+    bool31 = (val11 != "");
 
 
     bound_ms_reflect = isbound("ms_reflect");
-#line 3745 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result80 = (0 != 0 ? (bound_ms_reflect != 0 ? reflect_texture : ms_reflect)
+#line 3680 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result78 = (0 != 0 ? (bound_ms_reflect != 0 ? reflect_texture : ms_reflect)
                                   : (bound_ms_reflect != 0 ? ms_reflect : reflect_texture));
-#line 3760 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result81 = (0 != 0 ? (bool32 != 0 ? result80 : val11)
-                                  : (bool32 != 0 ? val11 : result80));
-#line 3775 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result82 = (0 != 0 ? (bool31 != 0 ? result81 : reflect_texture)
-                                  : (bool31 != 0 ? reflect_texture : result81));
+#line 3695 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result79 = (0 != 0 ? (bool31 != 0 ? result78 : val11)
+                                  : (bool31 != 0 ? val11 : result78));
+#line 3710 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result80 = (0 != 0 ? (bool30 != 0 ? result79 : reflect_texture)
+                                  : (bool30 != 0 ? reflect_texture : result79));
 
 
 
 
-    bool33 = (result82 != "");
+    bool32 = (result80 != "");
 
 
     vector	_uv13 = uv1;
     vector	_duv5 = vector();
-    string	_map5 = result82;
+    string	_map5 = result80;
     int	_udim6 = 1;
     string	_srccolorspace5 = "auto";
     string	_wrap5 = "repeat";
@@ -7375,7 +7384,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool34 = (_mode7 == "st");
+            bool33 = (_mode7 == "st");
 
 
             bound_uv7 = isbound("uv");
@@ -7395,37 +7404,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st7 == 0 )
-                result83 = uv17;
+                result81 = uv17;
             else
-                result83 = output17;
+                result81 = output17;
 
 
             if( bound_uv7 == 0 )
-                result84 = result83;
+                result82 = result81;
             else
-                result84 = uv;
+                result82 = uv;
 
 
-            if( bool34 == 0 )
-                result85 = result84;
+            if( bool33 == 0 )
+                result83 = result82;
             else
-                result85 = uv17;
+                result83 = uv17;
 
 
-            assign(fval114,fval214,fval314, result85);
+            assign(fval114,fval214,fval314, result83);
 
 
-            uv16 = result85;
+            uv16 = result83;
             u7 = fval114;
             v7 = fval214;
             w7 = fval314;
         }
 
 
-        result86 = 1 != 0 ? _uv13 : uv16;
+        result84 = 1 != 0 ? _uv13 : uv16;
 
 
-        _uv14 = result86;
+        _uv14 = result84;
 
 
         chkaces5 = 0;
@@ -7507,7 +7516,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     clamp1 = clamp(clr11, { 0, 0, 0 }, { 1, 1, 1 });
 
 
-    outcheck1 = bool33;
+    outcheck1 = bool32;
     outgloss = clamp1;
 
     _mat_megascans_shader_simple1_snippet5(outcheck1, outgloss);
@@ -7516,12 +7525,12 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     clamp2 = clamp(outgloss, { 0, 0, 0 }, { 1, 1, 1 });
 
 
-    product11 = f1 * clamp2;
+    product12 = f1 * clamp2;
 
 
     vector	_uv15 = uv1;
     vector	_duv6 = vector();
-    string	_map6 = result62;
+    string	_map6 = result61;
     int	_udim7 = 1;
     string	_srccolorspace6 = "auto";
     string	_wrap6 = "repeat";
@@ -7548,7 +7557,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool35 = (_mode8 == "st");
+            bool34 = (_mode8 == "st");
 
 
             bound_uv8 = isbound("uv");
@@ -7568,37 +7577,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st8 == 0 )
-                result87 = uv19;
+                result85 = uv19;
             else
-                result87 = output18;
+                result85 = output18;
 
 
             if( bound_uv8 == 0 )
-                result88 = result87;
+                result86 = result85;
             else
-                result88 = uv;
+                result86 = uv;
 
 
-            if( bool35 == 0 )
-                result89 = result88;
+            if( bool34 == 0 )
+                result87 = result86;
             else
-                result89 = uv19;
+                result87 = uv19;
 
 
-            assign(fval115,fval215,fval315, result89);
+            assign(fval115,fval215,fval315, result87);
 
 
-            uv18 = result89;
+            uv18 = result87;
             u8 = fval115;
             v8 = fval215;
             w8 = fval315;
         }
 
 
-        result90 = 1 != 0 ? _uv15 : uv18;
+        result88 = 1 != 0 ? _uv15 : uv18;
 
 
-        _uv16 = result90;
+        _uv16 = result88;
 
 
         chkaces6 = 0;
@@ -7705,7 +7714,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     }
 
 
-    sum5 = product11 + f2;
+    sum5 = product12 + f2;
 
 
 
@@ -7713,9 +7722,9 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
 
-        float scale38 = (0 != 0 ? (bool22 != 0 ? 1 : 0)
-                                       : (bool22 != 0 ? 0 : 1));
-        result91 = (1-scale38)*sum5 + scale38*product11;
+        float scale36 = (0 != 0 ? (bool23 != 0 ? 1 : 0)
+                                       : (bool23 != 0 ? 0 : 1));
+        result89 = (1-scale36)*sum5 + scale36*product12;
 
 
 
@@ -7723,20 +7732,10 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
 
-    shift3 = fit(rand, 0, 1, 0.90000000000000002, 1);
+    shift2 = fit(rand, 0, 1, 0.90000000000000002, 1);
 
 
-    product12 = result91 * shift3;
-
-
-
-
-
-
-
-        float scale39 = (0 != 0 ? (found5 != 0 ? 1 : 0)
-                                       : (found5 != 0 ? 0 : 1));
-        result92 = (1-scale39)*result91 + scale39*product12;
+    product13 = result89 * shift2;
 
 
 
@@ -7744,33 +7743,25 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
 
-    bool36 = (reflect_scale != 1);
+        float scale37 = (0 != 0 ? (found4 != 0 ? 1 : 0)
+                                       : (found4 != 0 ? 0 : 1));
+        result90 = (1-scale37)*result89 + scale37*product13;
 
 
-    found12 = renderstate("packed:ms_reflectscale", val12);
-    if (!found12) val12 = 0;
+
+
+
 
 
     bound_ms_reflectscale = isbound("ms_reflectscale");
-#line 4201 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result93 = (0 != 0 ? (bound_ms_reflectscale != 0 ? reflect_scale : ms_reflectscale)
-                                  : (bound_ms_reflectscale != 0 ? ms_reflectscale : reflect_scale));
-#line 4216 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result94 = (0 != 0 ? (found12 != 0 ? result93 : val12)
-                                  : (found12 != 0 ? val12 : result93));
-#line 4231 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result95 = (0 != 0 ? (bool36 != 0 ? result94 : reflect_scale)
-                                  : (bool36 != 0 ? reflect_scale : result94));
 
 
-
-
-    product13 = result92 * result95;
+    product14 = result90 * ms_reflectscale;
 
 
     outcheck2 = outval12;
     outsurface1 = f;
-    outreflect = product13;
+    outreflect = product14;
 
     _mat_megascans_shader_simple1_snippet3(outcheck2, outsurface1, outreflect);
 
@@ -7810,7 +7801,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool37 = (_mode9 == "st");
+            bool35 = (_mode9 == "st");
 
 
             bound_uv9 = isbound("uv");
@@ -7830,37 +7821,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st9 == 0 )
-                result96 = uv21;
+                result91 = uv21;
             else
-                result96 = output19;
+                result91 = output19;
 
 
             if( bound_uv9 == 0 )
-                result97 = result96;
+                result92 = result91;
             else
-                result97 = uv;
+                result92 = uv;
 
 
-            if( bool37 == 0 )
-                result98 = result97;
+            if( bool35 == 0 )
+                result93 = result92;
             else
-                result98 = uv21;
+                result93 = uv21;
 
 
-            assign(fval116,fval216,fval316, result98);
+            assign(fval116,fval216,fval316, result93);
 
 
-            uv20 = result98;
+            uv20 = result93;
             u9 = fval116;
             v9 = fval216;
             w9 = fval316;
         }
 
 
-        result99 = 1 != 0 ? _uv17 : uv20;
+        result94 = 1 != 0 ? _uv17 : uv20;
 
 
-        _uv18 = result99;
+        _uv18 = result94;
 
 
         chkaces7 = 0;
@@ -7947,28 +7938,28 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
         if( 1 == 0 )
-            result100 = _clr1;
+            result95 = _clr1;
         else
-            result100 = to1;
+            result95 = to1;
 
 
         if( 1 == 0 )
-            result101 = _clr1;
+            result96 = _clr1;
         else
-            result101 = result100;
+            result96 = result95;
 
 
-        _clr1 = result101;
+        _clr1 = result96;
     }
 
 
-    shift4 = fit(rand1, { 0, 0, 0 }, { 1, 1, 1 }, { 0.45000000000000001, 0.45000000000000001, 0.45000000000000001 }, { 0.55000000000000004, 0.55000000000000004, 0.55000000000000004 });
+    shift3 = fit(rand1, { 0, 0, 0 }, { 1, 1, 1 }, { 0.45000000000000001, 0.45000000000000001, 0.45000000000000001 }, { 0.55000000000000004, 0.55000000000000004, 0.55000000000000004 });
 
 
     Value5 = { 0.5, 0.5, 0.5 };
-#line 4449 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result102 = (0 != 0 ? (val5 != 0 ? Value5 : shift4)
-                                  : (val5 != 0 ? shift4 : Value5));
+#line 4332 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result97 = (0 != 0 ? (val4 != 0 ? Value5 : shift3)
+                                  : (val4 != 0 ? shift3 : Value5));
 
 
 
@@ -7978,7 +7969,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     float	_Saturation2 = 0.69999999999999996;
     float	_Value2 = 1;
     vector	_Bias2 = { 0.5, 0.5, 0.5 };
-    vector	_Gain2 = result102;
+    vector	_Gain2 = result97;
     float	_Gamma2 = 1;
     vector	ClrOut2 = vector();
     {
@@ -7999,27 +7990,27 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         fraction5 = frac(sum6);
 
 
-        product14 = fval217 * _Saturation2;
+        product15 = fval217 * _Saturation2;
 
 
-        product15 = fval317 * _Value2;
+        product16 = fval317 * _Value2;
 
 
-        vec2 = set(fraction5,product14,product15);
+        vec2 = set(fraction5,product15,product16);
 
 
         rgb2 = hsvtorgb(vec2);
-#line 4502 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 4385 "/mat/megascans_shader_simple1/SurfaceVexCode"
            float cr4 = vop_bias(rgb2.x, _Bias2.x);
            float cg4 = vop_bias(rgb2.y, _Bias2.y);
            float cb4 = vop_bias(rgb2.z, _Bias2.z);
            bias2 = set(cr4, cg4, cb4);
-#line 4527 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 4410 "/mat/megascans_shader_simple1/SurfaceVexCode"
            float cr5 = vop_gain(bias2.x, _Gain2.x);
            float cg5 = vop_gain(bias2.y, _Gain2.y);
            float cb5 = vop_gain(bias2.z, _Gain2.z);
            gain2 = set(cr5, cg5, cb5);
-#line 4543 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 4426 "/mat/megascans_shader_simple1/SurfaceVexCode"
           inverse2 = 1.0 / _Gamma2;
 
 
@@ -8065,27 +8056,27 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
             fraction7 = frac(sum7);
 
 
-            product16 = fval218 * _Saturation3;
+            product17 = fval218 * _Saturation3;
 
 
-            product17 = fval318 * _Value3;
+            product18 = fval318 * _Value3;
 
 
-            vec3 = set(fraction7,product16,product17);
+            vec3 = set(fraction7,product17,product18);
 
 
             rgb3 = hsvtorgb(vec3);
-#line 4609 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 4492 "/mat/megascans_shader_simple1/SurfaceVexCode"
                float cr6 = vop_bias(rgb3.x, _Bias3.x);
                float cg6 = vop_bias(rgb3.y, _Bias3.y);
                float cb6 = vop_bias(rgb3.z, _Bias3.z);
                bias3 = set(cr6, cg6, cb6);
-#line 4634 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 4517 "/mat/megascans_shader_simple1/SurfaceVexCode"
                float cr7 = vop_gain(bias3.x, _Gain3.x);
                float cg7 = vop_gain(bias3.y, _Gain3.y);
                float cb7 = vop_gain(bias3.z, _Gain3.z);
                gain3 = set(cr7, cg7, cb7);
-#line 4650 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 4533 "/mat/megascans_shader_simple1/SurfaceVexCode"
               inverse3 = 1.0 / _Gamma3;
 
 
@@ -8100,12 +8091,12 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
         if( _bool == 0 )
-            result103 = _ClrOut;
+            result98 = _ClrOut;
         else
-            result103 = ClrOut3;
+            result98 = ClrOut3;
 
 
-        _ClrOut = result103;
+        _ClrOut = result98;
         Value6 = Value;
     }
 
@@ -8113,18 +8104,18 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     Value7 = 0.20000000000000001;
 
 
-    product18 = f3 * _ClrOut * Value7;
+    product19 = f3 * _ClrOut * Value7;
 
 
     outcheck3 = bool6;
     outsurface2 = outsurface1;
-    outtrans = product18;
+    outtrans = product19;
 
     _mat_megascans_shader_simple1_snippet1(outcheck3, outsurface2, outtrans);
 
 
     bsdf	_f = outsurface2;
-    float	scale44 = 0.0;
+    float	scale39 = 0.0;
 
     {
 
@@ -8163,14 +8154,14 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         min = min( inverse4 , input2 );
 
 
-        product19 = _f * min;
+        product20 = _f * min;
 
 
-        scale45 = min;
+        scale40 = min;
 
 
-        _f = product19;
-        scale44 = scale45;
+        _f = product20;
+        scale39 = scale40;
     }
 
 
@@ -8188,7 +8179,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         Value8 = 1;
 
 
-        bool38 = (raylevel > Value8);
+        bool36 = (raylevel > Value8);
 
 
         vector myI = 0 != 0 ? vector() : I;
@@ -8204,7 +8195,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         Value9 = { 1, 1, 1 };
 
 
-        condition_out = bool38;
+        condition_out = bool36;
         var1_out = __f;
         var2_out = nvec6;
         var3_out = Value9;
@@ -8255,10 +8246,10 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
             layer4.F = f4;
 
 
-            product20 = f4 * var3_out;
+            product21 = f4 * var3_out;
 
 
-            var1_out = product20;
+            var1_out = product21;
         }
 
 
@@ -8267,12 +8258,12 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     if( simplify_bsdf == 0 )
-        result104 = _f;
+        result99 = _f;
     else
-        result104 = __f;
+        result99 = __f;
 
 
-    ms_occlusion = shift2;
+    ms_occlusion = lum;
 
 
     lum5 = luminance(outsurface);
@@ -8283,7 +8274,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
     init_layer(layer5);
 
-    layer5.F = select(1, result104, layer5.F);
+    layer5.F = select(1, result99, layer5.F);
     layer5.Of = select(1, result13, layer5.Of);
     layer5.Ce = select(0, vector(), layer5.Ce);
     layer5.P = select(0, vector(), layer5.P);
@@ -8294,10 +8285,25 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     len1 = length(clr13);
 
 
-    product21 = clamp2 * result95;
+    found12 = renderstate("packed:ms_reflectscale", val12);
+    if (!found12) val12 = 1;
+#line 4754 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result100 = (0 != 0 ? (bound_ms_reflectscale != 0 ? reflect_scale : ms_reflectscale)
+                                  : (bound_ms_reflectscale != 0 ? ms_reflectscale : reflect_scale));
+#line 4769 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result101 = (0 != 0 ? (found12 != 0 ? result100 : val12)
+                                  : (found12 != 0 ? val12 : result100));
 
 
-    product22 = _ClrOut * Value7;
+
+
+    product22 = result101 * reflect_scale;
+
+
+    product23 = clamp2 * product22;
+
+
+    product24 = _ClrOut * Value7;
 
 
     export_uv1 = uv1;
@@ -8306,33 +8312,36 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     bound_addative_displace = isbound("addative_displace");
 
 
-    bool39 = (disp_texture != "");
+    bool37 = (disp_texture != "");
 
 
     found13 = renderstate("packed:ms_displace", val13);
     if (!found13) val13 = "";
 
 
+    bool38 = (val13 != "");
+
+
     bound_ms_displace = isbound("ms_displace");
-#line 4889 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result105 = (0 != 0 ? (bound_ms_displace != 0 ? disp_texture : ms_displace)
+#line 4812 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result102 = (0 != 0 ? (bound_ms_displace != 0 ? disp_texture : ms_displace)
                                   : (bound_ms_displace != 0 ? ms_displace : disp_texture));
-#line 4904 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result106 = (0 != 0 ? (found13 != 0 ? result105 : val13)
-                                  : (found13 != 0 ? val13 : result105));
-#line 4919 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result107 = (0 != 0 ? (bool39 != 0 ? result106 : disp_texture)
-                                  : (bool39 != 0 ? disp_texture : result106));
+#line 4827 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result103 = (0 != 0 ? (bool38 != 0 ? result102 : val13)
+                                  : (bool38 != 0 ? val13 : result102));
+#line 4842 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result104 = (0 != 0 ? (bool37 != 0 ? result103 : disp_texture)
+                                  : (bool37 != 0 ? disp_texture : result103));
 
 
 
 
-    bool40 = (result107 != "");
+    bool39 = (result104 != "");
 
 
     vector	_uv19 = uv1;
     vector	_duv8 = vector();
-    string	_map8 = result107;
+    string	_map8 = result104;
     int	_udim9 = 1;
     string	_srccolorspace8 = "auto";
     string	_wrap8 = "repeat";
@@ -8359,7 +8368,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool41 = (_mode10 == "st");
+            bool40 = (_mode10 == "st");
 
 
             bound_uv10 = isbound("uv");
@@ -8379,37 +8388,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st10 == 0 )
-                result108 = uv23;
+                result105 = uv23;
             else
-                result108 = output110;
+                result105 = output110;
 
 
             if( bound_uv10 == 0 )
-                result109 = result108;
+                result106 = result105;
             else
-                result109 = uv;
+                result106 = uv;
 
 
-            if( bool41 == 0 )
-                result110 = result109;
+            if( bool40 == 0 )
+                result107 = result106;
             else
-                result110 = uv23;
+                result107 = uv23;
 
 
-            assign(fval119,fval219,fval319, result110);
+            assign(fval119,fval219,fval319, result107);
 
 
-            uv22 = result110;
+            uv22 = result107;
             u10 = fval119;
             v10 = fval219;
             w10 = fval319;
         }
 
 
-        result111 = 1 != 0 ? _uv19 : uv22;
+        result108 = 1 != 0 ? _uv19 : uv22;
 
 
-        _uv20 = result111;
+        _uv20 = result108;
 
 
         chkaces8 = 0;
@@ -8491,53 +8500,44 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     lum6 = luminance(clr17);
 
 
-    diff2 = lum6 - dispoffset;
+    diff1 = lum6 - dispoffset;
 
 
     Value10 = 0;
 
 
-    outcheck4 = bool40;
-    outval14 = diff2;
-    outval24 = Value10;
+    outcheck4 = bool39;
+    outval13 = diff1;
+    outval23 = Value10;
 
-    _mat_megascans_shader_simple1_snippet8(outcheck4, outval14, outval24);
-
-
-    Value11 = 1;
-
-
-    bool42 = (dispTex_scale != 1);
+    _mat_megascans_shader_simple1_snippet8(outcheck4, outval13, outval23);
 
 
     found14 = renderstate("packed:ms_dscale", val14);
-    if (!found14) val14 = 0;
+    if (!found14) val14 = 1;
 
 
     bound_ms_dscale = isbound("ms_dscale");
-#line 5124 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result112 = (0 != 0 ? (bound_ms_dscale != 0 ? dispTex_scale : ms_dscale)
+#line 5041 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result109 = (0 != 0 ? (bound_ms_dscale != 0 ? dispTex_scale : ms_dscale)
                                   : (bound_ms_dscale != 0 ? ms_dscale : dispTex_scale));
-#line 5139 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result113 = (0 != 0 ? (found14 != 0 ? result112 : val14)
-                                  : (found14 != 0 ? val14 : result112));
-#line 5154 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result114 = (0 != 0 ? (bool42 != 0 ? result113 : dispTex_scale)
-                                  : (bool42 != 0 ? dispTex_scale : result113));
+#line 5056 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result110 = (0 != 0 ? (found14 != 0 ? result109 : val14)
+                                  : (found14 != 0 ? val14 : result109));
 
 
 
 
-    product23 = Value11 * result114;
+    product25 = result110 * dispTex_scale;
 
 
-    product24 = outval14 * product23;
+    product26 = outval13 * product25;
 
 
-    sum8 = product24 + addative_displace;
-#line 5178 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result115 = (0 != 0 ? (bound_addative_displace != 0 ? product24 : sum8)
-                                  : (bound_addative_displace != 0 ? sum8 : product24));
+    sum8 = product26 + addative_displace;
+#line 5080 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result111 = (0 != 0 ? (bound_addative_displace != 0 ? product26 : sum8)
+                                  : (bound_addative_displace != 0 ? sum8 : product26));
 
 
 
@@ -8545,23 +8545,23 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     len2 = length(result13);
 
 
-    product25 = result115 * len2;
+    product27 = result111 * len2;
 
 
     if( dmultopacity == 0 )
-        result116 = result115;
+        result112 = result111;
     else
-        result116 = product25;
+        result112 = product27;
 
 
-    vec4 = set(result116,result116,result116);
+    vec4 = set(result112,result112,result112);
 
 
     vector	_uv21 = uv1;
     vector	_duv9 = vector();
-    string	_map9 = result38;
+    string	_map9 = result37;
     int	_udim10 = 1;
-    string	_srccolorspace9 = "linear";
+    string	_srccolorspace9 = "auto";
     string	_wrap9 = "repeat";
     string	_filter9 = "gauss";
     float	_width9 = 1;
@@ -8586,7 +8586,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool43 = (_mode11 == "st");
+            bool41 = (_mode11 == "st");
 
 
             bound_uv11 = isbound("uv");
@@ -8606,37 +8606,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st11 == 0 )
-                result117 = uv25;
+                result113 = uv25;
             else
-                result117 = output111;
+                result113 = output111;
 
 
             if( bound_uv11 == 0 )
-                result118 = result117;
+                result114 = result113;
             else
-                result118 = uv;
+                result114 = uv;
 
 
-            if( bool43 == 0 )
-                result119 = result118;
+            if( bool41 == 0 )
+                result115 = result114;
             else
-                result119 = uv25;
+                result115 = uv25;
 
 
-            assign(fval120,fval220,fval320, result119);
+            assign(fval120,fval220,fval320, result115);
 
 
-            uv24 = result119;
+            uv24 = result115;
             u11 = fval120;
             v11 = fval220;
             w11 = fval320;
         }
 
 
-        result120 = 1 != 0 ? _uv21 : uv24;
+        result116 = 1 != 0 ? _uv21 : uv24;
 
 
-        _uv22 = result120;
+        _uv22 = result116;
 
 
         chkaces9 = 0;
@@ -8715,33 +8715,33 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
     }
 
 
-    bool44 = (bump_texture != "");
+    bool42 = (bump_texture != "");
 
 
     found15 = renderstate("packed:ms_bump", val15);
     if (!found15) val15 = "";
 
 
-    bool45 = (val15 != "");
+    bool43 = (val15 != "");
 
 
     bound_ms_bump = isbound("ms_bump");
-#line 5379 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result121 = (0 != 0 ? (bound_ms_bump != 0 ? bump_texture : ms_bump)
+#line 5281 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result117 = (0 != 0 ? (bound_ms_bump != 0 ? bump_texture : ms_bump)
                                   : (bound_ms_bump != 0 ? ms_bump : bump_texture));
-#line 5394 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result122 = (0 != 0 ? (bool45 != 0 ? result121 : val15)
-                                  : (bool45 != 0 ? val15 : result121));
-#line 5409 "/mat/megascans_shader_simple1/SurfaceVexCode"
-        result123 = (0 != 0 ? (bool44 != 0 ? result122 : bump_texture)
-                                  : (bool44 != 0 ? bump_texture : result122));
+#line 5296 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result118 = (0 != 0 ? (bool43 != 0 ? result117 : val15)
+                                  : (bool43 != 0 ? val15 : result117));
+#line 5311 "/mat/megascans_shader_simple1/SurfaceVexCode"
+        result119 = (0 != 0 ? (bool42 != 0 ? result118 : bump_texture)
+                                  : (bool42 != 0 ? bump_texture : result118));
 
 
 
 
     vector	_uv23 = vector();
     vector	_duv10 = vector();
-    string	_map10 = result123;
+    string	_map10 = result119;
     int	_udim11 = 1;
     string	_srccolorspace10 = "auto";
     string	_wrap10 = "repeat";
@@ -8768,7 +8768,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool46 = (_mode12 == "st");
+            bool44 = (_mode12 == "st");
 
 
             bound_uv12 = isbound("uv");
@@ -8788,37 +8788,37 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st12 == 0 )
-                result124 = uv27;
+                result120 = uv27;
             else
-                result124 = output112;
+                result120 = output112;
 
 
             if( bound_uv12 == 0 )
-                result125 = result124;
+                result121 = result120;
             else
-                result125 = uv;
+                result121 = uv;
 
 
-            if( bool46 == 0 )
-                result126 = result125;
+            if( bool44 == 0 )
+                result122 = result121;
             else
-                result126 = uv27;
+                result122 = uv27;
 
 
-            assign(fval121,fval221,fval321, result126);
+            assign(fval121,fval221,fval321, result122);
 
 
-            uv26 = result126;
+            uv26 = result122;
             u12 = fval121;
             v12 = fval221;
             w12 = fval321;
         }
 
 
-        result127 = 0 != 0 ? _uv23 : uv26;
+        result123 = 0 != 0 ? _uv23 : uv26;
 
 
-        _uv24 = result127;
+        _uv24 = result123;
 
 
         chkaces10 = 0;
@@ -8898,12 +8898,12 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     ShaderLayer	_layer = layer5;
-    vector	_export_diffcolor = _result;
+    vector	_export_diffcolor = _product;
     float	_export_rough = clamp;
     vector	_export_ior = clr9;
     float	_export_metallness = len1;
-    vector	_export_speccolor = product21;
-    vector	_export_translucency = product22;
+    vector	_export_speccolor = product23;
+    vector	_export_translucency = product24;
     vector	_export_sss = { 0, 0, 0 };
     vector	_export_emission = { 0, 0, 0 };
     float	_export_mask = 0;
@@ -8971,10 +8971,10 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
 
-        result128 = 1 != 0 ? _export_dispcolor : Ds1;
+        result124 = 1 != 0 ? _export_dispcolor : Ds1;
 
 
-        export_dispcolor = result128;
+        export_dispcolor = result124;
 
 
         found18 = renderstate("global:bake_usemikkt", val18);
@@ -9008,10 +9008,10 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         nvec7 = normalize(N);
 
 
-        result129 = 1 != 0 ? _N3 : nvec7;
+        result125 = 1 != 0 ? _N3 : nvec7;
 
 
-        _N4 = result129;
+        _N4 = result125;
 
 
         string	_tstyle1 = "uv";
@@ -9026,10 +9026,10 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
             connected1 = 0 ? 1 : 0;
 
 
-            result130 = 1 != 0 ? _N5 : N;
+            result126 = 1 != 0 ? _N5 : N;
 
 
-            nvec8 = normalize(result130);
+            nvec8 = normalize(result126);
 
 
             quat2 = quaternion(_angle1, nvec8);
@@ -9047,33 +9047,33 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
             nml1 = nvec8;
 
 
-            result131 = 0 != 0 ? _uv26 : uv;
+            result127 = 0 != 0 ? _uv26 : uv;
 
 
-            uv28 = result131;
+            uv28 = result127;
 
 
             vop_computeTangents(tstyle1, nml1, uv28, in_utan1, in_vtan1, utan1, vtan1);
 
 
-            result132 = qrotate(quat2, utan1);
-#line 5744 "/mat/megascans_shader_simple1/SurfaceVexCode"
-                result133 = (0 != 0 ? (connected1 != 0 ? utan1 : result132)
-                                          : (connected1 != 0 ? result132 : utan1));
+            result128 = qrotate(quat2, utan1);
+#line 5646 "/mat/megascans_shader_simple1/SurfaceVexCode"
+                result129 = (0 != 0 ? (connected1 != 0 ? utan1 : result128)
+                                          : (connected1 != 0 ? result128 : utan1));
 
 
 
 
-            result134 = qrotate(quat2, vtan1);
-#line 5762 "/mat/megascans_shader_simple1/SurfaceVexCode"
-                result135 = (0 != 0 ? (connected1 != 0 ? vtan1 : result134)
-                                          : (connected1 != 0 ? result134 : vtan1));
+            result130 = qrotate(quat2, vtan1);
+#line 5664 "/mat/megascans_shader_simple1/SurfaceVexCode"
+                result131 = (0 != 0 ? (connected1 != 0 ? vtan1 : result130)
+                                          : (connected1 != 0 ? result130 : vtan1));
 
 
 
 
-            _utan1 = result133;
-            _vtan1 = result135;
+            _utan1 = result129;
+            _vtan1 = result131;
         }
 
 
@@ -9199,23 +9199,23 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( _faceforward == 0 )
-                result136 = Ni;
+                result132 = Ni;
             else
-                result136 = Nf1;
+                result132 = Nf1;
 
 
             vector nn0 = (1 != 0) ? nn : normalize(N);
             vector ut = 0;
             vector vt = 0;
             vop_computeTangents("inputs", nn0, vector(), utan2, vtan2, ut, vt);
-            tangentN1 = vop_tangentNormal(result136, nn0, ut, vt, 1, _ntflipx, _ntflipy, 1);
+            tangentN1 = vop_tangentNormal(result132, nn0, ut, vt, 1, _ntflipx, _ntflipy, 1);
 
 
             vector nn01 = (1 != 0) ? nn : normalize(N);
             vector ut1 = 0;
             vector vt1 = 0;
             vop_computeTangents("inputs", nn01, vector(), utan2, vtan2, ut1, vt1);
-            tangentN2 = vop_tangentNormal(result136, nn01, ut1, vt1, 0, _ntflipx, _ntflipy, 1);
+            tangentN2 = vop_tangentNormal(result132, nn01, ut1, vt1, 0, _ntflipx, _ntflipy, 1);
 
 
             nN1 = tangentN2;
@@ -9226,10 +9226,10 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         }
 
 
-        result137 = 1 != 0 ? _export_normal : nN;
+        result133 = 1 != 0 ? _export_normal : nN;
 
 
-        export_normal = result137;
+        export_normal = result133;
 
 
         found23 = renderstate("global:bake_samples", val23);
@@ -9254,7 +9254,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
         occlusionbias = val24;
-#line 5972 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 5874 "/mat/megascans_shader_simple1/SurfaceVexCode"
            bias4 = vop_bias(Oc1, occlusionbias);
 
 
@@ -9263,10 +9263,10 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         vec5 = set(bias4,bias4,bias4);
 
 
-        result138 = 1 != 0 ? _export_ao : vec5;
+        result134 = 1 != 0 ? _export_ao : vec5;
 
 
-        export_ao = result138;
+        export_ao = result134;
 
 
         found25 = renderstate("global:bake_cavitydistance", val25);
@@ -9293,7 +9293,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
         cavitybias = val26;
-#line 6032 "/mat/megascans_shader_simple1/SurfaceVexCode"
+#line 5934 "/mat/megascans_shader_simple1/SurfaceVexCode"
            bias5 = vop_bias(Cv1, cavitybias);
 
 
@@ -9302,58 +9302,58 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         vec6 = set(bias5,bias5,bias5);
 
 
-        result139 = 1 != 0 ? _export_ior : vec6;
+        result135 = 1 != 0 ? _export_ior : vec6;
 
 
-        export_ior = result139;
+        export_ior = result135;
 
 
-        result140 = 1 != 0 ? _export_speccolor : { 0, 0, 0 };
+        result136 = 1 != 0 ? _export_speccolor : { 0, 0, 0 };
 
 
-        export_speccolor = result140;
+        export_speccolor = result136;
 
 
-        result141 = 1 != 0 ? _export_translucency : { 0, 0, 0 };
+        result137 = 1 != 0 ? _export_translucency : { 0, 0, 0 };
 
 
-        export_translucency = result141;
+        export_translucency = result137;
 
 
-        result142 = 0 != 0 ? _export_sss : { 0, 0, 0 };
+        result138 = 0 != 0 ? _export_sss : { 0, 0, 0 };
 
 
-        export_sss = result142;
+        export_sss = result138;
 
 
-        result143 = 0 != 0 ? _export_emission : { 0, 0, 0 };
+        result139 = 0 != 0 ? _export_emission : { 0, 0, 0 };
 
 
-        export_emission = result143;
+        export_emission = result139;
 
 
-        result144 = 1 != 0 ? _export_rough : 0;
+        result140 = 1 != 0 ? _export_rough : 0;
 
 
-        export_rough = result144;
+        export_rough = result140;
 
 
-        result145 = 1 != 0 ? _export_metallness : 0;
+        result141 = 1 != 0 ? _export_metallness : 0;
 
 
-        export_metallness = result145;
+        export_metallness = result141;
 
 
-        result146 = 0 != 0 ? _export_mask : 0;
+        result142 = 0 != 0 ? _export_mask : 0;
 
 
-        export_mask = result146;
+        export_mask = result142;
 
 
-        result147 = 0 != 0 ? _export_fuzz : 0;
+        result143 = 0 != 0 ? _export_fuzz : 0;
 
 
-        export_fuzz = result147;
+        export_fuzz = result143;
 
 
         string	_mode13 = "uv";
@@ -9364,7 +9364,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
         {
 
 
-            bool47 = (_mode13 == "st");
+            bool45 = (_mode13 == "st");
 
 
             bound_uv13 = isbound("uv");
@@ -9384,106 +9384,106 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
             if( bound_st13 == 0 )
-                result148 = uv30;
+                result144 = uv30;
             else
-                result148 = output113;
+                result144 = output113;
 
 
             if( bound_uv13 == 0 )
-                result149 = result148;
+                result145 = result144;
             else
-                result149 = uv;
+                result145 = uv;
 
 
-            if( bool47 == 0 )
-                result150 = result149;
+            if( bool45 == 0 )
+                result146 = result145;
             else
-                result150 = uv30;
+                result146 = uv30;
 
 
-            assign(fval122,fval222,fval322, result150);
+            assign(fval122,fval222,fval322, result146);
 
 
-            uv29 = result150;
+            uv29 = result146;
             u13 = fval122;
             v13 = fval222;
             w13 = fval322;
         }
 
 
-        result151 = 1 != 0 ? _uv25 : uv29;
+        result147 = 1 != 0 ? _uv25 : uv29;
 
 
-        result152 = 1 != 0 ? result151 : { 0, 0, 0 };
+        result148 = 1 != 0 ? result147 : { 0, 0, 0 };
 
 
-        export_uv = result152;
+        export_uv = result148;
 
 
-        result153 = 1 != 0 ? _export_bump : { 0, 0, 0 };
+        result149 = 1 != 0 ? _export_bump : { 0, 0, 0 };
 
 
-        export_bump = result153;
+        export_bump = result149;
 
 
-        result154 = 1 != 0 ? _export_opacity : { 1, 1, 1 };
+        result150 = 1 != 0 ? _export_opacity : { 1, 1, 1 };
 
 
-        export_opacity = result154;
+        export_opacity = result150;
 
 
         layer6 = _layer;
 
 
-        result155 = 1 != 0 ? _export_diffcolor : { 0, 0, 0 };
+        result151 = 1 != 0 ? _export_diffcolor : { 0, 0, 0 };
 
 
-        export_diffcolor1 = result155;
+        export_diffcolor1 = result151;
 
 
-        export_rough1 = result144;
+        export_rough1 = result140;
 
 
-        export_ior1 = result139;
+        export_ior1 = result135;
 
 
-        export_metallness1 = result145;
+        export_metallness1 = result141;
 
 
-        export_speccolor1 = result140;
+        export_speccolor1 = result136;
 
 
-        export_translucency1 = result141;
+        export_translucency1 = result137;
 
 
-        export_sss1 = result142;
+        export_sss1 = result138;
 
 
-        export_emission1 = result143;
+        export_emission1 = result139;
 
 
-        export_mask1 = result146;
+        export_mask1 = result142;
 
 
-        export_fuzz1 = result147;
+        export_fuzz1 = result143;
 
 
-        export_uv2 = result152;
+        export_uv2 = result148;
 
 
-        export_dispcolor1 = result128;
+        export_dispcolor1 = result124;
 
 
-        export_normal1 = result137;
+        export_normal1 = result133;
 
 
-        export_bump1 = result153;
+        export_bump1 = result149;
 
 
-        export_ao1 = result138;
+        export_ao1 = result134;
 
 
-        export_opacity1 = result154;
+        export_opacity1 = result150;
 
 
         outlayer = layer6;
@@ -9720,13 +9720,13 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
 
-        product26 = Vd1 * inverse5;
+        product28 = Vd1 * inverse5;
 
 
-        Vdt = product26;
+        Vdt = product28;
 
 
-        export_diffcolor = result155;
+        export_diffcolor = result151;
     }
 
 
@@ -9734,7 +9734,7 @@ mat_megascans_shader_simple1(vector uv = { 0, 0, 0 };
 
 
     vector tempOf = result13;
-    bsdf tempF = result104;
+    bsdf tempF = result99;
     Of = tempOf;
     F = tempF;
 }

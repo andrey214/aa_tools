@@ -7,32 +7,19 @@
         label   &quot;True Displacements&quot;
         type    toggle
         default { &quot;1&quot; }
-        help    &quot;When running displacement shaders, whether the VEX variable P is actually moved (true displacement) or whether bump mapping will be performed. (object:truedisplace)&quot;
+        help    &quot;None&quot;
         parmtag { &quot;mantra_class&quot; &quot;object&quot; }
         parmtag { &quot;mantra_name&quot; &quot;truedisplace&quot; }
-        parmtag { &quot;spare_category&quot; &quot;Shading&quot; }
-    }
-    parm {
-        name    &quot;vm_displacebound&quot;
-        label   &quot;Displacement Bound&quot;
-        type    float
-        default { &quot;0&quot; }
-        help    &quot;None (object:displacebound)&quot;
-        range   { 0 10 }
-        parmtag { &quot;mantra_class&quot; &quot;object&quot; }
-        parmtag { &quot;mantra_name&quot; &quot;displacebound&quot; }
         parmtag { &quot;spare_category&quot; &quot;Shading&quot; }
     }
 </spareParms>
         <parmValues>{
 version 0.8
 vm_truedisplace	[ 0	locks=0 ]	(	&quot;on&quot;	)
-vm_displacebound	[ 0	locks=0 ]	(	0	)
 }
 </parmValues>
         <promotedParmNameMap>
             <entry key="vm_truedisplace" value="vm_truedisplace"/>
-            <entry key="vm_displacebound" value="vm_displacebound"/>
         </promotedParmNameMap>
     </nodeData>
     <choiceNode type="collect">

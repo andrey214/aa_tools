@@ -1,0 +1,1130 @@
+# Dialog script for megascans_shader_simple::1.1 automatically generated
+
+{
+    name	megascans_shader_simple::1.1
+    script	megascans_shader_simple::1.1
+    label	"megascans shader silmple"
+
+    rendermask	"VMantra OGL"
+    shadertype	vopmaterial
+    input	vector	uv	""
+    input	float	rough	"Rough Scale"
+    input	float	dispTex_scale	"Displace Scale"
+    input	float	reflect_scale	"Reflect Scale"
+    input	float	Value	Value
+    input	vector	Bias	Bias
+    input	vector	Gain	Gain
+    input	float	Gamma	Gamma
+    input	float	Shift	"Hue Shift"
+    input	float	Saturation	Saturation
+    input	int	use_opacity	""
+    input	float	layer_mask	""
+    input	float	addative_displace	"Input Number 2"
+    input	float	dispoffset	"Offset Displace"
+    input	int	vm_truedisplace	"True Displacements"
+    input	float	vm_displacebound	"Displacement Bound"
+    input	float	normal_mult	"Normal Bump Multiply"
+    input	float	bump_mult	"Bump Multiply"
+    input	vector2	st	""
+    input	int	dmultopacity	"Displace Premultiply"
+    input	int	simplify_bsdf	"Simplify BSDF"
+    output	surface	surface	surface
+    output	displacement	displacement	displacement
+    output	properties	properties	properties
+    output	struct_ShaderLayer	layer	""
+    output	float	layer_mask	""
+    inputflags	uv	2
+    inputflags	rough	2
+    inputflags	dispTex_scale	2
+    inputflags	reflect_scale	2
+    inputflags	Value	2
+    inputflags	Bias	2
+    inputflags	Gain	2
+    inputflags	Gamma	2
+    inputflags	Shift	2
+    inputflags	Saturation	2
+    inputflags	use_opacity	2
+    inputflags	layer_mask	2
+    inputflags	addative_displace	2
+    inputflags	dispoffset	2
+    inputflags	vm_truedisplace	2
+    inputflags	vm_displacebound	2
+    inputflags	normal_mult	2
+    inputflags	bump_mult	2
+    inputflags	st	2
+    inputflags	dmultopacity	2
+    inputflags	simplify_bsdf	2
+    outputflags	layer	2
+    outputflags	layer_mask	2
+    signature	"Default Inputs"	default	{ vector float float float float vector vector float float float int float float float int float float float vector2 int int surface displacement properties struct_ShaderLayer float }
+
+    outputoverrides	default
+    {
+	___begin	auto
+			(0)
+	___begin	auto
+			(0)
+	___begin	auto
+			(0)
+	___begin	auto
+			(0)
+	___begin	auto
+			(0)
+    }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "uv"
+        label   "uv"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface displace" }
+    }
+    parm {
+        name    "layer"
+        label   "layer"
+        type    label
+        invisible
+        default { "" }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface displace" }
+    }
+    group {
+        name    "properties8"
+        label   "properties"
+
+        parm {
+            name    "vm_truedisplace"
+            label   "True Displacements"
+            type    toggle
+            joinnext
+            default { "on" }
+            help    "When running displacement shaders, whether the VEX variable P is actually moved (true displacement) or whether bump mapping will be performed. (object:truedisplace)"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "" }
+        }
+        parm {
+            name    "dmultopacity"
+            label   "Displace Premultiply"
+            type    toggle
+            joinnext
+            default { "off" }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface displace" }
+        }
+        parm {
+            name    "simplify_bsdf"
+            label   "Simplify BSDF"
+            type    toggle
+            default { "off" }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "vm_displacebound"
+            label   "Displacement Bound"
+            type    float
+            default { "1" }
+            help    "None (object:displacebound)"
+            range   { 0 10 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "" }
+        }
+        parm {
+            name    "use_opacity"
+            label   "use_opacity"
+            type    toggle
+            default { "off" }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface displace" }
+        }
+        parm {
+            name    "dispTex_scale"
+            label   "Displace Scale"
+            type    float
+            default { "1" }
+            range   { 0 1 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface displace" }
+        }
+        parm {
+            name    "dispoffset"
+            label   "Offset Displace"
+            type    float
+            default { "0.5" }
+            range   { 0 1 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface displace" }
+        }
+        parm {
+            name    "normal_mult"
+            label   "Normal Bump Multiply"
+            type    float
+            default { "1" }
+            help    "multiply normal by dispscale"
+            hidewhen "{ normal_texture == \"\" }"
+            range   { 0 1 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "bump_mult"
+            label   "Bump Multiply"
+            type    float
+            default { "1" }
+            help    "multiply normal by dispscale"
+            hidewhen "{ bump_texture == \"\" }"
+            range   { 0 1 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "" }
+        }
+        parm {
+            name    "rough"
+            label   "Rough Scale"
+            type    float
+            default { "1" }
+            range   { 0 1 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "reflect_scale"
+            label   "Reflect Scale"
+            type    float
+            default { "1" }
+            range   { 0 1 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+    }
+
+    group {
+        name    "properties8_1"
+        label   "textures"
+
+        parm {
+            name    "aces"
+            label   "convert_aces"
+            type    toggle
+            default { [ "basetex=ch('albedo_texture')\na=0\nif 'acescg' in basetex:\n    a=0\nelse:\n    a=1\nreturn a" python ] }
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "albedo_texture"
+            label   "albedo_texture"
+            type    image
+            default { "" }
+            hidewhen "{ albedo_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "ao_texture"
+            label   "ao_texture"
+            type    image
+            default { "" }
+            hidewhen "{ ao_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "ior_texture"
+            label   "ior_texture"
+            type    image
+            default { "" }
+            hidewhen "{ ior_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "reflect_texture"
+            label   "reflect_texture"
+            type    image
+            default { "" }
+            hidewhen "{ reflect_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "rough_texture"
+            label   "rough_texture"
+            type    image
+            default { "" }
+            hidewhen "{ rough_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "bump_texture"
+            label   "bump_texture"
+            type    image
+            default { "" }
+            hidewhen "{ bump_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "normal_texture"
+            label   "normal_texture"
+            type    image
+            default { "" }
+            hidewhen "{ normal_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "disp_texture"
+            label   "disp_texture"
+            type    image
+            default { "" }
+            hidewhen "{ disp_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface displace" }
+        }
+        parm {
+            name    "trans_texture"
+            label   "trans_texture"
+            type    image
+            default { "" }
+            hidewhen "{ trans_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "opaccolor_texture"
+            label   "opaccolor_texture"
+            type    image
+            default { "" }
+            hidewhen "{ opaccolor_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface displace" }
+        }
+        parm {
+            name    "metallic_texture"
+            label   "metallic_texture"
+            type    image
+            default { "" }
+            hidewhen "{ metallic_texture == \"\" }"
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+    }
+
+    group {
+        name    "properties8_2"
+        label   "Albedo Color Correction"
+        hidewhentab "{ albedo_texture == \"\" }"
+
+        parm {
+            name    "Shift"
+            label   "Hue Shift"
+            type    float
+            default { "0" }
+            hidewhen "{ albedo_texture == \"\" }"
+            range   { -1 1 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "Saturation"
+            label   "Saturation"
+            type    float
+            default { "1" }
+            hidewhen "{ albedo_texture == \"\" }"
+            range   { 0 10 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "Value"
+            label   "Value"
+            type    float
+            default { "1" }
+            hidewhen "{ albedo_texture == \"\" }"
+            range   { 0 10 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "Bias"
+            label   "Bias"
+            type    float
+            size    3
+            default { "0.5" "0.5" "0.5" }
+            hidewhen "{ albedo_texture == \"\" }"
+            range   { 0 10 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "Gain"
+            label   "Gain"
+            type    float
+            size    3
+            default { "0.5" "0.5" "0.5" }
+            hidewhen "{ albedo_texture == \"\" }"
+            range   { 0 10 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+        parm {
+            name    "Gamma"
+            label   "Gamma"
+            type    float
+            default { "1" }
+            hidewhen "{ albedo_texture == \"\" }"
+            range   { 0 10 }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
+        }
+    }
+
+    group {
+        name    "properties8_3"
+        label   "OpenGl"
+
+        parm {
+            name    "ogl_diff_intensity"
+            label   "Diffuse Intensity"
+            type    float
+            invisible
+            default { "pow(if(strlen(chs(\"albedo_texture\"))>0,2.2,1)*ch(\"Value\"),ch(\"Gamma\"))" }
+            help    "The diffuse intensity multiplies the Diffuse color, allowing it to be easily adjusted without affecting the its hue or saturation."
+            range   { 0 2 }
+            parmtag { "cook_dependent" "1" }
+            parmtag { "spare_category" "OpenGL" }
+        }
+        parm {
+            name    "ogl_on"
+            label   "OGL Textures"
+            type    toggle
+            default { "1" }
+            parmtag { "script_callback_language" "python" }
+        }
+        group {
+            name    "albedo7"
+            label   "Albedo"
+
+            multiparm {
+                name    "ogl_numtex"
+                label    "Diffuse Texture Layers"
+                default 1
+                parmtag { "spare_category" "OpenGL" }
+
+                parm {
+                    name    "ogl_use_tex#"
+                    label   "Use Diffuse Map #"
+                    type    toggle
+                    default { "if(ch(\"ogl_on\"),if(strlen(chs(\"albedo_texture\"))>0,1,0),0)" }
+                    help    "None"
+                    parmtag { "cook_dependent" "1" }
+                    parmtag { "spare_category" "OpenGL" }
+                }
+                parm {
+                    name    "ogl_tex#"
+                    label   "Texture #"
+                    type    image
+                    default { "`chs(\"albedo_texture\")`" }
+                    help    "None"
+                    parmtag { "cook_dependent" "1" }
+                    parmtag { "filechooser_mode" "read" }
+                    parmtag { "spare_category" "OpenGL" }
+                }
+                parm {
+                    name    "ogl_texuvset#"
+                    label   "UV Set"
+                    type    string
+                    default { "uv" }
+                    help    "None"
+                    menureplace {
+                        "uv"    "uv"
+                        "uv2"   "uv2"
+                        "uv3"   "uv3"
+                        "uv4"   "uv4"
+                        "uv5"   "uv5"
+                        "uv6"   "uv6"
+                        "uv7"   "uv7"
+                        "uv8"   "uv8"
+                    }
+                    parmtag { "cook_dependent" "1" }
+                    parmtag { "spare_category" "OpenGL" }
+                }
+                parm {
+                    name    "ogl_tex_min_filter#"
+                    label   "Minification Filter"
+                    type    string
+                    default { "GL_LINEAR_MIPMAP_LINEAR" }
+                    help    "None"
+                    menu {
+                        "GL_NEAREST"                "No filtering (very poor)"
+                        "GL_LINEAR"                 "Bilinear (poor)"
+                        "GL_NEAREST_MIPMAP_NEAREST" "No filtering, Nearest Mipmap (poor)"
+                        "GL_LINEAR_MIPMAP_NEAREST"  "Bilinear, Nearest Mipmap (okay)"
+                        "GL_NEAREST_MIPMAP_LINEAR"  "No filtering, Blend Mipmaps (good)"
+                        "GL_LINEAR_MIPMAP_LINEAR"   "Trilinear (best)"
+                    }
+                    parmtag { "cook_dependent" "1" }
+                    parmtag { "spare_category" "OpenGL" }
+                }
+                parm {
+                    name    "ogl_tex_mag_filter#"
+                    label   "Magnification Filter"
+                    type    string
+                    default { "GL_LINEAR" }
+                    help    "None"
+                    menu {
+                        "GL_NEAREST"    "No filtering"
+                        "GL_LINEAR"     "Bilinear"
+                    }
+                    parmtag { "cook_dependent" "1" }
+                    parmtag { "spare_category" "OpenGL" }
+                }
+                parm {
+                    name    "ogl_tex_wrap#"
+                    label   "Texture Wrap"
+                    type    string
+                    default { "repeat" }
+                    help    "None"
+                    menu {
+                        "repeat"    "Repeat"
+                        "clamp"     "Streak"
+                        "decal"     "Decal"
+                        "mirror"    "Mirror"
+                    }
+                    parmtag { "cook_dependent" "1" }
+                    parmtag { "spare_category" "OpenGL" }
+                }
+                parm {
+                    name    "ogl_tex_vwrap#"
+                    label   "Texture V Wrap"
+                    type    string
+                    default { "repeat" }
+                    help    "None"
+                    menu {
+                        "repeat"    "Repeat"
+                        "clamp"     "Streak"
+                        "decal"     "Decal"
+                        "mirror"    "Mirror"
+                    }
+                    parmtag { "cook_dependent" "1" }
+                    parmtag { "spare_category" "OpenGL" }
+                }
+            }
+
+        }
+
+        group {
+            name    "albedo7_1"
+            label   "Reflect"
+
+            parm {
+                name    "ogl_reflect"
+                label   "Reflect"
+                type    float
+                default { "if(strlen(chs(\"reflect_texture\"))>0,ch(\"reflect_scale\"),0)" }
+                help    "The reflectiveness of the material, from 0 (not at all reflective) to 1 (completely reflective)."
+                range   { 0 1 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_use_reflect_map"
+                label   "Use Reflect Map"
+                type    toggle
+                default { "if(ch(\"ogl_on\"),if(strlen(chs(\"reflect_texture\"))>0,1,0),0)" }
+                help    "None"
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_reflect_map"
+                label   "Reflect Map"
+                type    image
+                default { "`chs(\"reflect_texture\")`" }
+                help    "None"
+                parmtag { "cook_dependent" "1" }
+                parmtag { "filechooser_mode" "read" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_reflect_map_ior"
+                label   "Reflect Multiplies IOR"
+                type    toggle
+                default { "0" }
+                help    "When enabled, the reflection map value is multiplied by the Index of Refraction before using IOR in lighting computations. The operation is IOR * (1+reflect), so that a value of zero in the map leaves the IOR as is, negative values decrease IOR, and positive values increase IOR."
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_reflect_map_comp"
+                label   "Reflect Map Channel"
+                type    integer
+                default { "0" }
+                help    "The Texture map channel from which reflectivity is selected, either the luminance of the color or one of the red, green, blue, or alpha channels."
+                disablewhen "{ ogl_reflect_map == \"\" }"
+                menu {
+                    "0" "Luminance"
+                    "1" "Red"
+                    "2" "Green"
+                    "3" "Blue"
+                    "4" "Alpha"
+                }
+                range   { 0 4 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "sepparm"
+                label   "Separator"
+                type    separator
+                default { "" }
+            }
+            parm {
+                name    "ogl_coat_intensity"
+                label   "Coat Intensity"
+                type    float
+                default { "0" }
+                help    "Intensity of coat specular reflections. If the intensity is zero, the material does not have a coat. Coat reflections are only supported in High Quality Lighting."
+                range   { 0! 1! }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_coat_rough"
+                label   "Coat Roughness"
+                type    float
+                default { "0" }
+                help    "None"
+                range   { 0 1 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_use_coat_intensity_map"
+                label   "Use Coat Intensity Map"
+                type    toggle
+                default { "0" }
+                help    "When enabled, use the map specified in ogl_coat_intensity_map for the coat intensity. If this property is not present, it is assumed to be enabled."
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_coat_intensity_comp"
+                label   "Coat Intensity Channel"
+                type    integer
+                default { "0" }
+                help    "The channel of Coat Intensity Map from which coat intensity is selected, either the luminance of the color or one of the red, green, blue, or alpha channels."
+                disablewhen "{ ogl_coat_intensity_map == \"\" }"
+                menu {
+                    "0" "Luminance"
+                    "1" "Red"
+                    "2" "Green"
+                    "3" "Blue"
+                    "4" "Alpha"
+                }
+                range   { 0 4 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_use_coat_roughness_map"
+                label   "Use Coat Roughness Map"
+                type    toggle
+                default { "0" }
+                help    "When enabled, use the map specified in ogl_coat_roughness_map for the coat roughness. If this property is not present, it is assumed to be enabled."
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "sepparm2"
+                label   "Separator"
+                type    separator
+                default { "" }
+            }
+            parm {
+                name    "ogl_spec"
+                label   "Specular"
+                type    color
+                size    3
+                default { "1" "1" "1" }
+                help    "Specular material color. This controls how the material reacts to specular highlights, by multiplying specular highlights on the material. Decreasing this value will dim the material's specular highlights."
+                range   { 0 1 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_spec_intensity"
+                label   "Specular Intensity"
+                type    float
+                default { "0" }
+                help    "The specular intensity multiplies the Specular color, allowing it to be easily adjusted without affecting the its hue or saturation."
+                range   { 0 2 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_spectint"
+                label   "Specular Tint"
+                type    float
+                default { "1" }
+                help    "Amount to tint the specular reflection with the Specular material color. This controls how the material reacts to specular highlights, by multiplying specular highlights on the material. Decreasing this value will desaturate the specular highlight to (1,1,1)."
+                range   { 0 1 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_use_spec"
+                label   "Enable Specular"
+                type    toggle
+                default { "0" }
+                help    "Toggles contribution of the specular color. When off, no specular highlights will appear."
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+        }
+
+        group {
+            name    "albedo7_2"
+            label   "Roughness"
+
+            parm {
+                name    "ogl_rough"
+                label   "Roughness"
+                type    float
+                default { "if(strlen(chs(\"rough_texture\"))>0,ch(\"rough\"),0)" }
+                help    "None"
+                range   { 0 1 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_use_roughmap"
+                label   "Use Roughness Map"
+                type    toggle
+                default { "if(ch(\"ogl_on\"),if(strlen(chs(\"rough_texture\"))>0,ch(\"rough\"),0),0)" }
+                help    "None"
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_roughmap"
+                label   "Roughness Map"
+                type    image
+                default { "`chs(\"rough_texture\")`" }
+                help    "None"
+                parmtag { "cook_dependent" "1" }
+                parmtag { "filechooser_mode" "read" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_invertroughmap"
+                label   "Invert Roughness Map (Glossiness)"
+                type    toggle
+                default { "0" }
+                help    "None"
+                disablewhen "{ ogl_roughmap == \"\" }"
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_roughmap_comp"
+                label   "Roughness Channel"
+                type    integer
+                default { "0" }
+                help    "None"
+                disablewhen "{ ogl_roughmap == \"\" }"
+                menu {
+                    "0" "Luminance"
+                    "1" "Red"
+                    "2" "Green"
+                    "3" "Blue"
+                    "4" "Alpha"
+                }
+                range   { 0 4 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_rough_uvtranslate"
+                label   "UV Translate (Rough)"
+                type    uv
+                size    2
+                default { "0" "0" }
+                help    "None"
+                disablewhen "{ ogl_roughmap == \"\" }"
+                range   { 0 1 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_rough_uvrotate"
+                label   "UV Rotate (Rough)"
+                type    float
+                default { "0" }
+                help    "None"
+                disablewhen "{ ogl_roughmap == \"\" }"
+                range   { 0 360 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_rough_uvscale"
+                label   "UV Scale (Rough)"
+                type    uv
+                size    2
+                default { "1" "1" }
+                help    "None"
+                disablewhen "{ ogl_roughmap == \"\" }"
+                range   { 0 1 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_rough_uvpivot"
+                label   "UV Pivot (Rough)"
+                type    uv
+                size    2
+                default { "0.5" "0.5" }
+                help    "None"
+                disablewhen "{ ogl_roughmap == \"\" }"
+                range   { 0 1 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+        }
+
+        group {
+            name    "albedo7_3"
+            label   "Opacity"
+
+            parm {
+                name    "ogl_use_opacitymap"
+                label   "Use Opacity Map"
+                type    toggle
+                default { "if(ch(\"ogl_on\"),if(strlen(chs(\"opaccolor_texture\"))>0,1,0)+ch(\"use_opacity\")==2,0)" }
+                help    "When enabled, use the map specified in ogl_opacitymap for the opacity map. If this property is not present, it is assumed to be enabled."
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_opacitymap"
+                label   "Opacity Map"
+                type    image
+                default { "`chs(\"opaccolor_texture\")`" }
+                help    "The image file to use for the opacity of the material. Only the alpha channel is used in an RGBA image file. The map values are multiplied by both ogl_alpha or ogl_transparency, and point/vertex alpha, if present."
+                parmtag { "cook_dependent" "1" }
+                parmtag { "filechooser_mode" "read" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_opacitymap_invert"
+                label   "Invert Opacity Map"
+                type    toggle
+                default { "0" }
+                help    "Invert the values of the opacity map so that zero is opaque and one is completely transparent. When off, zero is completely transparent and one is opaque."
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_opacitylayer"
+                label   "Opacity Layer"
+                type    integer
+                default { "0" }
+                help    "The texture layer that the UV coordinates for the opacity map are sourced from."
+                disablewhen "{ ogl_opacitymap == \"\" }"
+                range   { 0 15 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+        }
+
+        group {
+            name    "albedo7_4"
+            label   "Normal"
+
+            parm {
+                name    "ogl_use_normalmap"
+                label   "Use Normal Map"
+                type    toggle
+                default { "if(ch(\"ogl_on\"),if(strlen(chs(\"normal_texture\"))>0,1,0),0)" }
+                help    "When enabled, use the map specified in ogl_normalmap for the\n    normal map. If this property is not present, it is assumed to be\n    enabled."
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_normalmap"
+                label   "Normal Map"
+                type    image
+                default { "`chs(\"normal_texture\")`" }
+                help    "Use a normal map to specify normals instead of interpolating normals \n    across a polygon. The RGB values are used for the normal's XYZ vector."
+                parmtag { "cook_dependent" "1" }
+                parmtag { "filechooser_mode" "read" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_normalmap_type"
+                label   "Normal Map Type"
+                type    string
+                default { "uvtangent" }
+                help    "Specifies the space that the normal map operates in: UV Tangent,\n    World, or Object space."
+                menu {
+                    "uvtangent" "Tangent Space"
+                    "world"     "World Space"
+                    "object"    "Object Space"
+                }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_normalbias"
+                label   "Normal Map Range"
+                type    integer
+                default { "0" }
+                help    "The range of the normal map is either 0-1 (8b map) or -1 to 1 (floating\n    point map). This bias must match the type of normal map used."
+                disablewhen "{ ogl_normalmap == \"\" }"
+                menu {
+                    "0" "0 to 1"
+                    "1" "-1 to 1"
+                }
+                range   { 0 10 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_normalmap_scale"
+                label   "Normal Scale"
+                type    float
+                default { "ch(\"normal_mult\")" }
+                help    "Scales the X and Y components of a tangent normal map to increase or decrease the effect the normal map has on the normals."
+                disablewhen "{ ogl_normalmap == \"\" }"
+                range   { 0 10 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_normalflipx"
+                label   "Flip Normal Map X"
+                type    toggle
+                default { "0" }
+                help    "Flip the normal's X direction when applying the normal map. This may be \n    needed for normal maps generated by other applications. "
+                disablewhen "{ ogl_normalmap == \"\" }"
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_normalflipy"
+                label   "Flip Normal Map Y"
+                type    toggle
+                default { "0" }
+                help    "Flip the normal's Y direction when applying the normal map. This may be \n    needed for normal maps generated by other applications. "
+                disablewhen "{ ogl_normalmap == \"\" }"
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_normallayer"
+                label   "Normal Layer"
+                type    integer
+                default { "0" }
+                help    "The texture layer that the UV coordinates for the normal map are sourced \n    from."
+                disablewhen "{ ogl_normalmap == \"\" }"
+                range   { 0 15 }
+                parmtag { "cook_dependent" "1" }
+                parmtag { "spare_category" "OpenGL" }
+            }
+        }
+
+    }
+
+    parm {
+        name    "layer_mask"
+        label   "layer_mask"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 1 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface displace" }
+    }
+    parm {
+        name    "addative_displace"
+        label   "Input Number 2"
+        type    float
+        invisible
+        nolabel
+        default { "0" }
+        range   { 0 1 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface displace" }
+    }
+    parm {
+        name    "uselayer"
+        label   "uselayer"
+        type    float
+        invisible
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "Oc"
+        label   "Oc"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface" }
+    }
+    parm {
+        name    "Cv"
+        label   "Cv"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface" }
+    }
+    parm {
+        name    "Th"
+        label   "Th"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface" }
+    }
+    parm {
+        name    "Ab"
+        label   "Ab"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface" }
+    }
+    parm {
+        name    "Cu"
+        label   "Cu"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface" }
+    }
+    parm {
+        name    "Vd"
+        label   "Vd"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface" }
+    }
+    parm {
+        name    "Nt"
+        label   "Nt"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface" }
+    }
+    parm {
+        name    "Ds"
+        label   "Ds"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface" }
+    }
+    parm {
+        name    "pre_disp_P"
+        label   "pre_disp_P"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "" }
+    }
+    parm {
+        name    "pre_disp_utan"
+        label   "pre_disp_utan"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "" }
+    }
+    parm {
+        name    "pre_disp_vtan"
+        label   "pre_disp_vtan"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "" }
+    }
+    parm {
+        name    "pre_disp_N"
+        label   "pre_disp_N"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "" }
+    }
+    parm {
+        name    "Vdt"
+        label   "Vdt"
+        type    float
+        invisible
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface" }
+    }
+    parm {
+        name    "st"
+        label   "st"
+        type    float
+        invisible
+        size    2
+        default { "0" "0" }
+        range   { 0 10 }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "surface displace" }
+    }
+}

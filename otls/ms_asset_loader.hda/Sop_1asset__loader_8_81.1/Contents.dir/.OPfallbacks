@@ -1,96 +1,64 @@
-Vop/addconst C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/addconst otls/OPlibScripted.hda
-Vop/append C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
+Vop/append C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibVop.hda
 Vop/append otls/OPlibVop.hda
-Sop/assemble C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/assemble C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/assemble otls/OPlibSop.hda
-Sop/attribdelete C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/attribdelete C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/attribdelete otls/OPlibSop.hda
-Sop/attribfrommap C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/attribfrommap C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/attribfrommap otls/OPlibSop.hda
-Sop/attribwrangle C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/attribwrangle C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/attribwrangle otls/OPlibSop.hda
-Sop/bend C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/bend C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/bend otls/OPlibSop.hda
-Vop/clamp C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/clamp otls/OPlibScripted.hda
-Sop/clean C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/clean C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/clean otls/OPlibSop.hda
-Vop/complement C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/complement otls/OPlibScripted.hda
-Sop/deformationwrangle C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
-Sop/deformationwrangle otls/OPlibSop.hda
-Vop/divconst C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/divconst otls/OPlibScripted.hda
-Sop/filemerge C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/filemerge C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/filemerge otls/OPlibSop.hda
-Vop/fit C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/fit C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/fit otls/OPlibScripted.hda
-Vop/floattovec C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/floattovec C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/floattovec otls/OPlibScripted.hda
-Vop/geometryvopglobal::2.0 C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
+Vop/geometryvopglobal::2.0 C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibVop.hda
 Vop/geometryvopglobal::2.0 otls/OPlibVop.hda
-Vop/geometryvopoutput C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
+Vop/geometryvopoutput C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibVop.hda
 Vop/geometryvopoutput otls/OPlibVop.hda
-Vop/getattrib::2.0 C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/getattrib::2.0 C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/getattrib::2.0 otls/OPlibScripted.hda
-Vop/getelement C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
+Vop/getelement C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibVop.hda
 Vop/getelement otls/OPlibVop.hda
-Sop/groupexpression C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
-Sop/groupexpression otls/OPlibSop.hda
-Vop/hvectofloat C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/hvectofloat otls/OPlibScripted.hda
-Vop/hvectovec C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/hvectovec otls/OPlibScripted.hda
-Vop/ifconnected C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/ifconnected otls/OPlibScripted.hda
-Vop/importdetail C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
+Vop/importdetail C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibVop.hda
 Vop/importdetail otls/OPlibVop.hda
-Vop/invert C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/invert C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/invert otls/OPlibScripted.hda
-Sop/matchsize C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/matchsize C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/matchsize otls/OPlibSop.hda
-Vop/megascans_shader_simple::1.1 P:/config/houdini_modules/aa_tools/otls/ms_simple_shader.hda
+Vop/megascans_shader_simple::1.1 Y:/config/houdini_modules/aa_tools/otls/ms_simple_shader.hda
 Vop/megascans_shader_simple::1.1 otls/ms_simple_shader.hda
-Vop/mulconst C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/mulconst otls/OPlibScripted.hda
-Vop/normalize C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/normalize otls/OPlibScripted.hda
-Vop/npoints C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/npoints C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/npoints otls/OPlibScripted.hda
-Vop/ocio_transform C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/ocio_transform C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/ocio_transform otls/OPlibScripted.hda
-Vop/pow C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/pow otls/OPlibScripted.hda
-Vop/primuv C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/primuv C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/primuv otls/OPlibScripted.hda
-Vop/removepoint C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/removepoint C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/removepoint otls/OPlibScripted.hda
-Vop/setattrib C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/setattrib otls/OPlibScripted.hda
-Vop/smooth C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/smooth otls/OPlibScripted.hda
-Sop/split C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/split C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/split otls/OPlibSop.hda
-Vop/split C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
+Vop/split C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibVop.hda
 Vop/split otls/OPlibVop.hda
-Vop/startswith C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
+Vop/startswith C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibVop.hda
 Vop/startswith otls/OPlibVop.hda
-Vop/texture::2.0 P:/config/houdini_modules/houdini/otls/texture.hda
-Vop/texture::2.0 otls/texture.hda
-Vop/twoway C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/twoway C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/twoway otls/OPlibScripted.hda
-Vop/uvcoords::2.0 C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibVop.hda
-Vop/uvcoords::2.0 otls/OPlibVop.hda
-Sop/uvquickshade C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibSop.hda
+Sop/usdexport C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
+Sop/usdexport otls/OPlibSop.hda
+Sop/usdimport C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
+Sop/usdimport otls/OPlibSop.hda
+Sop/uvquickshade C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibSop.hda
 Sop/uvquickshade otls/OPlibSop.hda
-Shop/v_layered C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibShopVMantra.hda
-Shop/v_layered otls/OPlibShopVMantra.hda
-Vop/vectofloat C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/vectofloat C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/vectofloat otls/OPlibScripted.hda
-Vop/vectohvec C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
-Vop/vectohvec otls/OPlibScripted.hda
-Vop/vectomatx C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/vectomatx C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/vectomatx otls/OPlibScripted.hda
-Vop/xyzdist C:/PROGRA~1/SIDEEF~1/Houdini 19.0.531/houdini/otls/OPlibScripted.hda
+Vop/xyzdist C:/PROGRA~1/SIDEEF~1/Houdini 19.5.389/houdini/otls/OPlibScripted.hda
 Vop/xyzdist otls/OPlibScripted.hda

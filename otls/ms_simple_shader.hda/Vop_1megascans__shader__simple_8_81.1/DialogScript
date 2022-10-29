@@ -21,14 +21,13 @@
     input	float	layer_mask	""
     input	float	addative_displace	"Input Number 2"
     input	float	dispoffset	"Offset Displace"
-    input	int	vm_truedisplace	"True Displacements"
-    input	float	vm_displacebound	"Displacement Bound"
     input	float	normal_mult	"Normal Bump Multiply"
     input	float	bump_mult	"Bump Multiply"
     input	vector2	st	""
     input	int	dmultopacity	"Displace Premultiply"
     input	int	simplify_bsdf	"Simplify BSDF"
     input	int	randomize	""
+    input	int	vm_truedisplace	"True Displacements"
     output	surface	surface	surface
     output	displacement	displacement	displacement
     output	properties	properties	properties
@@ -48,17 +47,16 @@
     inputflags	layer_mask	2
     inputflags	addative_displace	2
     inputflags	dispoffset	2
-    inputflags	vm_truedisplace	2
-    inputflags	vm_displacebound	2
     inputflags	normal_mult	2
     inputflags	bump_mult	2
     inputflags	st	2
     inputflags	dmultopacity	2
     inputflags	simplify_bsdf	2
     inputflags	randomize	2
+    inputflags	vm_truedisplace	2
     outputflags	layer	2
     outputflags	layer_mask	2
-    signature	"Default Inputs"	default	{ vector float float float float vector vector float float float int float float float int float float float vector2 int int int surface displacement properties struct_ShaderLayer float }
+    signature	"Default Inputs"	default	{ vector float float float float vector vector float float float int float float float float float vector2 int int int int surface displacement properties struct_ShaderLayer float }
 
     outputoverrides	default
     {
@@ -99,7 +97,7 @@
         parmtag { "shaderparmcontexts" "surface displace" }
     }
     group {
-        name    "properties8"
+        name    "properties13"
         label   "properties"
 
         parm {
@@ -108,9 +106,12 @@
             type    toggle
             joinnext
             default { "on" }
-            help    "When running displacement shaders, whether the VEX variable P is actually moved (true displacement) or whether bump mapping will be performed. (object:truedisplace)"
+            help    "None"
+            parmtag { "mantra_class" "object" }
+            parmtag { "mantra_name" "truedisplace" }
             parmtag { "parmvop" "1" }
             parmtag { "shaderparmcontexts" "" }
+            parmtag { "spare_category" "Shading" }
         }
         parm {
             name    "dmultopacity"
@@ -122,30 +123,20 @@
             parmtag { "shaderparmcontexts" "surface displace" }
         }
         parm {
-            name    "simplify_bsdf"
-            label   "Simplify BSDF"
-            type    toggle
-            default { "off" }
-            parmtag { "parmvop" "1" }
-            parmtag { "shaderparmcontexts" "surface" }
-        }
-        parm {
-            name    "vm_displacebound"
-            label   "Displacement Bound"
-            type    float
-            default { "1" }
-            help    "None (object:displacebound)"
-            range   { 0 10 }
-            parmtag { "parmvop" "1" }
-            parmtag { "shaderparmcontexts" "" }
-        }
-        parm {
             name    "use_opacity"
             label   "use_opacity"
             type    toggle
             default { "off" }
             parmtag { "parmvop" "1" }
             parmtag { "shaderparmcontexts" "surface displace" }
+        }
+        parm {
+            name    "simplify_bsdf"
+            label   "Simplify BSDF"
+            type    toggle
+            default { "off" }
+            parmtag { "parmvop" "1" }
+            parmtag { "shaderparmcontexts" "surface" }
         }
         parm {
             name    "dispTex_scale"
@@ -208,7 +199,7 @@
     }
 
     group {
-        name    "properties8_1"
+        name    "properties13_1"
         label   "textures"
 
         parm {
@@ -321,18 +312,10 @@
     }
 
     group {
-        name    "properties8_2"
+        name    "properties13_2"
         label   "Albedo Color Correction"
         hidewhentab "{ albedo_texture == \"\" }"
 
-        parm {
-            name    "randomize"
-            label   "randomize"
-            type    toggle
-            default { "off" }
-            parmtag { "parmvop" "1" }
-            parmtag { "shaderparmcontexts" "surface" }
-        }
         parm {
             name    "Shift"
             label   "Hue Shift"
@@ -398,7 +381,7 @@
     }
 
     group {
-        name    "properties8_3"
+        name    "properties13_3"
         label   "OpenGl"
 
         parm {
@@ -412,17 +395,18 @@
             parmtag { "cook_dependent" "1" }
             parmtag { "spare_category" "OpenGL" }
         }
-        parm {
-            name    "ogl_on"
-            label   "OGL Textures"
-            type    toggle
-            default { "1" }
-            parmtag { "script_callback_language" "python" }
-        }
         group {
-            name    "albedo7"
+            name    "albedo12"
             label   "Albedo"
 
+            parm {
+                name    "randomize"
+                label   "randomize"
+                type    toggle
+                default { "off" }
+                parmtag { "parmvop" "1" }
+                parmtag { "shaderparmcontexts" "surface" }
+            }
             multiparm {
                 name    "ogl_numtex"
                 label    "Diffuse Texture Layers"
@@ -532,7 +516,7 @@
         }
 
         group {
-            name    "albedo7_1"
+            name    "albedo12_1"
             label   "Reflect"
 
             parm {
@@ -699,12 +683,6 @@
                 parmtag { "cook_dependent" "1" }
                 parmtag { "spare_category" "OpenGL" }
             }
-        }
-
-        group {
-            name    "albedo7_2"
-            label   "Roughness"
-
             parm {
                 name    "ogl_rough"
                 label   "Roughness"
@@ -723,6 +701,13 @@
                 help    "None"
                 parmtag { "cook_dependent" "1" }
                 parmtag { "spare_category" "OpenGL" }
+            }
+            parm {
+                name    "ogl_on"
+                label   "OGL Textures"
+                type    toggle
+                default { "1" }
+                parmtag { "script_callback_language" "python" }
             }
             parm {
                 name    "ogl_roughmap"
@@ -812,7 +797,7 @@
         }
 
         group {
-            name    "albedo7_3"
+            name    "albedo12_2"
             label   "Opacity"
 
             parm {
@@ -857,7 +842,7 @@
         }
 
         group {
-            name    "albedo7_4"
+            name    "albedo12_3"
             label   "Normal"
 
             parm {
