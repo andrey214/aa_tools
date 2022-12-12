@@ -1,0 +1,26 @@
+= Packed Array =
+
+#icon: opdef:.?icon.svg
+
+"""Ассет фильтрации пакедов."""
+
+== Overview ==
+Оставляет только уникальные пакеды и обнуляет трансформацию.
+
+@parameters
+
+Reset Scale:
+    #id: reset_scale
+    обнуляет масштабирование пакедов.
+    
+Compute Weight Attribute:
+    #id: com_weight
+    Создает аттрибут веса. 
+    
+Compute Type:
+    #id: compute_type
+    Тип расчета веса. По баунду или более точно по объему. 
+    
+Sort Weight:
+    #id: normalized
+    Сортировка весов. Сортирует фракции по минимальному и максимальному значению. 

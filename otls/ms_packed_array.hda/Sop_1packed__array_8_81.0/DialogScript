@@ -1,0 +1,62 @@
+# Dialog script for packed_array::1.0 automatically generated
+
+{
+    name	packed_array::1.0
+    script	packed_array::1.0
+    label	"Packed array"
+
+    help {
+	""
+    }
+
+    inputlabel	1	"packed disks"
+    inputlabel	2	"Sub-Network Input #2"
+    inputlabel	3	"Sub-Network Input #3"
+    inputlabel	4	"Sub-Network Input #4"
+    outputlabel	1	"unique packeds"
+
+    parm {
+        name    "reset_scale"
+        label   "Reset Scale"
+        type    toggle
+        default { "0" }
+        range   { 0 10 }
+        parmtag { "autoscope" "0000000000000000" }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+    parm {
+        name    "com_weight"
+        label   "Compute Weight Attribute"
+        type    toggle
+        default { "0" }
+        range   { 0! 10 }
+        parmtag { "autoscope" "0000000000000000" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "compute_type"
+        label   "Compute Type"
+        type    integer
+        default { "0" }
+        disablewhen "{ com_weight == 0 }"
+        menu {
+            "0" "mesure volume"
+            "1" "bound"
+        }
+        range   { 0! 10 }
+        parmtag { "autoscope" "0000000000000000" }
+        parmtag { "script_callback_language" "python" }
+    }
+    parm {
+        name    "normalized"
+        label   "Sort Weight"
+        type    float
+        default { "0" }
+        disablewhen "{ com_weight == 0 }"
+        range   { 0 1 }
+        parmtag { "autoscope" "0000000000000000" }
+        parmtag { "parmvop" "1" }
+        parmtag { "shaderparmcontexts" "cvex" }
+    }
+}

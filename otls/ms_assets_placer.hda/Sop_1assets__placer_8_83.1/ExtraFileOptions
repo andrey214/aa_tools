@@ -1,7 +1,47 @@
 {
+	"OnCreated/Cursor":{
+		"type":"intarray",
+		"value":[1,1]
+	},
+	"OnCreated/IsExpr":{
+		"type":"bool",
+		"value":false
+	},
+	"OnCreated/IsPython":{
+		"type":"bool",
+		"value":true
+	},
+	"OnCreated/IsScript":{
+		"type":"bool",
+		"value":true
+	},
+	"OnCreated/Source":{
+		"type":"string",
+		"value":""
+	},
+	"OnUpdated/Cursor":{
+		"type":"intarray",
+		"value":[2,30]
+	},
+	"OnUpdated/IsExpr":{
+		"type":"bool",
+		"value":false
+	},
+	"OnUpdated/IsPython":{
+		"type":"bool",
+		"value":true
+	},
+	"OnUpdated/IsScript":{
+		"type":"bool",
+		"value":true
+	},
+	"OnUpdated/Source":{
+		"type":"string",
+		"value":""
+	},
 	"PythonModule/Cursor":{
 		"type":"intarray",
-		"value":[152,1]
+		"value":[1,1]
 	},
 	"PythonModule/IsExpr":{
 		"type":"bool",
@@ -45,7 +85,7 @@
 	},
 	"ViewerStateModule/Cursor":{
 		"type":"intarray",
-		"value":[771,31]
+		"value":[1018,44]
 	},
 	"ViewerStateModule/IsPython":{
 		"type":"bool",

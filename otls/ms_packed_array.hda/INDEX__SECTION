@@ -1,0 +1,14 @@
+Operator:     packed_array::1.0
+Label:        Packed array
+Path:         oplib:/Sop/packed_array::1.0?Sop/packed_array::1.0
+Icon:         opdef:/Sop/packed_array::1.0?IconImage
+Table:        Sop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 1
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Wed Aug 18 21:04:01 2021
+

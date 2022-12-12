@@ -234,6 +234,7 @@ class DrawPoints(object):
         self._colnode=None
         self._colstart=0
         self._copytransform=0
+        self.itemsvis=0
 #        self.text_drawable = hou.TextDrawable(self.scene_viewer, 'Hotkeys:')
         self.MSG="Shift+Del remove instance  \n WheelMouse for Rotate \n Cntrl+WheelMouse for Scale \n Middle Button for change position \n +- Buttons for change instance \n M for switch place mode \n Shift+d Random choise instance is "+self.switch(self._lock)+"\n Shift+z Copy local transform is "+self.switch(self._copytransform)
         self.msghelp="For on/off help press H"
@@ -509,7 +510,15 @@ class DrawPoints(object):
                         
         except:
             pass
-         
+    def showHelp(self, kwargs):
+        node = self._node = kwargs["node"]
+        if node.parm('help').eval()==1:
+            self.MSG="Shift+Del remove instance \n WheelMouse for Rotate \n Cntrl+WheelMouse for Scale \n Middle Button for change position \n +- Buttons for change instance \n M for switch place mode \n Shift+d Random choise instance is "+self.switch(self._lock)+"\n Shift+z Copy local transform is "+self.switch(self._copytransform)
+            self.scene_viewer.setPromptMessage(self.MSG,hou.promptMessageType.Message)
+        else:
+            self.scene_viewer.clearPromptMessage()
+            
+        
     def onEnter(self, kwargs): 
         #################Messages
 
@@ -527,8 +536,7 @@ class DrawPoints(object):
 #        self.text_drawable.show(1)
         
         
-        self.MSG="Shift+Del remove instance  \n WheelMouse for Rotate \n Cntrl+WheelMouse for Scale \n Middle Button for change position \n +- Buttons for change instance \n M for switch place mode \n Shift+d Random choise instance is "+self.switch(self._lock)+"\n Shift+z Copy local transform is "+self.switch(self._copytransform)           
-        self.scene_viewer.setPromptMessage(self.MSG)
+        self.showHelp(kwargs)
         ####Guidebase (Collision)
         node = self._node = kwargs["node"]
         self._mode=node.parm('mode').eval()
@@ -614,6 +622,7 @@ class DrawPoints(object):
             self._indexes=[]
             self._setCurrentparm()
         self._setCurrentparm()
+        self.visitems()
         
 #        try:    
 #            inputs=node.inputs()
@@ -639,7 +648,7 @@ class DrawPoints(object):
 #            'margins': hou.Vector2(margin, -margin) }
 #        self.text_drawable.draw( handle, params ) 
 #        self.text_drawable.show(1)
-        self.scene_viewer.setPromptMessage(self.MSG)
+        self.showHelp(kwargs)
         
 #########################################
 ###############################Selections        
@@ -647,10 +656,10 @@ class DrawPoints(object):
         """ Called when a bound selector has been started
         """
         node = self._node = kwargs["node"] 
-        self.scene_viewer.setPromptMessage(self.MSG)
+        self.showHelp(kwargs)
             
     def onSelection(self, kwargs):
-        self.scene_viewer.setPromptMessage(self.MSG)
+        self.showHelp(kwargs)
         """ Called when a selector has selected something
         """
 
@@ -776,9 +785,14 @@ class DrawPoints(object):
                 current=node.parm('instance'+str(nbr)).eval()
                 if current in self.names_list:
                     index= self.names_list.index(current)
-                    if self._lock==1:
-                        self._previousindex = index
-            except:
+                    #if self._lock==1:
+                    self._previousindex = index        
+                    if self.itemsvis==1:
+                        self.visitems(self.getCurrentItem(index))
+                    if self.itemsvis==0:
+                        self.visitems()
+            except Exception as e:
+                #print(e)
                 pass
                 
             self.translate_handle.update(0)  
@@ -839,11 +853,15 @@ class DrawPoints(object):
                     elif index>len(self.names_list)-1:
                         index=0
                     val=str(self.names_list[index])
-                    if self._lock==1:
-                        self._previousindex = index
+                    #if self._lock==1:
+                    self._previousindex = index
                     self._instanceset(nbr, val)
                     self._indexes=[nbr]
                     self._setCurrentparm()
+                    if self.itemsvis==1:
+                        self.visitems(self.getCurrentItem())
+                    else:
+                        self.visitems()
                 else:
                     if len(self.names_list)>0:
                         if len(self._indexes)>0:
@@ -869,17 +887,24 @@ class DrawPoints(object):
                                     
                                 val=str(self.names_list[index])
                                 
-                                if self._lock==1:
-                                    self._previousindex = index
+#                                if self._lock==1:
+                                self._previousindex = index
+                                if self.itemsvis==1:
+                                    self.visitems(self.getCurrentItem())
+                                else:
+                                    self.visitems()
+                                    
                                 self._instanceset(i, val)    
                                 self._indexes=[i]
                                 self._setCurrentparm()
+
+
             
-            except:
+            except Exception as e:
+                #print(e)
                 pass
-                
-        self.MSG="Shift+Del remove instance \n WheelMouse for Rotate \n Cntrl+WheelMouse for Scale \n Middle Button for change position \n +- Buttons for change instance \n M for switch place mode \n Shift+d Random choise instance is "+self.switch(self._lock)+"\n Shift+z Copy local transform is "+self.switch(self._copytransform)
-        self.scene_viewer.setPromptMessage(self.MSG)
+        self.showHelp(kwargs)        
+        
         
 #########DisplayHandle
         if self.key_pressed =='Ctrl+d' and self._lock==0:
@@ -903,6 +928,48 @@ class DrawPoints(object):
             self.mode=parm_value
         
 ##########################################
+    def visitems(self,current=''):
+        if current=='':
+            names=[]
+            for i in self.names_idx:
+                names.append(self.names_list[i])
+            vis=' '.join(names)
+            self._node.parm("vis_instances").set(vis)
+        else:
+            self._node.parm("vis_instances").set(current)
+        
+    def vismode(self):
+        try:
+            val=self._node.parm("visinst")
+            if val.eval()==0:
+                val.set(1)
+            else:
+                val.set(0)
+        except:
+            pass
+            
+    def getCurrentItem(self,index=-1):
+        if index==-1:
+            current=''
+            if len(self.names_list)>=self._previousindex:
+                current=self.names_list[self._previousindex]
+        else:
+            self.names_list[index]
+                
+        return current
+
+        
+    def viscurrentitem(self):
+        if self.itemsvis==0:
+            self.visitems(self.getCurrentItem())
+            self.itemsvis=1
+            self._lock=1
+        else:
+            self.itemsvis=0
+            self.visitems()
+            self._lock=0
+
+
 ############################Menu Callbacks      
     def onMenuAction(self, kwargs):
         """ Callback implementing the actions of a bound menu. Called 
@@ -927,6 +994,15 @@ class DrawPoints(object):
                 for i in self.names_idx:
                     tmpidx.append(str(i))
             node.setCachedUserData("instanceidx", ','.join(tmpidx))
+            self.visitems()
+
+            
+#################################Show_only            
+        if kwargs["menu_item"]=='7':
+            self.vismode()
+        if kwargs["menu_item"]=='8':
+            self.viscurrentitem()
+            
 #######################Replace Selection            
         if kwargs["menu_item"]=='2':
             node = self._node = kwargs["node"]
@@ -940,7 +1016,13 @@ class DrawPoints(object):
             chose=hou.ui.selectFromList(self.names_list, exclusive=True,title='Chose Geometry for replace')
             if len(chose)>0:
                 val=str(self.names_list[chose[0]])
+                self._previousindex = chose[0]       
+                if self.itemsvis==1:
+                    self.visitems(self.getCurrentItem())
+                if self.itemsvis==0:
+                    self.visitems()
                 self._instanceselect(self._indexes, val)
+                
 #####################ResetLocal transform
         if kwargs["menu_item"]=='3':
             if len(self._indexes)>0:
@@ -1205,6 +1287,7 @@ class DrawPoints(object):
                 self.ix=self._previousindex
             else:
                 self.ix=random.choice(self.names_idx)
+            self._previousindex=self.ix
             self._setframedata(self._indexes)
 
             
@@ -1577,7 +1660,7 @@ class DrawPoints(object):
                 else:
                     self._finish()
         except Exception as e:
-            print(e)
+            #print(e)
             pass
 #            
             
@@ -1613,6 +1696,16 @@ class DrawPoints(object):
                     nbr=self.getindexbyid(i)
                     self._indexes=[nbr]
                     self._setCurrentparm()
+                    ##!!!!
+                    current=node.parm('instance'+str(nbr)).eval()
+                    index=0
+                    if current in self.names_list:
+                        index= self.names_list.index(current)
+                    self._previousindex=index
+                    if self.itemsvis==1:
+                        self.visitems(self.getCurrentItem())
+                    else:
+                        self.visitems()
             except:
                 pass
             self._scale(self._indexes, scroll)
@@ -1633,6 +1726,15 @@ class DrawPoints(object):
                     nbr=self.getindexbyid(i)
                     self._indexes=[nbr]
                     self._setCurrentparm()
+                    current=node.parm('instance'+str(nbr)).eval()
+                    index=0
+                    if current in self.names_list:
+                        index= self.names_list.index(current)
+                    self._previousindex=index
+                    if self.itemsvis==1:
+                        self.visitems(self.getCurrentItem())
+                    else:
+                        self.visitems()
             except:
                 pass
                 
@@ -1654,6 +1756,16 @@ class DrawPoints(object):
                     nbr=self.getindexbyid(i)
                     self._indexes=[nbr]
                     self._setCurrentparm()
+                    current=node.parm('instance'+str(nbr)).eval()
+                    index=0
+                    if current in self.names_list:
+                        index= self.names_list.index(current)
+                    self._previousindex=index
+                    if self.itemsvis==1:
+                        self.visitems(self.getCurrentItem())
+                    else:
+                        self.visitems()
+
             except:
                 pass
                 
@@ -1664,7 +1776,7 @@ class DrawPoints(object):
 ############################################            
 
     def onInterrupt(self, kwargs):
-        self.scene_viewer.setPromptMessage(self.MSG)
+        self.showHelp(kwargs)
         self._finish()
         
         
@@ -1673,7 +1785,7 @@ class DrawPoints(object):
         self.show_handles()
         #self.text_drawable.show(1)
         self._mode=self._node.parm('mode').eval()
-        self.scene_viewer.setPromptMessage(self.MSG)
+        self.showHelp(kwargs)
 
 
 def createViewerStateTemplate():
@@ -1681,7 +1793,7 @@ def createViewerStateTemplate():
         template to register. """
 
     state_typename = kwargs["type"].definition().sections()["DefaultState"].contents()
-    state_label = "Assets placer 3.0"
+    state_label = "Assets placer 3.1"
     state_cat = hou.sopNodeTypeCategory()
 
 
@@ -1694,6 +1806,8 @@ def createViewerStateTemplate():
     ##################
     menu = hou.ViewerStateMenu('instance_menu', 'Instance_Menu')
     menu.addActionItem('1', 'Instances')
+    menu.addActionItem('7', 'Visualise Filter on/off')
+    menu.addActionItem('8', 'Visualise Only Current Instances')
     menu.addActionItem('2', 'Replace Current')
     menu.addActionItem('3', 'Reset Local Transform')
     menu.addActionItem('4', 'Remove Current')

@@ -1,4 +1,7 @@
 {
+	"hdaroot/visibility2.def":1670218266,
+	"hdaroot/switch10.def":1669960310,
+	"hdaroot/visualise.def":1669709122,
 	"hdaroot/switch9.def":1659280559,
 	"hdaroot/switch8.def":1643037354,
 	"hdaroot/switch7.def":1615557775,
@@ -22,7 +25,6 @@
 	"hdaroot/merge3.def":1589632814,
 	"hdaroot/attribdelete4.def":1589555786,
 	"hdaroot/connectivity1.def":1589533329,
-	"hdaroot/cache1.def":1615623278,
 	"hdaroot/copytopoints1.def":1589399443,
 	"hdaroot/attribdelete7.def":1589555786,
 	"hdaroot/guide_output.def":1589398767,
@@ -79,6 +81,7 @@
 	"hdaroot/snap_global/compare1.def":1612105892,
 	"hdaroot/snap_global/invert2.def":1612102966,
 	"hdaroot/snap_global/multiply3.def":1612102930,
+	"hdaroot/attribpromote3.def":1669709560,
 	"hdaroot/snap_global/optransform2.def":1597690237,
 	"hdaroot/snap_global/split5.def":1659270836,
 	"hdaroot/attribute1.def":1598878819,
@@ -157,6 +160,7 @@
 	"hdaroot/primitivevop1/importprim3.def":1589533195,
 	"hdaroot/snap/m4tom3.def":1659280040,
 	"hdaroot/orient2/makexform4.def":1597674954,
+	"hdaroot/instances.def":1670219690,
 	"hdaroot/primitivevop1/snippet2.def":1589533513,
 	"hdaroot/names.def":1589532235,
 	"hdaroot/primitivevop1/compare2.def":1589534030,
@@ -197,6 +201,7 @@
 	"hdaroot/snap/getelement5.def":1659270664,
 	"hdaroot/snap/getelement1.def":1659270664,
 	"hdaroot/orient_guide/quaternion1.def":1589391005,
+	"hdaroot/visibility1.def":1669709503,
 	"hdaroot/snap/bind15.def":1608465539,
 	"hdaroot/snap_global/strtovector/snippet1.def":1597691923,
 	"hdaroot/primitivevop1.def":1589533178,
@@ -238,5 +243,5 @@
 	"hdaroot/snap_global/split4.def":1597691828,
 	"hdaroot/snap_global/strtovector/const1.def":1597691882,
 	"hdaroot/orient2/extractxform1.def":1609705743,
-	"hdaroot.def":1669708418
+	"hdaroot.def":1669709236
 }

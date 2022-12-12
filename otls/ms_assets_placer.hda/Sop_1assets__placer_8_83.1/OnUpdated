@@ -1,0 +1,2 @@
+node=kwargs.get('node')
+node.setOutputForViewFlag(-1)

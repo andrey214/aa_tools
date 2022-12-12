@@ -1,0 +1,16 @@
+# Automatically generated script
+\set noalias = 1
+#
+#  Creation script for assets_placer::3.1 operator
+#
+
+if ( "$arg1" == "" ) then
+    echo This script is intended as a creation script
+    exit
+endif
+
+# Node $arg1 (Sop/assets_placer::3.1)
+opexprlanguage -s hscript $arg1
+opuserdata -n '___Version___' -v '2.0' $arg1
+opuserdata -n 'baseinfo' -v '/home/apalikov.a/rnd/placer/placer_debug_v001.hip' $arg1
+opuserdata -n '|-hdapath-|' -v '/home/aapalikov/repositories/houdini/ms_asset_loader/otls/ms_assets_placer.hda' $arg1
