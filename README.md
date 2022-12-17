@@ -28,7 +28,7 @@ My various assets for Houdini
 
 # Installation:
 
-1. Edit package jsonfile (root/packages/aatools.json). Change "H_CONFIG" is folder where you cloned repository.
+1. Edit package jsonfile (root/packages/aatools.json). Set "hpath" to folder where you cloned repository.
 "QMEGASCAN_LIB" is path to bridge application
 2. Copy edited json to "packages" folder in home Houdini directory.($HOUDINI_USER_PREF_DIR/packages)
 
