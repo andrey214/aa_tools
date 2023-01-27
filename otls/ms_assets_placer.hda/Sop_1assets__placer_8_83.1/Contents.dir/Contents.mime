@@ -32,21 +32,17 @@ Content-Type: text/plain
 
 sopflags sopflags = 
 comment ""
-position -0.273815 -3.38781
-connectornextid 2
+position -0.883987 0.716013
+connectornextid 0
 flags =  lock off model off template off footprint off xray off bypass off display on render on highlight off unload off savedata off compress on colordefault on exposed on outputforview 4294967295
 outputsNamed3
 {
 }
 inputsNamed3
 {
-0 	"" "" 1 "input1"
-1 	merge1 1 1 "input2"
 }
 inputs
 {
-0 	"" 0 1
-1 	merge1 0 1
 }
 stat
 {
@@ -12438,7 +12434,7 @@ Content-Type: text/plain
 
 {
 version 0.8
-code	[ 0	locks=0 ]	(	$uprim=atoi($value);	)
+code	[ 0	locks=0 ]	(	$uprim=atof($value);	)
 includes	[ 0	locks=0 ]	(	""	)
 outercode	[ 0	locks=0 ]	(	""	)
 expandcode	[ 0	locks=0 ]	(	"off"	)
@@ -12731,7 +12727,7 @@ Content-Type: text/plain
 
 {
 version 0.8
-code	[ 0	locks=0 ]	(	$vprim=atoi($value);	)
+code	[ 0	locks=0 ]	(	$vprim=atof($value);	)
 includes	[ 0	locks=0 ]	(	""	)
 outercode	[ 0	locks=0 ]	(	""	)
 expandcode	[ 0	locks=0 ]	(	"off"	)

@@ -926,6 +926,8 @@ class DrawPoints(object):
         ui_event = kwargs["ui_event"]
         if parm_name=='mode':
             self.mode=parm_value
+        if parm_name=='visinst':
+            self.itemsvis=parm_value
         
 ##########################################
     def visitems(self,current=''):
