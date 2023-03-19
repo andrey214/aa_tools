@@ -128,6 +128,6 @@ def conformlist():
     
 def addenv():
     import os
-    os.environ.putenv("MSWORKFLOW","redshift")
-    os.environ.putenv("RATPROCESS",'0')
+    os.putenv("MSWORKFLOW","redshift")
+    os.putenv("RATPROCESS",'0')
 addenv()
