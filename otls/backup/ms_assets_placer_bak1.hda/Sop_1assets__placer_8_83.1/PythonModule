@@ -1,0 +1,222 @@
+from __future__ import print_function
+import stateutils,hou
+import viewerstate.utils as su
+from stateutils import ancestorObject
+from stateutils import sopGeometryIntersection
+import random,time
+
+def show_handles(node):
+    try:
+        sv = stateutils.findSceneViewer()
+        if node.parm("points").eval()>0:
+            dhand=node.parm("display_handle").eval()
+            sv.showHandle("localtransform",dhand)
+        else:
+            sv.showHandle("localtransform",0)
+    except:
+        pass
+def randomangle(i):
+    random.seed(i)
+    rand=(random.random()*360)
+    return rand
+    
+def norm2angle(vector,node,i):
+    bias=node.parm("biasnorm").eval()
+    up=hou.Vector3(0,1,0)
+    newnormal=(_smoothvec(hou.Vector3(normal),up,bias)).normalized()
+    matrix=up.matrixToRotateTo(newnormal)
+    rotate=matrix.extractRotates()
+    randtog=node.parm("random_rot%d" % i).eval()
+    if randtog:
+        rotate+=hou.Vector3(0,randomangle(i),0)
+    return rotate
+    
+    
+def angle2norm(angles):
+    up=hou.Vector3(0,1,0)
+    rotate_order="xyz"
+    mat=hou.hmath.buildRotate(angles[0], angles[1], angles[2], rotate_order)
+    up*=mat
+    return up
+    
+def angle2mat(angles):
+    rotate_order="xyz"
+    mat=hou.hmath.buildRotate(angles[0], angles[1], angles[2], rotate_order)
+    return mat
+    
+def getappver():
+    app=[]
+    ver=hou.applicationVersionString().split('.')
+    major=int(ver[0])
+    minor=int(ver[1])
+    build=int(ver[2])
+    return major,minor,build
+    
+def _smoothvec(fst,sec,bias):
+    first=fst*(1-bias)
+    second=sec*bias
+    resultvector=first+second
+    return resultvector
+        
+def str2vector(string,sep=':'):
+    try:
+        arr=string.split(sep)
+        result=hou.Vector3(0,0,0)
+        for idx,a in enumerate(arr):
+            result.__setitem__(idx, float(a))
+        hou.Vector4(result)
+    except:
+        result=None
+    return result
+        
+def buildTransform4(trans,rot,scale, rotate_order="xyz"):
+    
+    result = hou.hmath.identityTransform()
+    result *= hou.hmath.buildScale(scale)
+    result *= hou.hmath.buildRotate(rot, rotate_order)
+    result *= hou.hmath.buildTranslate(trans)
+
+    
+    return result
+    
+def rvec(vec):
+    result=hou.Vector3(0,0,0)
+    res=[vec[0],vec[1],vec[2]]
+    for idx,a in enumerate(res):
+        a=float(int(a*10000))/10000
+        result.__setitem__(idx, float(a))
+        
+    return result
+    
+#######################update positions
+def updp(node):
+    count=int(node.parm('points').eval())
+    for i in range(count):
+        try:
+            raw=(node.parm("geodatapath_%d" %i).eval()).split(',')
+            nodea=hou.node(raw[0])
+            prim=nodea.geometry().prim(int(raw[1]))
+            
+            if 'Packed' not in raw[3]:
+                prim=None
+                nodeobj=nodea.parent()
+                try:
+                    prim=nodeobj.renderNode().geometry().prim(int(raw[1]))
+                except:
+                    pass
+                if prim is None:
+                    prim=nodeobj.displayNode().geometry().prim(int(raw[1]))
+                    
+                normal=prim.normal()
+                uv=raw[2].split(':')
+                pos=prim.attribValueAtInterior('P',float(uv[0]),float(uv[1]))
+                pos=hou.Vector3(pos[0],pos[1],pos[2])
+                if raw[3]=='Primary': ###############For polygons input0 
+                    node.parmTuple("position_%d" % i).set(pos)
+                    rotate=norm2angle(newnorm,node,i)
+                    node.parmTuple("rotate_%d" % i).set(rotate)
+                else: ###############For polygons in viewport
+                    worldmatrix=nodeobj.worldTransform()
+                    rotmatrix=worldmatrix.extractRotationMatrix3()
+                    newpos=pos*worldmatrix
+                    newnorm=normal*rotmatrix
+                    node.parmTuple("position_%d" % i).set(newpos)
+                    rotate=norm2angle(newnorm,node,i)
+                    node.parmTuple("rotate_%d" % i).set(rotate)
+            else:
+                ####Read
+                cprim=nodea.geometry().prim(int(raw[1]))
+                nodeobj=nodea.parent()
+                try:
+                    cprim=nodeobj.displayNode().geometry().prim(int(raw[1]))
+                except:
+                    pass
+                    
+                origtr=str2vector(raw[4])
+                origrot=str2vector(raw[5])
+                origscale=str2vector(raw[6])  
+                #######local Packed Transform   
+                lmat=None
+                try:
+                    lmat=cprim.fullTransform()
+                except:
+                    pass
+
+                ltr=str2vector(raw[7])
+                lrt=str2vector(raw[8])
+                lsc=str2vector(raw[9])
+                    
+                ######World OBJ Transform
+                mat=nodea.parent().worldTransform()
+                
+                
+                if str(mat.explode()['translate'].length())!=str(hou.Vector3(origtr).length()) or  str(mat.explode()['rotate'].length())!=str(hou.Vector3(origrot).length()) or  str(mat.explode()['scale'].length())!=str(hou.Vector3(origscale).length()):
+                    ####RevertWorld
+                    origmat=buildTransform4(origtr,origrot,origscale)
+                    orignormal=angle2norm(hou.Vector3(node.parmTuple("rotate_%d" % i).eval()))*origmat.inverted().extractRotationMatrix3()
+                    origpos=hou.Vector4(hou.Vector3(node.parmTuple("position_%d" % i).eval()))*origmat.inverted()
+                    
+                    ###Compute new Obj transform
+                    rotmatrix=mat.extractRotationMatrix3()
+                    newpos=hou.Vector3(origpos*mat)
+                    newnorm=orignormal*rotmatrix
+                    ##Set parms
+                    node.parmTuple("position_%d" % i).set(newpos)
+                    rotate=norm2angle(newnorm,node,i)
+                    node.parmTuple("rotate_%d" % i).set(rotate)
+                    ##Update Obj transform Properties
+                    raw[4]=str(mat.explode()['translate'][0])+':'+str(mat.explode()['translate'][1])+':'+str(mat.explode()['translate'][2])
+                    raw[5]=str(mat.explode()['rotate'][0])+':'+str(mat.explode()['rotate'][1])+':'+str(mat.explode()['rotate'][2])
+                    raw[6]=str(mat.explode()['scale'][0])+':'+str(mat.explode()['scale'][1])+':'+str(mat.explode()['scale'][2])
+                    node.parm("geodatapath_%d" % i).set(','.join(raw))
+                
+                    
+                ##########LOCAL Transform    
+                if str(hou.Vector3(ltr).length())!=str(lmat.explode()['translate'].length()) or  str(hou.Vector3(lrt).length())!=str(lmat.explode()['rotate'].length()) or  str(rvec(hou.Vector3(lsc)).length())!=str(rvec(lmat.explode()['scale']).length()):
+                    ####RevertWorld
+                    localmat = hou.hmath.identityTransform()
+                    localmat *= hou.hmath.buildRotate(lrt, 'xyz')
+                    localmat *= hou.hmath.buildTranslate(ltr)
+                    localmat *= hou.hmath.buildScale(lsc)
+                    
+                    orignormal=angle2norm(hou.Vector3(node.parmTuple("rotate_%d" % i).eval()))*localmat.inverted().extractRotationMatrix3()
+                    
+                    origpos=hou.Vector4(hou.Vector3(node.parmTuple("position_%d" % i).eval()))*localmat.inverted()
+                    
+                    ###Compute new Packed transform
+                    rotmatrix=lmat.extractRotationMatrix3()
+                    newpos=hou.Vector3(origpos*lmat)
+                    newnorm=orignormal*rotmatrix
+                    ##Set parms
+                    node.parmTuple("position_%d" % i).set(hou.Vector3(newpos))
+                    rotate=norm2angle(newnorm,node,i)
+                    node.parmTuple("rotate_%d" % i).set(rotate)
+                    
+                    ##Update Local packed Properties
+                    
+                    raw[7]=str(lmat.explode()['translate'][0])+':'+str(lmat.explode()['translate'][1])+':'+str(lmat.explode()['translate'][2])
+                    raw[8]=str(lmat.explode()['rotate'][0])+':'+str(lmat.explode()['rotate'][1])+':'+str(lmat.explode()['rotate'][2])
+                    raw[9]=str(lmat.explode()['scale'][0])+':'+str(lmat.explode()['scale'][1])+':'+str(lmat.explode()['scale'][2])
+                    node.parm("geodatapath_%d" % i).set(','.join(raw))
+
+                    
+        except:
+            pass
+        
+        
+        
+
+####################################### vis menu
+def vismenu(kwargs):
+    menu=[]
+    node=kwargs.get("node")
+    visnode=hou.node(node.path()+"/instances")
+    geo=visnode.geometry()
+    attr=geo.findPointAttrib("tmp_name")
+    arr=attr.strings()
+    for s in arr:
+        menu.append(s)
+        menu.append(s)
+    return menu
+    
+    

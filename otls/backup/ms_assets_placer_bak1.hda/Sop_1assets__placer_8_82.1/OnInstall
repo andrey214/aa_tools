@@ -1,0 +1,14 @@
+try:
+    module = kwargs['type'].hdaModule()
+#    scene_viewer = hou.ui.paneTabOfType(hou.paneTabType.SceneViewer)
+#    root=scene_viewer.pwd()
+#    typeroot=(root.type()).childTypeCategory().name()
+#    if typeroot=='Sop':
+#        hou.ui.registerViewerState(module.createViewerStatePlacer())
+#    elif typeroot=='Lop': 
+#        hou.ui.registerViewerState(module.createViewerStatePlacer(2))
+#    elif typeroot=='Object':
+#        hou.ui.registerViewerState(module.createViewerStatePlacer(1))
+    hou.ui.registerViewerState(module.createViewerStatePlacer())
+except:
+    pass

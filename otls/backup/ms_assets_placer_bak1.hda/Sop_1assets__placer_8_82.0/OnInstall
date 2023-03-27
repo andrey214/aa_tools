@@ -1,0 +1,5 @@
+try:
+    module = kwargs['type'].hdaModule()
+    hou.ui.registerViewerState(module.createViewerStateTemplate())
+except:
+    pass
