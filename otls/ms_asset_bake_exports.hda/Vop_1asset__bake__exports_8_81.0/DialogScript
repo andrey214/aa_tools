@@ -1,0 +1,263 @@
+# Dialog script for asset_bake_exports::1.0 automatically generated
+
+{
+    name	asset_bake_exports::1.0
+    script	asset_bake_exports::1.0
+    label	"asset bake exports"
+
+    input	struct_ShaderLayer	layer	Struct
+    input	vector	export_diffcolor	export_diffcolor
+    input	vector	export_speccolor	export_speccolor
+    input	float	export_metallic	export_metallic
+    input	vector	export_basecolor	export_basecolor
+    input	float	export_transparency	export_transparency
+    input	vector	export_transcolor	export_transcolor
+    input	float	export_transdist	export_transdist
+    input	float	export_dispersion	export_dispersion
+    input	float	export_ior	export_ior
+    input	float	export_reflect	export_reflect
+    input	float	export_reflecttint	export_reflecttint
+    input	float	export_specrough	export_specrough
+    input	float	export_aniso	export_aniso
+    input	float	export_anisodir	export_anisodir
+    input	float	export_sss	export_sss
+    input	float	export_sssdist	export_sssdist
+    input	vector	export_ssscolor	export_ssscolor
+    input	float	export_sheen	export_sheen
+    input	float	export_sheentint	export_sheentint
+    input	float	export_coatrough	export_coatrough
+    input	float	export_coat	export_coat
+    input	vector	export_emitcolor	export_emitcolor
+    input	float	export_emitint	export_emitint
+    input	vector	export_uv	export_uv
+    input	vector	export_N	export_N
+    output	struct_ShaderLayer	out_layer	Struct
+    inputflags	layer	0
+    inputflags	export_diffcolor	0
+    inputflags	export_speccolor	0
+    inputflags	export_metallic	0
+    inputflags	export_basecolor	0
+    inputflags	export_transparency	0
+    inputflags	export_transcolor	0
+    inputflags	export_transdist	0
+    inputflags	export_dispersion	0
+    inputflags	export_ior	0
+    inputflags	export_reflect	0
+    inputflags	export_reflecttint	0
+    inputflags	export_specrough	0
+    inputflags	export_aniso	0
+    inputflags	export_anisodir	0
+    inputflags	export_sss	0
+    inputflags	export_sssdist	0
+    inputflags	export_ssscolor	0
+    inputflags	export_sheen	0
+    inputflags	export_sheentint	0
+    inputflags	export_coatrough	0
+    inputflags	export_coat	0
+    inputflags	export_emitcolor	0
+    inputflags	export_emitint	0
+    inputflags	export_uv	0
+    inputflags	export_N	0
+    signature	"Default Inputs"	default	{ struct_ShaderLayer vector vector float vector float vector float float float float float float float float float float vector float float float float vector float vector vector struct_ShaderLayer }
+
+    outputoverrides	default
+    {
+	___begin	auto
+			(0)
+    }
+
+    help {
+	""
+    }
+
+    parm {
+        name    "layer"
+        label   "Struct"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_diffcolor"
+        label   "export_diffcolor"
+        type    float
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_speccolor"
+        label   "export_speccolor"
+        type    float
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_metallic"
+        label   "export_metallic"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_basecolor"
+        label   "export_basecolor"
+        type    float
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_transparency"
+        label   "export_transparency"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_transcolor"
+        label   "export_transcolor"
+        type    float
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_transdist"
+        label   "export_transdist"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_dispersion"
+        label   "export_dispersion"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_ior"
+        label   "export_ior"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_reflect"
+        label   "export_reflect"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_reflecttint"
+        label   "export_reflecttint"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_specrough"
+        label   "export_specrough"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_aniso"
+        label   "export_aniso"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_anisodir"
+        label   "export_anisodir"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_sss"
+        label   "export_sss"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_sssdist"
+        label   "export_sssdist"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_ssscolor"
+        label   "export_ssscolor"
+        type    float
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_sheen"
+        label   "export_sheen"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_sheentint"
+        label   "export_sheentint"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_coatrough"
+        label   "export_coatrough"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_coat"
+        label   "export_coat"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_emitcolor"
+        label   "export_emitcolor"
+        type    float
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_emitint"
+        label   "export_emitint"
+        type    float
+        default { "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_uv"
+        label   "export_uv"
+        type    float
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+    }
+    parm {
+        name    "export_N"
+        label   "export_N"
+        type    float
+        size    3
+        default { "0" "0" "0" }
+        range   { 0 10 }
+    }
+}

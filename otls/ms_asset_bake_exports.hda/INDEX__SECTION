@@ -1,3 +1,18 @@
+Operator:     asset_bake_exports::1.0
+Label:        asset bake exports
+Path:         oplib:/Vop/asset_bake_exports::1.0?Vop/asset_bake_exports::1.0
+Icon:         VOP_asset_bake_exports-1.0
+Table:        Vop
+License:      
+Extra:        
+User:         
+Inputs:       0 to 26
+Outputs:      2048
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Wed Jan 20 15:48:31 2021
+
 Operator:     asset_bake_exports::1.1
 Label:        asset bake exports
 Path:         oplib:/Vop/asset_bake_exports::1.1?Vop/asset_bake_exports::1.1
@@ -11,5 +26,5 @@ Outputs:      2048
 Subnet:       true
 Python:       false
 Empty:        false
-Modified:     
+Modified:     Wed Jan 20 15:48:32 2021
 

@@ -1,0 +1,20 @@
+{
+	"values":["18.0.348"
+	],
+	"indexes":{
+		"hdaroot/bind7.userdata":0,
+		"hdaroot/bind6.userdata":0,
+		"hdaroot/bind9.userdata":0,
+		"hdaroot/bind4.userdata":0,
+		"hdaroot/bind11.userdata":0,
+		"hdaroot/bind10.userdata":0,
+		"hdaroot/bind8.userdata":0,
+		"hdaroot/bind3.userdata":0,
+		"hdaroot/bind2.userdata":0,
+		"hdaroot/subinput1.userdata":0,
+		"hdaroot/bind12.userdata":0,
+		"hdaroot/bind5.userdata":0,
+		"hdaroot/suboutput1.userdata":0,
+		"hdaroot/add_layer_exports.userdata":0
+	}
+}
