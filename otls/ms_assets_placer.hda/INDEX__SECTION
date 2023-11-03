@@ -24,5 +24,19 @@ Inputs:       0 to 2
 Subnet:       true
 Python:       false
 Empty:        false
-Modified:     Mon Mar 27 10:12:59 2023
+Modified:     Wed Jul 19 20:08:18 2023
+
+Operator:     assets_placer::3.2
+Label:        Assets Placer
+Path:         oplib:/Sop/assets_placer::3.2?Sop/assets_placer::3.2
+Icon:         opdef:/Sop/assets_placer::3.2?IconImage
+Table:        Sop
+License:      
+Extra:        inputcolors='2 "RGB 0.496345 0.61869 0.71327" "RGB 0.0819884 0.0727725 0.0714025" ' outputcolors='1 "RGB 0.700195 0.700195 0.700195" ' 
+User:         
+Inputs:       0 to 2
+Subnet:       true
+Python:       false
+Empty:        false
+Modified:     Fri Nov  3 17:55:34 2023
 
